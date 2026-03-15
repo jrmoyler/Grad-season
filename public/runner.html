@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grad Season — Production Runner</title>
+<style>
+  :root {
+    --bg: #080C14;
+    --surface: #0F1623;
+    --surface2: #1A2235;
+    --border: #263050;
+    --accent: #F59E0B;
+    --accent-muted: rgba(245,158,11,0.12);
+    --text: #EDF2FF;
+    --muted: #6B7FA3;
+    --green: #34D399;
+    --red: #F87171;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', 'Fira Code', 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  header {
+    max-width: 900px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { font-size: 24px; }
+  .logo-text { font-size: 16px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+  .logo-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+  .main { max-width: 900px; margin: 0 auto; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: var(--text);
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+
+  textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
+
+  .selector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
+
+  .style-btn {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 11px;
+  }
+
+  .style-btn:hover { border-color: var(--accent); }
+  .style-btn.active {
+    border-color: var(--accent);
+    background: var(--accent-muted);
+    color: var(--accent);
+  }
+
+  .style-btn .emoji { font-size: 18px; display: block; margin-bottom: 4px; }
+  .style-btn .label { font-weight: 700; display: block; }
+
+  .generate-row {
+    display: flex;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .gen-btn {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+
+  .gen-btn.story {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #080C14;
+  }
+
+  .gen-btn.comic {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+    color: #fff;
+  }
+
+  .gen-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  .gen-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .output-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .output-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--accent); }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+  #outputText {
+    width: 100%;
+    min-height: 320px;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.7;
+    padding: 16px;
+    outline: none;
+    resize: vertical;
+  }
+
+  .empty-state {
+    padding: 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+  }
+
+  .empty-icon { font-size: 32px; margin-bottom: 12px; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--green);
+    color: #080C14;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; }
+
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    .generate-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-icon">🎓</span>
+    <div>
+      <div class="logo-text">GRAD SEASON</div>
+      <div class="logo-sub">PRODUCTION RUNNER v1.0</div>
+    </div>
+  </div>
+  <div class="status-dot"></div>
+</header>
+
+<div class="main">
+
+  <!-- Order Info -->
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">ORDER INFO</div>
+      <label>Order ID</label>
+      <input type="text" id="orderId" placeholder="GRAD-2025-A1B2C3">
+      <label>Graduate's Full Name</label>
+      <input type="text" id="gradName" placeholder="Marcus Smith">
+      <label>Grade / Level</label>
+      <input type="text" id="grade" placeholder="8th Grade">
+      <label>School</label>
+      <input type="text" id="school" placeholder="Columbus East Middle School">
+    </div>
+
+    <div class="card">
+      <div class="card-label">STYLE SELECTION</div>
+      <label>Storybook Style</label>
+      <div class="selector-grid">
+        <button class="style-btn" data-group="story" data-val="watercolor" onclick="selectStyle(this)">
+          <span class="emoji">🎨</span>
+          <span class="label">Watercolor</span>
+        </button>
+        <button class="style-btn" data-group="story" data-val="graphic" onclick="selectStyle(this)">
+          <span class="emoji">🖤</span>
+          <span class="label">Graphic Novel</span>
+        </button>
+        <button class="style-btn" data-group="story" data-val="classic" onclick="selectStyle(this)">
+          <span class="emoji">📖</span>
+          <span class="label">Classic</span>
+        </button>
+      </div>
+      <label style="margin-top: 14px;">Comic Style</label>
+      <div class="selector-grid">
+        <button class="style-btn" data-group="comic" data-val="manga" onclick="selectStyle(this)">
+          <span class="emoji">⚡</span>
+          <span class="label">Manga</span>
+        </button>
+        <button class="style-btn" data-group="comic" data-val="superhero" onclick="selectStyle(this)">
+          <span class="emoji">🦸</span>
+          <span class="label">Superhero</span>
+        </button>
+        <button class="style-btn" data-group="comic" data-val="cartoon" onclick="selectStyle(this)">
+          <span class="emoji">💬</span>
+          <span class="label">Cartoon</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey Data -->
+  <div class="card" style="margin-bottom: 16px;">
+    <div class="card-label">THE JOURNEY — PASTE FROM SHEET</div>
+    <div class="grid" style="margin-bottom: 0;">
+      <div>
+        <label>Favorite Memory</label>
+        <textarea id="favMemory" placeholder="That time they..."></textarea>
+        <label>Biggest Challenge</label>
+        <textarea id="challenge" placeholder="It wasn't easy when..."></textarea>
+        <label>Proudest Moment ⭐</label>
+        <textarea id="proudMoment" placeholder="We were so proud when..."></textarea>
+      </div>
+      <div>
+        <label>Future Goal ⭐</label>
+        <textarea id="futureGoal" placeholder="They want to become..."></textarea>
+        <label>3 Personality Words</label>
+        <input type="text" id="personality" placeholder="Brave, Funny, Determined">
+        <label>Fun Fact</label>
+        <input type="text" id="funFact" placeholder="They can name every...">
+        <label>Dedication Message</label>
+        <textarea id="dedication" placeholder="To our shining star..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate Buttons -->
+  <div class="generate-row">
+    <button class="gen-btn story" onclick="generatePrompt('story')">📖 Generate Storybook Prompt</button>
+    <button class="gen-btn comic" onclick="generatePrompt('comic')">⚡ Generate Comic Prompt</button>
+  </div>
+
+  <!-- Output -->
+  <div class="output-area">
+    <div class="output-header">
+      <span class="output-title" id="outputTitle">OUTPUT — SELECT A STYLE AND HIT GENERATE</span>
+      <button class="copy-btn" id="copyBtn" onclick="copyOutput()">Copy Prompt</button>
+    </div>
+    <div id="emptyState" class="empty-state">
+      <div class="empty-icon">✦</div>
+      Fill in the order details above<br>
+      select a style, then hit Generate.<br>
+      Paste the output directly into Gemini or Storybook Gem.
+    </div>
+    <textarea id="outputText" style="display:none;" readonly></textarea>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✓ Copied to clipboard</div>
+
+<script>
+  const selectedStyles = { story: null, comic: null };
+
+  function selectStyle(btn) {
+    const group = btn.dataset.group;
+    const val = btn.dataset.val;
+    selectedStyles[group] = val;
+    document.querySelectorAll(`.style-btn[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function get(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  function fillTemplate(template, data) {
+    return template
+      .replace(/\{\{GRAD_NAME\}\}/g, data.gradName || '[GRAD NAME]')
+      .replace(/\{\{GRADE\}\}/g, data.grade || '[GRADE]')
+      .replace(/\{\{SCHOOL\}\}/g, data.school || '[SCHOOL]')
+      .replace(/\{\{FAV_MEMORY\}\}/g, data.favMemory || '[FAVORITE MEMORY]')
+      .replace(/\{\{CHALLENGE\}\}/g, data.challenge || '[CHALLENGE]')
+      .replace(/\{\{PROUD_MOMENT\}\}/g, data.proudMoment || '[PROUD MOMENT]')
+      .replace(/\{\{FUTURE_GOAL\}\}/g, data.futureGoal || '[FUTURE GOAL]')
+      .replace(/\{\{PERSONALITY\}\}/g, data.personality || '[PERSONALITY WORDS]')
+      .replace(/\{\{FUN_FACT\}\}/g, data.funFact || '[FUN FACT]')
+      .replace(/\{\{DEDICATION\}\}/g, data.dedication || '[DEDICATION]')
+      .replace(/\{\{ORDER_ID\}\}/g, data.orderId || '[ORDER ID]');
+  }
+
+  const TEMPLATES = {
+    story: {
+      watercolor: `You are a children's picture book author and illustrator creating a graduation keepsake storybook.\nWrite and structure a complete illustrated storybook for a child named {{GRAD_NAME}} who is graduating from {{GRADE}} at {{SCHOOL}}.\n\nVISUAL STYLE:\nWarm watercolor illustrations — soft edges, pastel washes, gentle lighting. Think classic picture book art: expressive characters, cozy environments, light-filled pages that feel like childhood memories. Each page description should guide an illustrator or image model clearly.\n\nTHE STORY MATERIAL (use all of this — this is their real life):\n- Their favorite school memory: {{FAV_MEMORY}}\n- A challenge they overcame: {{CHALLENGE}}\n- Their proudest moment: {{PROUD_MOMENT}}\n- Their dream for the future: {{FUTURE_GOAL}}\n- Three words that describe them: {{PERSONALITY}}\n- A fun fact: {{FUN_FACT}}\n\nSTRUCTURE — write exactly these pages:\n\nPAGE 1 — COVER\nTitle: "The Story of {{GRAD_NAME}}"\nSubtitle: "A Graduate's Journey"\nIllustration: {{GRAD_NAME}} in graduation cap and gown, standing tall, surrounded by soft light and floating symbols of their journey.\n\nPAGE 2 — DEDICATION PAGE\nText: {{DEDICATION}}\nIllustration: A single warm image — hands holding a book, or a sunrise over a school.\n\nPAGE 3 — THE BEGINNING\nOpen with: "Every great story starts somewhere..."\nTell the story of {{GRAD_NAME}} arriving at school, nervous but curious.\nWeave in their personality: {{PERSONALITY}}\n\nPAGE 4 — THE MEMORY\nRetell this moment as a story scene: {{FAV_MEMORY}}\nMake it vivid. Use dialogue if it fits.\n\nPAGE 5 — THE HARD DAY\nRetell this challenge as a story: {{CHALLENGE}}\nShow the difficulty, then show how {{GRAD_NAME}} pushed through.\n\nPAGE 6 — THE WIN\nRetell this proudly: {{PROUD_MOMENT}}\nThis is the emotional peak. Make it land.\n\nPAGE 7 — THE FUTURE\nWrite about their dream: {{FUTURE_GOAL}}\nBold and hopeful.\n\nPAGE 8 — THE FUN FACT PAGE\nTitle: "Did You Know?"\nPlayful one-page feature on: {{FUN_FACT}}\n\nPAGE 9 — THE CLOSING\nA short poem or blessing for the graduate.\nSomething a parent would cry reading at graduation.\n\nPAGE 10 — BACK COVER\n"{{GRAD_NAME}} graduated from {{GRADE}} at {{SCHOOL}}. This book was made for them and no one else."\nOrder ID: {{ORDER_ID}}\n\nTONE: Warm, real, age-appropriate. No generic graduation clichés. Every page should feel like it was written specifically for this child.\n\nOUTPUT FORMAT for each page:\n[PAGE NUMBER — PAGE NAME]\nILLUSTRATION DESCRIPTION: (2-3 sentences)\nTEXT: (actual page text)\n---`,
+
+      graphic: `You are a graphic novel writer creating a graduation keepsake for {{GRAD_NAME}}, graduating from {{GRADE}} at {{SCHOOL}}.\n\nVISUAL STYLE:\nGraphic novel panel layout — bold lines, high contrast, dynamic compositions. Deep blacks with rich color fills. Think: a premium graphic novel for a young reader.\n\nTHE STORY MATERIAL:\n- Favorite memory: {{FAV_MEMORY}}\n- Challenge overcome: {{CHALLENGE}}\n- Proudest moment: {{PROUD_MOMENT}}\n- Future dream: {{FUTURE_GOAL}}\n- Personality: {{PERSONALITY}}\n- Fun fact: {{FUN_FACT}}\n- Dedication: {{DEDICATION}}\n\nWRITE THESE SPREADS:\n\nSPREAD 1 — COVER SPREAD\n{{GRAD_NAME}} rendered like a graphic novel protagonist. Confident pose. Dramatic lighting.\nTitle: "{{GRAD_NAME}}: THE GRADUATE"\n\nSPREAD 2 — DEDICATION\nLeft: {{DEDICATION}} — white on dark. Right: their future self.\n\nSPREAD 3 — ORIGIN STORY\n3-panel layout. Personality ({{PERSONALITY}}) visible in every panel.\n\nSPREAD 4 — THE MEMORY\n4 panels: {{FAV_MEMORY}} as a complete scene.\n\nSPREAD 5 — THE BATTLE\n{{CHALLENGE}} — Panel 1-2: Struggle. Panel 3: Decision. Panel 4: Breakthrough.\n\nSPREAD 6 — THE VICTORY\nSplash page: {{PROUD_MOMENT}} — single full-spread illustration.\n\nSPREAD 7 — THE FUTURE\n3-panel: {{GRAD_NAME}} stepping into {{FUTURE_GOAL}}.\n\nSPREAD 8 — THE FUN FACT\n3-panel comic strip. Playful. Based on: {{FUN_FACT}}\n\nSPREAD 9 — THE CLOSE\nGraduation ceremony. All the people who matter.\nCaption: A short, direct blessing for {{GRAD_NAME}}'s next chapter.\n\nBACK MATTER\n"Graduated {{GRADE}} · {{SCHOOL}} · Order {{ORDER_ID}}"\n\nTONE: Grounded and real. Challenge should feel hard. Victory should feel earned.\n\nOUTPUT FORMAT:\n[SPREAD NUMBER — SPREAD NAME]\nPANEL LAYOUT:\nPANEL DESCRIPTIONS:\nDIALOGUE/CAPTIONS:\n---`,
+
+      classic: `You are writing a classic children's graduation storybook for {{GRAD_NAME}}, graduating from {{GRADE}} at {{SCHOOL}}.\n\nVISUAL STYLE:\nClassic picture book — timeless illustration style. Clean linework with flat color fills. Expressive, friendly characters. Bright but not loud.\n\nTHE CHILD'S STORY:\n- Favorite memory: {{FAV_MEMORY}}\n- A challenge they faced: {{CHALLENGE}}\n- Their proudest moment: {{PROUD_MOMENT}}\n- What they want to be: {{FUTURE_GOAL}}\n- Three words for them: {{PERSONALITY}}\n- Fun fact: {{FUN_FACT}}\n- Family dedication: {{DEDICATION}}\n\nWRITE THE COMPLETE STORYBOOK:\n\nCOVER: "{{GRAD_NAME}} Did It!" — big smile, arms raised.\n\nPAGES 1-2 — THE START\n"{{GRAD_NAME}} walked into school on the very first day..."\nUse {{PERSONALITY}} to describe how they moved through the world.\nShort sentences. Rhythm. Read-aloud cadence.\n\nPAGES 3-4 — THE MEMORY\n{{FAV_MEMORY}} — warm, simple language. 2-3 sentences per page.\n\nPAGES 5-6 — THE HARD PART\n{{CHALLENGE}} — acknowledge it was real, don't soften it.\nEnd with: "But {{GRAD_NAME}} didn't stop."\n\nPAGES 7-8 — THE BIG MOMENT\n{{PROUD_MOMENT}} — full energy. The emotional center.\n\nPAGES 9-10 — THE DREAM\n"One day, {{GRAD_NAME}} wants to..." — {{FUTURE_GOAL}} as a vivid picture.\n\nPAGE 11 — THE FUN FACT\n"Here's something you might not know..." — {{FUN_FACT}} in 2-3 playful sentences.\n\nPAGE 12 — THE DEDICATION\n{{DEDICATION}} — center aligned. The page families come back to.\n\nBACK COVER\n"{{GRAD_NAME}} graduated {{GRADE}} at {{SCHOOL}}. This book belongs to them."\n\nTONE: Warm, direct, age-appropriate for {{GRADE}}. Short sentences. Active voice. Every page feels like a hug.\n\nOUTPUT FORMAT:\n[PAGE NUMBER]\nILLUSTRATION:\nTEXT:\n---`
+    },
+    comic: {
+      manga: `You are a manga writer creating a graduation comic for {{GRAD_NAME}}, graduating from {{GRADE}} at {{SCHOOL}}.\n\nVISUAL STYLE:\nManga/anime — expressive line art, speed lines, dramatic emotion panels, chibi moments for humor. Black and white with selective spot color.\n\nSTORY MATERIAL:\n- Favorite memory: {{FAV_MEMORY}}\n- Challenge: {{CHALLENGE}}\n- Proudest moment: {{PROUD_MOMENT}}\n- Future goal: {{FUTURE_GOAL}}\n- Personality: {{PERSONALITY}}\n- Fun fact: {{FUN_FACT}}\n- Dedication: {{DEDICATION}}\n\nWRITE A 12-PAGE MANGA SCRIPT:\n\nCOVER: "{{GRAD_NAME}}: Level Up!" — dynamic action pose in graduation gear.\n\nPAGE 1 — PROLOGUE\n4 panels. Introduce {{GRAD_NAME}} in a classic manga hero introduction moment at {{SCHOOL}}.\n\nPAGES 2-3 — THE ORIGIN\n6 panels. Show {{PERSONALITY}} through action. Include at least one comedy moment.\n\nPAGES 4-5 — THE MEMORY ARC\nFull scene: {{FAV_MEMORY}} — dialogue-heavy, genuine emotion. One big reaction panel.\n\nPAGES 6-7 — THE STRUGGLE ARC\n{{CHALLENGE}} — manga dark moment. 4-5 panels of genuine difficulty.\nEnd page 7 with the turning point — the moment they decide to fight back.\n\nPAGE 8 — THE POWER-UP\nSplash page: {{PROUD_MOMENT}} — maximum energy. Speed lines. Achievement unlocked.\n\nPAGES 9-10 — THE FUTURE VISION\n{{FUTURE_GOAL}} as a dream/vision sequence — stylistically distinct. 3-4 panels.\n\nPAGE 11 — OMAKE (bonus)\nChibi/comedy page based on {{FUN_FACT}}. Maximum fun.\n\nPAGE 12 — FINAL PAGE\n{{GRAD_NAME}} in graduation gear, looking at the reader.\nSingle line from: {{DEDICATION}}\n\nTONE: High energy with real emotional depth. Earn the drama with comedy first.\n\nOUTPUT FORMAT:\n[PAGE NUMBER — PAGE NAME]\nPANEL COUNT:\nPANEL [N]:\n  Visual:\n  Dialogue/SFX:\n  Narration box:\n---`,
+
+      superhero: `You are a superhero comic writer creating a graduation comic for {{GRAD_NAME}}, graduating from {{GRADE}} at {{SCHOOL}}.\n\nVISUAL STYLE:\nClassic Western superhero — bold outlines, dynamic poses, dramatic lighting, full color. {{GRAD_NAME}} is the hero. {{PERSONALITY}} shapes their power set.\n\nSTORY MATERIAL:\n- Favorite memory: {{FAV_MEMORY}}\n- Challenge: {{CHALLENGE}}\n- Proudest moment: {{PROUD_MOMENT}}\n- Future goal: {{FUTURE_GOAL}}\n- Personality: {{PERSONALITY}}\n- Fun fact: {{FUN_FACT}}\n- Dedication: {{DEDICATION}}\n\nFIRST — DESIGN THE HERO:\nHero Name: [derive from {{GRAD_NAME}}'s name or personality]\nCostume: Graduation colors + superhero flair. Cap and gown as hero gear.\nPowers: Based on {{PERSONALITY}} and {{FUTURE_GOAL}} — make them thematic.\n\nWRITE A 12-PAGE SUPERHERO COMIC:\n\nCOVER: {{GRAD_NAME}} as their hero. "{{GRAD_NAME}}: THE GRADUATE — Origin Issue"\n\nPAGE 1 — COLD OPEN\n3 panels. Start in action — {{PROUD_MOMENT}} retold as a hero moment. No context yet.\n\nPAGE 2 — "EARLIER THAT YEAR..."\n4 panels. Flash back. Introduce {{GRAD_NAME}} before the hero arc. {{PERSONALITY}} on full display.\n\nPAGES 3-4 — THE MEMORY\n{{FAV_MEMORY}} as a pivotal chapter in the hero's story.\n\nPAGES 5-6 — THE VILLAIN\n{{CHALLENGE}} as an antagonist force. 4-5 panels of real conflict. The hero struggles.\n\nPAGE 7 — THE TURNING POINT\n2-3 panels. The moment {{GRAD_NAME}} finds their power. Tied to {{PERSONALITY}}.\n\nPAGE 8 — THE VICTORY\nSplash page: {{PROUD_MOMENT}} — most visually dynamic page in the book.\n\nPAGES 9-10 — THE FUTURE MISSION\nHero debrief + future vision: {{FUTURE_GOAL}} — what mission are they taking on next?\n\nPAGE 11 — HERO FILE\nStats card: Name, School, Grade, Powers (from personality), Fun Fact: {{FUN_FACT}}, Weakness: [something funny]\n\nPAGE 12 — DEDICATION\n{{GRAD_NAME}} out of costume, in graduation gear. Real moment.\nDedication: {{DEDICATION}}\n\nTONE: Epic but grounded. Every power traces back to something true about this kid.\n\nOUTPUT FORMAT:\n[PAGE NUMBER — PAGE NAME]\nPANEL COUNT:\nPANEL [N]:\n  Visual:\n  Dialogue:\n  Caption box:\n---`,
+
+      cartoon: `You are creating a cartoon strip graduation keepsake for {{GRAD_NAME}}, graduating from {{GRADE}} at {{SCHOOL}}.\n\nVISUAL STYLE:\nWarm cartoon strip aesthetic — newspaper comic strip energy meets children's animation. Clean lines, expressive characters, humor-forward. 3-4 panel horizontal strips per page.\n\nSTORY MATERIAL:\n- Favorite memory: {{FAV_MEMORY}}\n- Challenge: {{CHALLENGE}}\n- Proudest moment: {{PROUD_MOMENT}}\n- Future goal: {{FUTURE_GOAL}}\n- Personality: {{PERSONALITY}}\n- Fun fact: {{FUN_FACT}}\n- Dedication: {{DEDICATION}}\n\nWRITE 10 CARTOON STRIPS — each with setup and punchline or payoff:\n\nSTRIP 1 — TITLE STRIP\nIntroduce {{GRAD_NAME}}. {{PERSONALITY}} in full display. End on something that makes you smile.\n\nSTRIP 2 — THE MEMORY\n{{FAV_MEMORY}} in cartoon format. Find the funny or sweet moment inside it.\n\nSTRIP 3 — THE CHALLENGE (part 1)\nSet up {{CHALLENGE}} — show the problem. End on a cliffhanger panel.\n\nSTRIP 4 — THE CHALLENGE (part 2)\nThe resolution. How {{GRAD_NAME}} figured it out. End triumphant or funny.\n\nSTRIP 5 — THE WIN\n{{PROUD_MOMENT}} — maximum cartoon celebration. Flying caps, confetti, big reactions.\n\nSTRIP 6 — THE FUN FACT STRIP\n4-panel joke/story around {{FUN_FACT}}. Funniest strip in the book.\n\nSTRIP 7 — SCHOOL MEMORIES MONTAGE\n4-panel rapid-fire: 4 quick moments from school life.\n\nSTRIP 8 — THE DREAM STRIP\n{{FUTURE_GOAL}} in cartoon form. Show the path in 4 panels.\n\nSTRIP 9 — THE GRADUATION STRIP\nCeremony day — cap, gown, family. Find the relatable beat inside it.\n\nSTRIP 10 — THE FINAL STRIP\nWarm and real. End with: {{DEDICATION}}\nLast panel: {{GRAD_NAME}} waving at the reader.\n\nTONE: Lead with humor. Every strip should make the graduate say "that's literally me."\n\nOUTPUT FORMAT:\n[STRIP NUMBER — STRIP TITLE]\nPANEL COUNT:\nPANEL [N]:\n  Visual:\n  Dialogue/Caption:\n---`
+    }
+  };
+
+  function generatePrompt(type) {
+    const style = selectedStyles[type];
+    if (!style) {
+      alert(`Please select a ${type === 'story' ? 'storybook' : 'comic'} style first.`);
+      return;
+    }
+
+    const data = {
+      orderId: get('orderId'),
+      gradName: get('gradName'),
+      grade: get('grade'),
+      school: get('school'),
+      favMemory: get('favMemory'),
+      challenge: get('challenge'),
+      proudMoment: get('proudMoment'),
+      futureGoal: get('futureGoal'),
+      personality: get('personality'),
+      funFact: get('funFact'),
+      dedication: get('dedication'),
+    };
+
+    if (!data.gradName) {
+      alert("Enter the graduate's name first.");
+      return;
+    }
+
+    const template = TEMPLATES[type][style];
+    const filled = fillTemplate(template, data);
+
+    const titles = {
+      story: { watercolor: '📖 STORYBOOK — WATERCOLOR', graphic: '📖 STORYBOOK — GRAPHIC NOVEL', classic: '📖 STORYBOOK — CLASSIC' },
+      comic: { manga: '⚡ COMIC — MANGA', superhero: '⚡ COMIC — SUPERHERO', cartoon: '⚡ COMIC — CARTOON STRIP' }
+    };
+
+    document.getElementById('outputTitle').textContent = titles[type][style] + ' · ' + (data.gradName || 'UNNAMED') + ' · ' + (data.orderId || 'NO ID');
+    document.getElementById('emptyState').style.display = 'none';
+    const out = document.getElementById('outputText');
+    out.style.display = 'block';
+    out.value = filled;
+  }
+
+  function copyOutput() {
+    const text = document.getElementById('outputText').value;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      showToast();
+      setTimeout(() => {
+        btn.textContent = 'Copy Prompt';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+</script>
+</body>
+</html>
