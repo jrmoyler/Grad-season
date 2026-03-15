@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grad Season — Production Reference Card</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #080C14;
+    --surface: #0F1623;
+    --surface2: #1A2235;
+    --border: #263050;
+    --accent: #F59E0B;
+    --text: #EDF2FF;
+    --muted: #6B7FA3;
+    --green: #34D399;
+    --red: #F87171;
+    --blue: #60A5FA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 32px 20px 60px;
+  }
+
+  .page { max-width: 860px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .header-icon { font-size: 36px; }
+  .header-title { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -0.3px; }
+  .header-sub { font-size: 12px; color: var(--muted); margin-top: 2px; font-family: 'DM Mono', monospace; }
+  .version-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+
+  /* Grid layout */
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .full { margin-bottom: 16px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+
+  .card.accent-border { border-color: rgba(245,158,11,0.4); }
+  .card.green-border { border-color: rgba(52,211,153,0.3); }
+  .card.red-border { border-color: rgba(248,113,113,0.3); }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .card-label.green { color: var(--green); }
+  .card-label.blue { color: var(--blue); }
+  .card-label.red { color: var(--red); }
+
+  /* Steps */
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .step:last-child { margin-bottom: 0; }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #080C14;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-content { flex: 1; }
+  .step-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .step-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .step-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  /* Checklist */
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 9px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .check-item:last-child { margin-bottom: 0; }
+
+  .check-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .check-text { color: var(--text); }
+  .check-sub { color: var(--muted); font-size: 11px; }
+
+  /* Style table */
+  .style-row {
+    display: grid;
+    grid-template-columns: 28px 100px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+
+  .style-row:last-child { border-bottom: none; }
+  .style-emoji { font-size: 16px; }
+  .style-name { font-weight: 700; color: var(--text); }
+  .style-desc { color: var(--muted); font-size: 11px; }
+  .style-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    display: inline-block;
+    margin-top: 2px;
+  }
+
+  /* Revision prompts */
+  .revision-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  .revision-item:last-child { margin-bottom: 0; }
+
+  .revision-trigger {
+    font-weight: 700;
+    color: var(--blue);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .revision-desc { color: var(--muted); line-height: 1.5; }
+
+  /* Order data block */
+  .order-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    line-height: 2;
+    color: var(--text);
+    position: relative;
+  }
+
+  .order-field { color: var(--accent); }
+  .order-divider { color: var(--border); }
+
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* File paths */
+  .filepath {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--green);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* Status flow */
+  .status-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    margin-top: 4px;
+  }
+
+  .status-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .status-pill.active { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: var(--accent); }
+
+  .arrow { color: var(--muted); font-size: 14px; margin: 0 6px; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--green);
+    color: #080C14;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+
+  /* Print styles */
+  @media print {
+    body { background: white; color: black; padding: 16px; }
+    .card { border: 1px solid #ccc; background: #fafafa; }
+    .copy-btn { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <span class="header-icon">🎓</span>
+      <div>
+        <div class="header-title">GRAD SEASON — PRODUCTION REFERENCE</div>
+        <div class="header-sub">Storybook Gem · Production Runner · Order Agent</div>
+      </div>
+    </div>
+    <div class="version-badge">v1.0 · 2025</div>
+  </div>
+
+  <!-- Row 1: Steps + Status -->
+  <div class="grid-2">
+
+    <!-- Production Steps -->
+    <div class="card accent-border">
+      <div class="card-label">PRODUCTION STEPS — EVERY ORDER</div>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Open the Google Sheet</div>
+          <div class="step-desc">Find the order row. Confirm Status = "Received."</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Open the Production Runner</div>
+          <div class="step-desc">grad-production-runner.html in your browser. Fill in all fields from the sheet row.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Select style → Generate → Copy</div>
+          <div class="step-desc">Hit "Generate Storybook Prompt" or "Generate Comic Prompt." Copy the output.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Open the Grad Season Creator Gem</div>
+          <div class="step-desc">gemini.google.com → Gems → Grad Season Creator. Paste the prompt. Hit send.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Save the output to Google Drive</div>
+          <div class="step-desc">
+            <span class="step-code">/GradSeason/Orders/[ORDER_ID]/[GRAD_NAME]-draft.gdoc</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Run the review checklist</div>
+          <div class="step-desc">Check every box before approving for print.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Send to printer + update sheet</div>
+          <div class="step-desc">Books → Devon's MIL. Figurines → Tripo3d + print vendor. Update Status column.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+
+      <!-- Status Flow -->
+      <div class="card">
+        <div class="card-label green">STATUS FLOW — UPDATE SHEET COLUMN Y</div>
+        <div class="status-flow">
+          <span class="status-pill active">Received</span>
+          <span class="arrow">→</span>
+          <span class="status-pill">In Progress</span>
+          <span class="arrow">→</span>
+          <span class="status-pill">Printing</span>
+          <span class="arrow">→</span>
+          <span class="status-pill">Shipped</span>
+        </div>
+        <p style="font-size: 11px; color: var(--muted); margin-top: 10px; line-height: 1.6;">
+          The agent watches Column Y. Every time you update it, the agent fires a progress email to the parent automatically. You never need to email them manually.
+        </p>
+      </div>
+
+      <!-- Review Checklist -->
+      <div class="card green-border">
+        <div class="card-label green">REVIEW CHECKLIST — BEFORE PRINT APPROVAL</div>
+
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Child's name used throughout — not "they" or "the graduate"</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">At least 3 real intake details appear in the story</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Challenge page acknowledges real difficulty — not softened</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Proud moment page hits its emotional beat</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Dedication is copied word for word — not paraphrased</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">No generic graduation phrases anywhere in the text</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Reading level matches the grade</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Every illustration description is specific — not vague</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <div class="check-text">Fun fact page is genuinely light and funny</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Row 2: Styles Reference -->
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="card-label">STORYBOOK STYLES</div>
+      <div class="style-row">
+        <span class="style-emoji">🎨</span>
+        <span class="style-name">Watercolor</span>
+        <div>
+          <div class="style-desc">Soft edges, pastel washes. Classic picture book feel. Warm + timeless.</div>
+          <span class="style-tag">watercolor</span>
+        </div>
+      </div>
+      <div class="style-row">
+        <span class="style-emoji">🖤</span>
+        <span class="style-name">Graphic Novel</span>
+        <div>
+          <div class="style-desc">Bold lines, high contrast, panel spreads. Cinematic + powerful.</div>
+          <span class="style-tag">graphic</span>
+        </div>
+      </div>
+      <div class="style-row">
+        <span class="style-emoji">📖</span>
+        <span class="style-name">Classic</span>
+        <div>
+          <div class="style-desc">Flat color, friendly characters. Short sentences. Read-aloud rhythm.</div>
+          <span class="style-tag">classic</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">COMIC STYLES</div>
+      <div class="style-row">
+        <span class="style-emoji">⚡</span>
+        <span class="style-name">Manga</span>
+        <div>
+          <div class="style-desc">Expressive line art, speed lines, chibi comedy moments. B&W + spot color.</div>
+          <span class="style-tag">manga</span>
+        </div>
+      </div>
+      <div class="style-row">
+        <span class="style-emoji">🦸</span>
+        <span class="style-name">Superhero</span>
+        <div>
+          <div class="style-desc">Bold outlines, full color, dynamic poses. The child IS the hero.</div>
+          <span class="style-tag">superhero</span>
+        </div>
+      </div>
+      <div class="style-row">
+        <span class="style-emoji">💬</span>
+        <span class="style-name">Cartoon Strip</span>
+        <div>
+          <div class="style-desc">10 horizontal strips, 3-4 panels each. Humor-forward. Family-friendly.</div>
+          <span class="style-tag">cartoon</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 3: Revision prompts + Order block -->
+  <div class="grid-2">
+
+    <!-- Revision prompts -->
+    <div class="card">
+      <div class="card-label blue">GEM REVISION COMMANDS</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 12px; line-height: 1.5;">
+        Type these directly into the Gem chat to fix specific issues without regenerating the whole book.
+      </p>
+
+      <div class="revision-item">
+        <div class="revision-trigger">"Rewrite page [N] — [describe issue]"</div>
+        <div class="revision-desc">Rewrites a single page. Everything else stays the same.</div>
+      </div>
+
+      <div class="revision-item">
+        <div class="revision-trigger">"Page [N] is too generic — make it more specific"</div>
+        <div class="revision-desc">Forces the Gem to pull in more real details from the intake data.</div>
+      </div>
+
+      <div class="revision-item">
+        <div class="revision-trigger">"Adjust page [N] for [grade] reading level"</div>
+        <div class="revision-desc">Keeps the story beat, rewrites the language for the right age.</div>
+      </div>
+
+      <div class="revision-item">
+        <div class="revision-trigger">"Restore the dedication exactly: [paste text]"</div>
+        <div class="revision-desc">Use when the Gem paraphrased the dedication instead of copying it.</div>
+      </div>
+
+      <div class="revision-item">
+        <div class="revision-trigger">"Continue from page [N] — output was cut off"</div>
+        <div class="revision-desc">Picks up where a long output was interrupted.</div>
+      </div>
+
+      <div class="revision-item">
+        <div class="revision-trigger">"The challenge page is too soft — make it harder"</div>
+        <div class="revision-desc">Re-engages the emotional weight of the struggle section.</div>
+      </div>
+    </div>
+
+    <!-- Order data block -->
+    <div class="card">
+      <div class="card-label">ORDER DATA BLOCK — PASTE INTO GEM</div>
+      <p style="font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.5;">
+        Copy this block, fill in the fields from the sheet row, paste directly into the Grad Season Creator Gem.
+      </p>
+      <div class="order-block" id="orderBlock">
+        <button class="copy-btn" onclick="copyBlock()">Copy</button>
+        <span class="order-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br>
+        NEW ORDER — PLEASE PRODUCE THIS BOOK<br>
+        <span class="order-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br>
+        <br>
+        <span class="order-field">GRAD_NAME:</span> <br>
+        <span class="order-field">GRADE:</span> <br>
+        <span class="order-field">SCHOOL:</span> <br>
+        <span class="order-field">ORDER_ID:</span> <br>
+        <br>
+        <span class="order-field">PRODUCT:</span> [storybook / comic / both]<br>
+        <span class="order-field">STYLE:</span> [watercolor / graphic / classic / manga / superhero / cartoon]<br>
+        <br>
+        <span class="order-field">FAV_MEMORY:</span> <br>
+        <br>
+        <span class="order-field">CHALLENGE:</span> <br>
+        <br>
+        <span class="order-field">PROUD_MOMENT:</span> <br>
+        <br>
+        <span class="order-field">FUTURE_GOAL:</span> <br>
+        <br>
+        <span class="order-field">PERSONALITY:</span> <br>
+        <span class="order-field">FUN_FACT:</span> <br>
+        <br>
+        <span class="order-field">DEDICATION:</span> <br>
+        <br>
+        <span class="order-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br>
+        Please produce the complete book now.<br>
+        <span class="order-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 4: File structure -->
+  <div class="card full">
+    <div class="card-label">GOOGLE DRIVE FILE STRUCTURE</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+      <div>
+        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">STORYBOOK / COMIC DRAFTS</p>
+        <code class="filepath">/GradSeason/Orders/[ORDER_ID]/[GRAD_NAME]-storybook-draft.gdoc</code>
+        <code class="filepath">/GradSeason/Orders/[ORDER_ID]/[GRAD_NAME]-comic-draft.gdoc</code>
+      </div>
+      <div>
+        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">FIGURINE FILES</p>
+        <code class="filepath">/GradSeason/Orders/[ORDER_ID]/figurine.stl</code>
+        <code class="filepath">/GradSeason/Orders/[ORDER_ID]/figurine-reference.png</code>
+      </div>
+      <div>
+        <p style="font-size: 11px; color: var(--muted); margin-bottom: 8px;">APPROVED FOR PRINT</p>
+        <code class="filepath">/GradSeason/PrintQueue/[ORDER_ID]-storybook-FINAL.pdf</code>
+        <code class="filepath">/GradSeason/PrintQueue/[ORDER_ID]-comic-FINAL.pdf</code>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✓ Copied to clipboard</div>
+
+<script>
+  function copyBlock() {
+    const text = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEW ORDER — PLEASE PRODUCE THIS BOOK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GRAD_NAME: 
+GRADE: 
+SCHOOL: 
+ORDER_ID: 
+
+PRODUCT: [storybook / comic / both]
+STYLE: [watercolor / graphic / classic / manga / superhero / cartoon]
+
+FAV_MEMORY: 
+
+CHALLENGE: 
+
+PROUD_MOMENT: 
+
+FUTURE_GOAL: 
+
+PERSONALITY: 
+FUN_FACT: 
+
+DEDICATION: 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Please produce the complete book now.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
