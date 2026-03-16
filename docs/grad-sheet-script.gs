@@ -13,7 +13,7 @@
 // 5. Copy the Web App URL → paste into your React form's submit handler
 // ============================================================
 
-const SHEET_ID = "YOUR_GOOGLE_SHEET_ID_HERE"; // ← Replace this
+const SHEET_ID = "1gzQx1SemSUKiZwUrGXqKXO-Rjp3FQh93tCeU1AAm-VM";
 const SHEET_NAME = "Orders";
 
 // ── Column order (must match exactly) ──────────────────────
