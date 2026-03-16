@@ -44,6 +44,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .style-btn:hover,.style-btn.active{border-color:var(--gold);background:rgba(240,180,41,.1);}
 .style-btn.active .sb-label{color:var(--gold);}
 .sb-emoji{font-size:22px;display:block;margin-bottom:5px;}
+.sb-emoji .icon{width:22px;height:22px;display:inline-block;vertical-align:0;}
 .sb-label{font-weight:700;font-size:12px;display:block;}
 .sb-desc{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3;}
 /* Product toggle */
@@ -52,6 +53,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .product-toggle-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;}
 .pt-left{display:flex;align-items:center;gap:12px;}
 .pt-icon{font-size:26px;}
+.pt-icon .icon{width:26px;height:26px;display:inline-block;vertical-align:0;}
 .pt-name{font-weight:700;font-size:15px;}
 .pt-price{color:var(--gold);font-weight:800;font-size:13px;margin-top:2px;}
 .toggle-sw{width:44px;height:24px;border-radius:12px;position:relative;transition:background .2s;flex-shrink:0;}
@@ -84,12 +86,109 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .success-detail{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;font-size:14px;line-height:1.8;margin-bottom:24px;text-align:left;}
 .badge{background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.35);color:var(--gold);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-block;margin:4px;}
 .step-hidden{display:none;}
-@media(max-width:540px){.row2{grid-template-columns:1fr;}.style-grid{grid-template-columns:1fr 1fr;}}
+/* Icon system */
+.icon{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;flex-shrink:0;}
+/* Tablet */
+@media(max-width:768px){
+  nav{padding:12px 18px;}
+  .page{padding:28px 16px;}
+  .page-title{font-size:28px;}
+  .card{padding:20px 18px;}
+  .style-grid{grid-template-columns:repeat(3,1fr);}
+}
+/* Small mobile (keep and enhance) */
+@media(max-width:540px){
+  .row2{grid-template-columns:1fr;}
+  .style-grid{grid-template-columns:1fr 1fr;}
+  .prog-line{width:12px;}
+  .prog-label{font-size:10px;}
+}
+@media(max-width:380px){
+  .prog-label{display:none;}
+  .prog-line{width:8px;}
+}
 </style>
 </head>
 <body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Graduation Cap -->
+  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+    <path d="M6 12.5v4C6 18.4 8.686 20 12 20s6-1.6 6-3.5v-4"/>
+    <line x1="22" y1="10" x2="22" y2="16"/>
+    <circle cx="22" cy="17" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <!-- Figurine (person on pedestal) -->
+  <symbol id="icon-figurine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="4" r="2.5"/>
+    <path d="M8.5 9.5h7l-1.5 7h-4z"/>
+    <line x1="10.5" y1="16.5" x2="10.5" y2="19.5"/>
+    <line x1="13.5" y1="16.5" x2="13.5" y2="19.5"/>
+    <rect x="7.5" y="19.5" width="9" height="2" rx="1"/>
+  </symbol>
+  <!-- Lightning Bolt (Comic) -->
+  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Open Book (Storybook) -->
+  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <!-- Bear / Collectible (Funko Pop) -->
+  <symbol id="icon-bear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8" cy="4.5" r="1.5"/>
+    <circle cx="16" cy="4.5" r="1.5"/>
+    <ellipse cx="12" cy="13" rx="6" ry="6"/>
+    <circle cx="9.5" cy="12" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="14.5" cy="12" r=".75" fill="currentColor" stroke="none"/>
+    <path d="M10 15.5q2 1 4 0"/>
+  </symbol>
+  <!-- Person (Realistic) -->
+  <symbol id="icon-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="5" r="3"/>
+    <path d="M7 21v-1a5 5 0 0 1 10 0v1"/>
+    <line x1="7" y1="21" x2="17" y2="21"/>
+  </symbol>
+  <!-- Camera -->
+  <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+    <circle cx="12" cy="13" r="4"/>
+  </symbol>
+  <!-- Rocket -->
+  <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+  </symbol>
+  <!-- Shield (Superhero) -->
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <!-- Speech Bubble (Cartoon) -->
+  <symbol id="icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <!-- Palette (Watercolor) -->
+  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13.5" cy="6.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="17.5" cy="10.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="8.5" cy="7.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="6.5" cy="12.5" r=".75" fill="currentColor" stroke="none"/>
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+  </symbol>
+  <!-- Layers (Graphic Novel) -->
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+    <polyline points="2 17 12 22 22 17"/>
+    <polyline points="2 12 12 17 22 12"/>
+  </symbol>
+</svg>
+
 <nav>
-  <a href="/" class="nav-logo">🎓 Grad Season</a>
+  <a href="/" class="nav-logo"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg> Grad Season</a>
   <a href="/" class="nav-back">← Back to Home</a>
 </nav>
 
@@ -151,7 +250,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
         <div class="product-toggle" id="pt-figurine">
           <div class="product-toggle-hd" onclick="toggleProduct('figurine')">
             <div class="pt-left">
-              <span class="pt-icon">🪆</span>
+              <span class="pt-icon"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span>
               <div><div class="pt-name">Custom Figurine</div><div class="pt-price">$89</div></div>
             </div>
             <div class="toggle-sw" id="sw-figurine" style="background:var(--surface2)">
@@ -161,15 +260,15 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
           <div class="product-body" id="pb-figurine" style="display:none">
             <p class="section-label" style="margin-top:10px">FIGURINE STYLE</p>
             <div class="style-grid" id="sg-fstyle">
-              <div class="style-btn" data-group="fstyle" data-val="claymation" onclick="pickStyle(this)"><span class="sb-emoji">🪆</span><span class="sb-label">Claymation</span><span class="sb-desc">Soft clay texture</span></div>
-              <div class="style-btn" data-group="fstyle" data-val="funko" onclick="pickStyle(this)"><span class="sb-emoji">🧸</span><span class="sb-label">Funko Pop</span><span class="sb-desc">Big head collectible</span></div>
-              <div class="style-btn" data-group="fstyle" data-val="realistic" onclick="pickStyle(this)"><span class="sb-emoji">🧍</span><span class="sb-label">Realistic</span><span class="sb-desc">True-to-life sculpt</span></div>
+              <div class="style-btn" data-group="fstyle" data-val="claymation" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span><span class="sb-label">Claymation</span><span class="sb-desc">Soft clay texture</span></div>
+              <div class="style-btn" data-group="fstyle" data-val="funko" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bear"/></svg></span><span class="sb-label">Funko Pop</span><span class="sb-desc">Big head collectible</span></div>
+              <div class="style-btn" data-group="fstyle" data-val="realistic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-person"/></svg></span><span class="sb-label">Realistic</span><span class="sb-desc">True-to-life sculpt</span></div>
             </div>
             <p class="section-label" style="margin-top:16px">OUTFIT</p>
             <div class="style-grid" id="sg-ffit">
-              <div class="style-btn" data-group="ffit" data-val="grad" onclick="pickStyle(this)"><span class="sb-emoji">🎓</span><span class="sb-label">Grad Fit</span><span class="sb-desc">Cap &amp; gown</span></div>
-              <div class="style-btn" data-group="ffit" data-val="photo" onclick="pickStyle(this)"><span class="sb-emoji">📸</span><span class="sb-label">My Photo</span><span class="sb-desc">Upload their look</span></div>
-              <div class="style-btn" data-group="ffit" data-val="career" onclick="pickStyle(this)"><span class="sb-emoji">🚀</span><span class="sb-label">Career Fit</span><span class="sb-desc">Dream job uniform</span></div>
+              <div class="style-btn" data-group="ffit" data-val="grad" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg></span><span class="sb-label">Grad Fit</span><span class="sb-desc">Cap &amp; gown</span></div>
+              <div class="style-btn" data-group="ffit" data-val="photo" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-camera"/></svg></span><span class="sb-label">My Photo</span><span class="sb-desc">Upload their look</span></div>
+              <div class="style-btn" data-group="ffit" data-val="career" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-rocket"/></svg></span><span class="sb-label">Career Fit</span><span class="sb-desc">Dream job uniform</span></div>
             </div>
             <div id="career-block" style="display:none;margin-top:12px">
               <label>Future Career</label>
@@ -193,7 +292,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
         <div class="product-toggle" id="pt-comic">
           <div class="product-toggle-hd" onclick="toggleProduct('comic')">
             <div class="pt-left">
-              <span class="pt-icon">⚡</span>
+              <span class="pt-icon"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
               <div><div class="pt-name">Custom Comic Book</div><div class="pt-price">$34</div></div>
             </div>
             <div class="toggle-sw" id="sw-comic" style="background:var(--surface2)">
@@ -203,9 +302,9 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
           <div class="product-body" id="pb-comic" style="display:none">
             <p class="section-label" style="margin-top:10px">COMIC STYLE</p>
             <div class="style-grid">
-              <div class="style-btn" data-group="comic" data-val="manga" onclick="pickStyle(this)"><span class="sb-emoji">⚡</span><span class="sb-label">Manga</span><span class="sb-desc">Anime ink style</span></div>
-              <div class="style-btn" data-group="comic" data-val="superhero" onclick="pickStyle(this)"><span class="sb-emoji">🦸</span><span class="sb-label">Superhero</span><span class="sb-desc">Western comic</span></div>
-              <div class="style-btn" data-group="comic" data-val="cartoon" onclick="pickStyle(this)"><span class="sb-emoji">💬</span><span class="sb-label">Cartoon Strip</span><span class="sb-desc">10 strips format</span></div>
+              <div class="style-btn" data-group="comic" data-val="manga" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span><span class="sb-label">Manga</span><span class="sb-desc">Anime ink style</span></div>
+              <div class="style-btn" data-group="comic" data-val="superhero" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></span><span class="sb-label">Superhero</span><span class="sb-desc">Western comic</span></div>
+              <div class="style-btn" data-group="comic" data-val="cartoon" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bubble"/></svg></span><span class="sb-label">Cartoon Strip</span><span class="sb-desc">10 strips format</span></div>
             </div>
           </div>
         </div>
@@ -214,7 +313,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
         <div class="product-toggle" id="pt-storybook">
           <div class="product-toggle-hd" onclick="toggleProduct('storybook')">
             <div class="pt-left">
-              <span class="pt-icon">📖</span>
+              <span class="pt-icon"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
               <div><div class="pt-name">Custom Storybook</div><div class="pt-price">$44</div></div>
             </div>
             <div class="toggle-sw" id="sw-storybook" style="background:var(--surface2)">
@@ -224,9 +323,9 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
           <div class="product-body" id="pb-storybook" style="display:none">
             <p class="section-label" style="margin-top:10px">STORYBOOK STYLE</p>
             <div class="style-grid">
-              <div class="style-btn" data-group="story" data-val="watercolor" onclick="pickStyle(this)"><span class="sb-emoji">🎨</span><span class="sb-label">Watercolor</span><span class="sb-desc">Classic picture book</span></div>
-              <div class="style-btn" data-group="story" data-val="graphic" onclick="pickStyle(this)"><span class="sb-emoji">🖤</span><span class="sb-label">Graphic Novel</span><span class="sb-desc">Panel spreads</span></div>
-              <div class="style-btn" data-group="story" data-val="classic" onclick="pickStyle(this)"><span class="sb-emoji">📖</span><span class="sb-label">Classic</span><span class="sb-desc">Timeless children's</span></div>
+              <div class="style-btn" data-group="story" data-val="watercolor" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-palette"/></svg></span><span class="sb-label">Watercolor</span><span class="sb-desc">Classic picture book</span></div>
+              <div class="style-btn" data-group="story" data-val="graphic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg></span><span class="sb-label">Graphic Novel</span><span class="sb-desc">Panel spreads</span></div>
+              <div class="style-btn" data-group="story" data-val="classic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span><span class="sb-label">Classic</span><span class="sb-desc">Timeless children's</span></div>
             </div>
           </div>
         </div>
@@ -283,7 +382,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 
   <!-- Success state -->
   <div id="successWrap" style="display:none" class="success">
-    <div class="success-icon">🎓</div>
+    <div class="success-icon"><svg style="width:64px;height:64px;color:var(--gold)" aria-hidden="true"><use href="#icon-grad-cap"/></svg></div>
     <div class="success-title" id="successTitle">Order Received!</div>
     <p class="success-sub" id="successSub">We got their order locked in.</p>
     <div class="success-detail">
@@ -375,7 +474,7 @@ function showStep(n) {
   document.getElementById('backBtn').style.display = n > 0 ? 'inline-block' : 'none';
   const nextBtn = document.getElementById('nextBtn');
   if (n === state.totalSteps - 1) {
-    nextBtn.outerHTML = `<button class="btn-submit" id="nextBtn" onclick="submitOrder()">🎓 Confirm Pre-Order — $${calcTotal()}</button>`;
+    nextBtn.outerHTML = `<button class="btn-submit" id="nextBtn" onclick="submitOrder()">Confirm Pre-Order — $${calcTotal()}</button>`;
     buildReview();
   } else {
     const existing = document.getElementById('nextBtn');
@@ -450,9 +549,9 @@ async function submitOrder() {
   document.getElementById('successSub').textContent = `We have everything we need. Watch ${g('email')} for updates.`;
   document.getElementById('confirmEmail').textContent = g('email');
   const badges = [];
-  if (state.products.figurine) badges.push('🪆 Figurine');
-  if (state.products.comic) badges.push('⚡ Comic');
-  if (state.products.storybook) badges.push('📖 Storybook');
+  if (state.products.figurine) badges.push('Figurine');
+  if (state.products.comic) badges.push('Comic');
+  if (state.products.storybook) badges.push('Storybook');
   document.getElementById('successBadges').innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join('');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

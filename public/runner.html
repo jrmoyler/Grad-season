@@ -113,6 +113,7 @@
   }
 
   .style-btn .emoji { font-size: 18px; display: block; margin-bottom: 4px; }
+  .style-btn .emoji .icon { width: 18px; height: 18px; display: inline-block; vertical-align: 0; }
   .style-btn .label { font-weight: 700; display: block; }
 
   .generate-row {
@@ -132,7 +133,13 @@
     font-size: 13px;
     letter-spacing: 0.5px;
     transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
+
+  .gen-btn .icon { width: 1em; height: 1em; flex-shrink: 0; }
 
   .gen-btn.story {
     background: linear-gradient(135deg, #F59E0B, #D97706);
@@ -221,6 +228,14 @@
 
   .toast.show { opacity: 1; }
 
+  /* Icon system */
+  .icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .generate-row { flex-direction: row; }
+  }
   @media (max-width: 640px) {
     .grid { grid-template-columns: 1fr; }
     .generate-row { flex-direction: column; }
@@ -229,9 +244,54 @@
 </head>
 <body>
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Graduation Cap -->
+  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+    <path d="M6 12.5v4C6 18.4 8.686 20 12 20s6-1.6 6-3.5v-4"/>
+    <line x1="22" y1="10" x2="22" y2="16"/>
+    <circle cx="22" cy="17" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <!-- Sparkle / Ornament -->
+  <symbol id="icon-sparkle" viewBox="0 0 24 24">
+    <path d="M12 2l1.8 7.2L21 12l-7.2 1.8L12 22l-1.8-7.2L3 12l7.2-1.8z" fill="currentColor"/>
+  </symbol>
+  <!-- Lightning Bolt (Comic) -->
+  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Open Book (Storybook) -->
+  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <!-- Shield (Superhero) -->
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <!-- Speech Bubble (Cartoon) -->
+  <symbol id="icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <!-- Palette (Watercolor) -->
+  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13.5" cy="6.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="17.5" cy="10.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="8.5" cy="7.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="6.5" cy="12.5" r=".75" fill="currentColor" stroke="none"/>
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+  </symbol>
+  <!-- Layers (Graphic Novel) -->
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+    <polyline points="2 17 12 22 22 17"/>
+    <polyline points="2 12 12 17 22 12"/>
+  </symbol>
+</svg>
+
 <header>
   <div class="logo">
-    <span class="logo-icon">🎓</span>
+    <span class="logo-icon"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg></span>
     <div>
       <div class="logo-text">GRAD SEASON</div>
       <div class="logo-sub">PRODUCTION RUNNER v1.0</div>
@@ -261,30 +321,30 @@
       <label>Storybook Style</label>
       <div class="selector-grid">
         <button class="style-btn" data-group="story" data-val="watercolor" onclick="selectStyle(this)">
-          <span class="emoji">🎨</span>
+          <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#icon-palette"/></svg></span>
           <span class="label">Watercolor</span>
         </button>
         <button class="style-btn" data-group="story" data-val="graphic" onclick="selectStyle(this)">
-          <span class="emoji">🖤</span>
+          <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg></span>
           <span class="label">Graphic Novel</span>
         </button>
         <button class="style-btn" data-group="story" data-val="classic" onclick="selectStyle(this)">
-          <span class="emoji">📖</span>
+          <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
           <span class="label">Classic</span>
         </button>
       </div>
       <label style="margin-top: 14px;">Comic Style</label>
       <div class="selector-grid">
         <button class="style-btn" data-group="comic" data-val="manga" onclick="selectStyle(this)">
-          <span class="emoji">⚡</span>
+          <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
           <span class="label">Manga</span>
         </button>
         <button class="style-btn" data-group="comic" data-val="superhero" onclick="selectStyle(this)">
-          <span class="emoji">🦸</span>
+          <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></span>
           <span class="label">Superhero</span>
         </button>
         <button class="style-btn" data-group="comic" data-val="cartoon" onclick="selectStyle(this)">
-          <span class="emoji">💬</span>
+          <span class="emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bubble"/></svg></span>
           <span class="label">Cartoon</span>
         </button>
       </div>
@@ -318,8 +378,8 @@
 
   <!-- Generate Buttons -->
   <div class="generate-row">
-    <button class="gen-btn story" onclick="generatePrompt('story')">📖 Generate Storybook Prompt</button>
-    <button class="gen-btn comic" onclick="generatePrompt('comic')">⚡ Generate Comic Prompt</button>
+    <button class="gen-btn story" onclick="generatePrompt('story')"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg> Generate Storybook Prompt</button>
+    <button class="gen-btn comic" onclick="generatePrompt('comic')"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg> Generate Comic Prompt</button>
   </div>
 
   <!-- Output -->
@@ -329,7 +389,7 @@
       <button class="copy-btn" id="copyBtn" onclick="copyOutput()">Copy Prompt</button>
     </div>
     <div id="emptyState" class="empty-state">
-      <div class="empty-icon">✦</div>
+      <div class="empty-icon"><svg style="width:32px;height:32px" aria-hidden="true"><use href="#icon-sparkle"/></svg></div>
       Fill in the order details above<br>
       select a style, then hit Generate.<br>
       Paste the output directly into Gemini or Storybook Gem.
@@ -418,8 +478,8 @@
     const filled = fillTemplate(template, data);
 
     const titles = {
-      story: { watercolor: '📖 STORYBOOK — WATERCOLOR', graphic: '📖 STORYBOOK — GRAPHIC NOVEL', classic: '📖 STORYBOOK — CLASSIC' },
-      comic: { manga: '⚡ COMIC — MANGA', superhero: '⚡ COMIC — SUPERHERO', cartoon: '⚡ COMIC — CARTOON STRIP' }
+      story: { watercolor: 'STORYBOOK — WATERCOLOR', graphic: 'STORYBOOK — GRAPHIC NOVEL', classic: 'STORYBOOK — CLASSIC' },
+      comic: { manga: 'COMIC — MANGA', superhero: 'COMIC — SUPERHERO', cartoon: 'COMIC — CARTOON STRIP' }
     };
 
     document.getElementById('outputTitle').textContent = titles[type][style] + ' · ' + (data.gradName || 'UNNAMED') + ' · ' + (data.orderId || 'NO ID');

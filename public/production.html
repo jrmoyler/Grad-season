@@ -163,6 +163,7 @@
 
   .style-row:last-child { border-bottom: none; }
   .style-emoji { font-size: 16px; }
+  .style-emoji .icon { width: 16px; height: 16px; display: inline-block; vertical-align: 0; }
   .style-name { font-weight: 700; color: var(--text); }
   .style-desc { color: var(--muted); font-size: 11px; }
   .style-tag {
@@ -288,6 +289,9 @@
   }
   .toast.show { opacity: 1; }
 
+  /* Icon system */
+  .icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; }
+
   /* Print styles */
   @media print {
     body { background: white; color: black; padding: 16px; }
@@ -295,6 +299,10 @@
     .copy-btn { display: none; }
   }
 
+  @media (max-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
   @media (max-width: 640px) {
     .grid-3 { grid-template-columns: 1fr; }
     .grid-2 { grid-template-columns: 1fr; }
@@ -303,12 +311,53 @@
 </head>
 <body>
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Graduation Cap -->
+  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+    <path d="M6 12.5v4C6 18.4 8.686 20 12 20s6-1.6 6-3.5v-4"/>
+    <line x1="22" y1="10" x2="22" y2="16"/>
+    <circle cx="22" cy="17" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <!-- Lightning Bolt (Comic) -->
+  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Open Book (Storybook) -->
+  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <!-- Shield (Superhero) -->
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <!-- Speech Bubble (Cartoon) -->
+  <symbol id="icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <!-- Palette (Watercolor) -->
+  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13.5" cy="6.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="17.5" cy="10.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="8.5" cy="7.5" r=".75" fill="currentColor" stroke="none"/>
+    <circle cx="6.5" cy="12.5" r=".75" fill="currentColor" stroke="none"/>
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+  </symbol>
+  <!-- Layers (Graphic Novel) -->
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+    <polyline points="2 17 12 22 22 17"/>
+    <polyline points="2 12 12 17 22 12"/>
+  </symbol>
+</svg>
+
 <div class="page">
 
   <!-- Header -->
   <div class="header">
     <div class="header-left">
-      <span class="header-icon">🎓</span>
+      <span class="header-icon"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg></span>
       <div>
         <div class="header-title">GRAD SEASON — PRODUCTION REFERENCE</div>
         <div class="header-sub">Storybook Gem · Production Runner · Order Agent</div>
@@ -472,7 +521,7 @@
     <div class="card">
       <div class="card-label">STORYBOOK STYLES</div>
       <div class="style-row">
-        <span class="style-emoji">🎨</span>
+        <span class="style-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-palette"/></svg></span>
         <span class="style-name">Watercolor</span>
         <div>
           <div class="style-desc">Soft edges, pastel washes. Classic picture book feel. Warm + timeless.</div>
@@ -480,7 +529,7 @@
         </div>
       </div>
       <div class="style-row">
-        <span class="style-emoji">🖤</span>
+        <span class="style-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg></span>
         <span class="style-name">Graphic Novel</span>
         <div>
           <div class="style-desc">Bold lines, high contrast, panel spreads. Cinematic + powerful.</div>
@@ -488,7 +537,7 @@
         </div>
       </div>
       <div class="style-row">
-        <span class="style-emoji">📖</span>
+        <span class="style-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
         <span class="style-name">Classic</span>
         <div>
           <div class="style-desc">Flat color, friendly characters. Short sentences. Read-aloud rhythm.</div>
@@ -500,7 +549,7 @@
     <div class="card">
       <div class="card-label">COMIC STYLES</div>
       <div class="style-row">
-        <span class="style-emoji">⚡</span>
+        <span class="style-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
         <span class="style-name">Manga</span>
         <div>
           <div class="style-desc">Expressive line art, speed lines, chibi comedy moments. B&W + spot color.</div>
@@ -508,7 +557,7 @@
         </div>
       </div>
       <div class="style-row">
-        <span class="style-emoji">🦸</span>
+        <span class="style-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></span>
         <span class="style-name">Superhero</span>
         <div>
           <div class="style-desc">Bold outlines, full color, dynamic poses. The child IS the hero.</div>
@@ -516,7 +565,7 @@
         </div>
       </div>
       <div class="style-row">
-        <span class="style-emoji">💬</span>
+        <span class="style-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bubble"/></svg></span>
         <span class="style-name">Cartoon Strip</span>
         <div>
           <div class="style-desc">10 horizontal strips, 3-4 panels each. Humor-forward. Family-friendly.</div>
@@ -641,26 +690,26 @@
 NEW ORDER — PLEASE PRODUCE THIS BOOK
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-GRAD_NAME: 
-GRADE: 
-SCHOOL: 
-ORDER_ID: 
+GRAD_NAME:
+GRADE:
+SCHOOL:
+ORDER_ID:
 
 PRODUCT: [storybook / comic / both]
 STYLE: [watercolor / graphic / classic / manga / superhero / cartoon]
 
-FAV_MEMORY: 
+FAV_MEMORY:
 
-CHALLENGE: 
+CHALLENGE:
 
-PROUD_MOMENT: 
+PROUD_MOMENT:
 
-FUTURE_GOAL: 
+FUTURE_GOAL:
 
-PERSONALITY: 
-FUN_FACT: 
+PERSONALITY:
+FUN_FACT:
 
-DEDICATION: 
+DEDICATION:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Please produce the complete book now.
