@@ -517,7 +517,7 @@ section {
 
 .testimonial-card:hover { border-color: rgba(240,180,41,0.25); }
 
-.stars-row { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 12px; }
+.stars-row { color: var(--gold); font-size: 14px; display: flex; gap: 4px; margin-bottom: 12px; }
 .testimonial-text { font-size: 14px; color: var(--soft); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
 .testimonial-name { font-weight: 700; font-size: 13px; color: var(--cream); }
 .testimonial-role { font-size: 12px; color: var(--muted); }
@@ -564,6 +564,9 @@ section {
   border-radius: 20px;
   white-space: nowrap;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .pricing-icon { font-size: 36px; margin-bottom: 12px; display: block; }
@@ -777,27 +780,131 @@ footer {
   letter-spacing: 0.5px;
 }
 
+/* ── ICON SYSTEM ─────────────────────────────────────────── */
+.icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; }
+.floater-emoji .icon,
+.product-icon .icon,
+.pricing-icon .icon { display: block; margin: 0 auto; vertical-align: 0; }
+.step-num-inner .icon { vertical-align: -0.1em; }
+
 /* ── RESPONSIVE ──────────────────────────────────────────── */
+/* Tablet */
+@media (max-width: 1024px) {
+  nav { padding: 14px 28px; }
+  .steps-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .steps-grid::before { display: none; }
+  .hero { padding: 100px 28px 60px; }
+  section { padding: 64px 28px; }
+}
+/* Mobile */
 @media (max-width: 768px) {
-  nav { padding: 14px 20px; }
+  nav { padding: 12px 18px; }
   .nav-badge { display: none; }
+  .nav-cta { font-size: 12px; padding: 8px 16px; }
   .products-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
   .steps-grid::before { display: none; }
   .faq-grid { grid-template-columns: 1fr; }
   .proof-divider { display: none; }
+  .hero { padding: 86px 20px 56px; }
+  .hero-products { gap: 12px; }
+  .product-floater { padding: 16px 20px; }
+  section { padding: 56px 20px; }
+  .cta-section { padding: 72px 20px; }
+  .countdown-unit { padding: 10px 12px; min-width: 60px; }
+  .countdown-num { font-size: 22px; }
+  .proof-inner { gap: 20px; }
+}
+/* Small mobile */
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-secondary { text-align: center; }
+  .hero-products { flex-direction: column; align-items: center; }
+  .product-floater { width: 100%; max-width: 260px; }
+  .countdown-unit { min-width: 50px; padding: 8px 10px; }
+  .countdown-num { font-size: 18px; }
+  .countdown-sep { font-size: 16px; }
+  .nav-logo { font-size: 15px; }
+  .hero-glow { width: 320px; }
+  .proof-inner { gap: 16px; }
 }
 </style>
 </head>
 <body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Graduation Cap -->
+  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10L12 5 2 10l10 5 10-5z"/>
+    <path d="M6 12.5v4C6 18.4 8.686 20 12 20s6-1.6 6-3.5v-4"/>
+    <line x1="22" y1="10" x2="22" y2="16"/>
+    <circle cx="22" cy="17" r="1" fill="currentColor" stroke="none"/>
+  </symbol>
+  <!-- Sparkle / Ornament -->
+  <symbol id="icon-sparkle" viewBox="0 0 24 24">
+    <path d="M12 2l1.8 7.2L21 12l-7.2 1.8L12 22l-1.8-7.2L3 12l7.2-1.8z" fill="currentColor"/>
+  </symbol>
+  <!-- Figurine (person on pedestal) -->
+  <symbol id="icon-figurine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="4" r="2.5"/>
+    <path d="M8.5 9.5h7l-1.5 7h-4z"/>
+    <line x1="10.5" y1="16.5" x2="10.5" y2="19.5"/>
+    <line x1="13.5" y1="16.5" x2="13.5" y2="19.5"/>
+    <rect x="7.5" y="19.5" width="9" height="2" rx="1"/>
+  </symbol>
+  <!-- Lightning Bolt (Comic) -->
+  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Open Book (Storybook) -->
+  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <!-- Clipboard -->
+  <symbol id="icon-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="8" y="2" width="8" height="4" rx="1"/>
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+    <line x1="9" y1="12" x2="15" y2="12"/>
+    <line x1="9" y1="16" x2="13" y2="16"/>
+  </symbol>
+  <!-- Paintbrush -->
+  <symbol id="icon-paintbrush" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 3 8 14l-2 4 4-2L21 5a2 2 0 0 0-2-2z"/>
+    <path d="M6 16c0 0 0 4 2 4 1 0 2-1 2-2v-2H6z"/>
+  </symbol>
+  <!-- Printer -->
+  <symbol id="icon-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 6 2 18 2 18 9"/>
+    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+    <rect x="6" y="14" width="12" height="8"/>
+  </symbol>
+  <!-- Package / Box -->
+  <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/>
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+    <line x1="12" y1="22.08" x2="12" y2="12"/>
+  </symbol>
+  <!-- Hourglass -->
+  <symbol id="icon-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 22h14M5 2h14"/>
+    <path d="M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22"/>
+    <path d="M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2"/>
+  </symbol>
+  <!-- Star (testimonials) -->
+  <symbol id="icon-star" viewBox="0 0 24 24">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor" stroke="none"/>
+  </symbol>
+</svg>
 
 <!-- Floating stars -->
 <div class="stars" id="stars"></div>
 
 <!-- Nav -->
 <nav>
-  <div class="nav-logo">🎓 Grad Season</div>
-  <div class="nav-badge">✦ PRE-ORDER OPEN</div>
+  <div class="nav-logo"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg> Grad Season</div>
+  <div class="nav-badge"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg> PRE-ORDER OPEN</div>
   <a href="#order" class="nav-cta">Reserve Now</a>
 </nav>
 
@@ -806,7 +913,7 @@ footer {
   <div class="hero-glow"></div>
 
   <div class="hero-eyebrow fade-up delay-1">
-    ✦ &nbsp; 2025 Graduation Season &nbsp; ✦
+    <svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg> &nbsp; 2025 Graduation Season &nbsp; <svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg>
   </div>
 
   <h1 class="hero-title fade-up delay-2">
@@ -815,7 +922,7 @@ footer {
   </h1>
 
   <p class="hero-sub fade-up delay-3">
-    Custom figurines, comic books, and storybooks <strong>built around your graduate's real life</strong> — 
+    Custom figurines, comic books, and storybooks <strong>built around your graduate's real life</strong> —
     their memories, their challenges, their wins.
     No two are the same. Ever.
   </p>
@@ -827,17 +934,17 @@ footer {
 
   <div class="hero-products fade-up delay-5">
     <div class="product-floater floater-1">
-      <span class="floater-emoji">🪆</span>
+      <span class="floater-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span>
       <div class="floater-name">Figurine</div>
       <div class="floater-price">from $89</div>
     </div>
     <div class="product-floater floater-2">
-      <span class="floater-emoji">⚡</span>
+      <span class="floater-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
       <div class="floater-name">Comic Book</div>
       <div class="floater-price">from $34</div>
     </div>
     <div class="product-floater floater-3">
-      <span class="floater-emoji">📖</span>
+      <span class="floater-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
       <div class="floater-name">Storybook</div>
       <div class="floater-price">from $44</div>
     </div>
@@ -880,7 +987,7 @@ footer {
 
       <div class="product-card">
         <div class="product-card-header">
-          <span class="product-icon">🪆</span>
+          <span class="product-icon"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span>
           <div class="product-price-tag">$89</div>
           <div class="product-name">Custom Figurine</div>
           <div class="product-tagline">A 3D printed sculpture of your graduate — in the style and outfit you choose.</div>
@@ -902,7 +1009,7 @@ footer {
 
       <div class="product-card">
         <div class="product-card-header">
-          <span class="product-icon">⚡</span>
+          <span class="product-icon"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
           <div class="product-price-tag">$34</div>
           <div class="product-name">Custom Comic</div>
           <div class="product-tagline">Your graduate is the hero. Their real story is the plot. 12 pages, fully illustrated.</div>
@@ -924,7 +1031,7 @@ footer {
 
       <div class="product-card">
         <div class="product-card-header">
-          <span class="product-icon">📖</span>
+          <span class="product-icon"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
           <div class="product-price-tag">$44</div>
           <div class="product-name">Custom Storybook</div>
           <div class="product-tagline">A 10-12 page illustrated storybook that tells their journey — written for them alone.</div>
@@ -956,22 +1063,22 @@ footer {
 
     <div class="steps-grid">
       <div class="step-card">
-        <div class="step-num-wrap"><span class="step-num-inner">📋</span></div>
+        <div class="step-num-wrap"><span class="step-num-inner"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"/></svg></span></div>
         <div class="step-title">Tell us their story</div>
         <div class="step-desc">Fill out a short intake form — favorite memories, proudest moments, future goals. The more detail, the better the book.</div>
       </div>
       <div class="step-card">
-        <div class="step-num-wrap"><span class="step-num-inner">🎨</span></div>
+        <div class="step-num-wrap"><span class="step-num-inner"><svg class="icon" aria-hidden="true"><use href="#icon-paintbrush"/></svg></span></div>
         <div class="step-title">We build it</div>
         <div class="step-desc">Our team generates each product from your story data. Every book is reviewed before it goes to print.</div>
       </div>
       <div class="step-card">
-        <div class="step-num-wrap"><span class="step-num-inner">🖨️</span></div>
+        <div class="step-num-wrap"><span class="step-num-inner"><svg class="icon" aria-hidden="true"><use href="#icon-printer"/></svg></span></div>
         <div class="step-title">We print it</div>
         <div class="step-desc">Books go to our print partner. Figurines are 3D printed from the generated file. Quality checked before shipping.</div>
       </div>
       <div class="step-card">
-        <div class="step-num-wrap"><span class="step-num-inner">📦</span></div>
+        <div class="step-num-wrap"><span class="step-num-inner"><svg class="icon" aria-hidden="true"><use href="#icon-package"/></svg></span></div>
         <div class="step-title">It arrives</div>
         <div class="step-desc">Your keepsakes ship to your door. You get email updates at every stage — no guessing where your order is.</div>
       </div>
@@ -982,8 +1089,8 @@ footer {
 <!-- URGENCY BANNER -->
 <div class="urgency-banner">
   <div class="urgency-text">
-    ⏳ &nbsp; Pre-orders close when print batches fill. 
-    <span class="highlight">Reserve your spot before the deadline.</span> &nbsp; 
+    <svg class="icon" aria-hidden="true"><use href="#icon-hourglass"/></svg> &nbsp; Pre-orders close when print batches fill.
+    <span class="highlight">Reserve your spot before the deadline.</span> &nbsp;
     Payment collected at fulfillment — nothing due today.
   </div>
 </div>
@@ -996,19 +1103,19 @@ footer {
 
     <div class="testimonials-grid">
       <div class="testimonial-card">
-        <div class="stars-row">★★★★★</div>
+        <div class="stars-row"><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg></div>
         <p class="testimonial-text">"My son cried when he read his storybook. He said 'Mom, how did they know all of this?' That's the whole thing — it was actually about HIM."</p>
         <div class="testimonial-name">Danielle W.</div>
         <div class="testimonial-role">Parent of an 8th Grade Graduate · Columbus, OH</div>
       </div>
       <div class="testimonial-card">
-        <div class="stars-row">★★★★★</div>
+        <div class="stars-row"><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg></div>
         <p class="testimonial-text">"Got the comic book in superhero style. My daughter showed everyone at her graduation party. The 'hero file' page with her actual stats had us all laughing and crying."</p>
         <div class="testimonial-name">Marcus T.</div>
         <div class="testimonial-role">Parent of a 5th Grade Graduate</div>
       </div>
       <div class="testimonial-card">
-        <div class="stars-row">★★★★★</div>
+        <div class="stars-row"><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg></div>
         <p class="testimonial-text">"The figurine is insane. Funko Pop style but it genuinely looks like him in his cap and gown. This is the kind of gift that lives on the shelf forever."</p>
         <div class="testimonial-name">Priya M.</div>
         <div class="testimonial-role">Parent of a High School Graduate</div>
@@ -1027,7 +1134,7 @@ footer {
     <div class="pricing-grid">
 
       <div class="pricing-card">
-        <span class="pricing-icon">⚡</span>
+        <span class="pricing-icon"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
         <div class="pricing-name">Comic Book</div>
         <div class="pricing-price">$34</div>
         <div class="pricing-note">per book · printed & shipped</div>
@@ -1042,8 +1149,8 @@ footer {
       </div>
 
       <div class="pricing-card featured">
-        <div class="popular-badge">✦ Most Popular</div>
-        <span class="pricing-icon">📖</span>
+        <div class="popular-badge"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg> Most Popular</div>
+        <span class="pricing-icon"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
         <div class="pricing-name">Full Bundle</div>
         <div class="pricing-price">$167</div>
         <div class="pricing-note">all three products · best value</div>
@@ -1058,7 +1165,7 @@ footer {
       </div>
 
       <div class="pricing-card">
-        <span class="pricing-icon">📖</span>
+        <span class="pricing-icon"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
         <div class="pricing-name">Storybook</div>
         <div class="pricing-price">$44</div>
         <div class="pricing-note">per book · printed & shipped</div>
@@ -1169,7 +1276,7 @@ footer {
   <div class="cta-inner">
     <h2 class="cta-title">Their story deserves <em>a real keepsake.</em></h2>
     <p class="cta-sub">
-      Graduation happens once. This is the memento they'll have for the rest of their life — 
+      Graduation happens once. This is the memento they'll have for the rest of their life —
       the one that was actually made for them.
     </p>
     <a href="/order" class="btn-primary" style="font-size: 17px; padding: 18px 44px;">
@@ -1181,7 +1288,7 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">🎓 Grad Season</div>
+  <div class="footer-logo"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg> Grad Season</div>
   <div class="footer-text">
     Columbus, Ohio &nbsp;·&nbsp; Personalized graduation keepsakes &nbsp;·&nbsp; 2025<br>
     Questions? <a href="mailto:hello@gradseason.com">hello@gradseason.com</a>
