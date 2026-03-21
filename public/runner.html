@@ -544,7 +544,7 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
   function copyOutput() {
     const text = document.getElementById('outputText').value;
     if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
+    return copyText(text).then(() => {
       const btn = document.getElementById('copyBtn');
       btn.textContent = '✓ Copied!';
       btn.classList.add('copied');
@@ -560,6 +560,25 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
     const t = document.getElementById('toast');
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard?.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    // Fall back for local/static contexts where the async Clipboard API is unavailable.
+    const fallback = document.createElement('textarea');
+    fallback.value = text;
+    fallback.setAttribute('readonly', '');
+    fallback.style.position = 'fixed';
+    fallback.style.opacity = '0';
+    document.body.appendChild(fallback);
+    fallback.select();
+    fallback.setSelectionRange(0, fallback.value.length);
+    document.execCommand('copy');
+    fallback.remove();
+    return Promise.resolve();
   }
 </script>
 </body>

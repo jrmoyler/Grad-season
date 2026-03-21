@@ -741,6 +741,25 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
 <div class="toast" id="toast">✓ Copied to clipboard</div>
 
 <script>
+  function copyText(text) {
+    if (navigator.clipboard?.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    // Fall back for local/static contexts where the async Clipboard API is unavailable.
+    const fallback = document.createElement('textarea');
+    fallback.value = text;
+    fallback.setAttribute('readonly', '');
+    fallback.style.position = 'fixed';
+    fallback.style.opacity = '0';
+    document.body.appendChild(fallback);
+    fallback.select();
+    fallback.setSelectionRange(0, fallback.value.length);
+    document.execCommand('copy');
+    fallback.remove();
+    return Promise.resolve();
+  }
+
   function copyBlock() {
     const text = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NEW ORDER — PLEASE PRODUCE THIS BOOK
@@ -771,7 +790,7 @@ DEDICATION:
 Please produce the complete book now.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
-    navigator.clipboard.writeText(text).then(() => {
+    return copyText(text).then(() => {
       const t = document.getElementById('toast');
       t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 2000);
