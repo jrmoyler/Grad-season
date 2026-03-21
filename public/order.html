@@ -479,6 +479,8 @@ function canAdvance() {
     if (!any) return false;
     if (state.products.figurine && (!state.styles.fstyle || !state.styles.ffit)) return false;
     if (state.products.figurine && state.styles.ffit === 'career' && !g('careerChoice')) return false;
+    // Require a reference when the family chooses a photo-based outfit so production is not blocked later.
+    if (state.products.figurine && state.styles.ffit === 'photo' && !g('photoUrl')) return false;
     if (state.products.comic && !state.styles.comic) return false;
     if (state.products.storybook && !state.styles.story) return false;
     return true;
