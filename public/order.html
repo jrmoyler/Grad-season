@@ -20,7 +20,6 @@ nav{padding:16px 32px;display:flex;align-items:center;justify-content:space-betw
 .page{max-width:680px;margin:0 auto;padding:40px 24px;}
 .page-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--cream);margin-bottom:8px;letter-spacing:-0.5px;}
 .page-sub{font-size:15px;color:var(--soft);margin-bottom:40px;line-height:1.7;}
-/* Progress */
 .progress{display:flex;align-items:center;gap:0;margin-bottom:36px;flex-wrap:wrap;row-gap:8px;}
 .prog-item{display:flex;align-items:center;gap:6px;}
 .prog-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;transition:all .3s;flex-shrink:0;color:#0C0A14;}
@@ -29,7 +28,6 @@ nav{padding:16px 32px;display:flex;align-items:center;justify-content:space-betw
 .prog-dot.pending{background:var(--surface2);color:var(--muted);}
 .prog-label{font-size:11px;font-weight:600;letter-spacing:.5px;white-space:nowrap;}
 .prog-line{width:20px;height:2px;transition:background .3s;}
-/* Card */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 28px;margin-bottom:20px;}
 .section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:14px;margin-top:0;}
 label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;margin-top:14px;}
@@ -38,7 +36,6 @@ input,select,textarea{width:100%;background:var(--surface2);border:1.5px solid v
 input:focus,select:focus,textarea:focus{border-color:var(--gold);}
 textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-/* Style picker */
 .style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
 .style-btn{border:1.5px solid var(--border);border-radius:10px;padding:12px 8px;cursor:pointer;text-align:center;transition:all .15s;background:var(--surface2);color:var(--text);}
 .style-btn:hover,.style-btn.active{border-color:var(--gold);background:rgba(240,180,41,.1);}
@@ -47,7 +44,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .sb-emoji .icon{width:22px;height:22px;display:inline-block;vertical-align:0;}
 .sb-label{font-weight:700;font-size:12px;display:block;}
 .sb-desc{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3;}
-/* Product toggle */
 .product-toggle{border:1.5px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;}
 .product-toggle.on{border-color:rgba(240,180,41,.5);}
 .product-toggle-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;}
@@ -59,7 +55,8 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .toggle-sw{width:44px;height:24px;border-radius:12px;position:relative;transition:background .2s;flex-shrink:0;}
 .toggle-thumb{position:absolute;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;}
 .product-body{padding:0 18px 18px;border-top:1px solid var(--border);}
-/* Nav buttons */
+.upload-box{border:2px dashed var(--border);border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--surface2);}
+.upload-box:hover{border-color:var(--gold);}
 .nav-btns{display:flex;align-items:center;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border);}
 .btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:11px 20px;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;}
 .btn-back:hover{border-color:var(--gold);color:var(--gold);}
@@ -69,7 +66,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 .btn-submit{background:linear-gradient(135deg,#F0B429,#D97706);border:none;color:#0C0A14;border-radius:8px;padding:14px 32px;cursor:pointer;font-family:inherit;font-weight:800;font-size:16px;box-shadow:0 0 24px rgba(240,180,41,.4);}
 .btn-submit:hover{box-shadow:0 0 40px rgba(240,180,41,.6);transform:translateY(-1px);}
-/* Review */
 .review-table{background:var(--surface2);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;}
 .review-row{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:13px;}
 .review-row:last-child{border-bottom:none;}
@@ -78,7 +74,6 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;}
 .total-amt{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--gold);}
 .disclaimer{font-size:12px;color:var(--muted);line-height:1.7;margin-top:14px;}
-/* Success */
 .success{text-align:center;padding:60px 24px;}
 .success-icon{font-size:64px;margin-bottom:20px;}
 .success-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--cream);margin-bottom:10px;}
@@ -86,155 +81,51 @@ textarea{resize:vertical;min-height:72px;line-height:1.6;}
 .success-detail{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;font-size:14px;line-height:1.8;margin-bottom:24px;text-align:left;}
 .badge{background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.35);color:var(--gold);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-block;margin:4px;}
 .step-hidden{display:none;}
-/* Icon system */
-.icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; stroke: currentColor; fill: none; transition: transform .35s ease, filter .35s ease, color .35s ease; transform-origin: center; }
-.icon use { pointer-events: none; }
-a:hover .icon, button:hover .icon, .style-btn:hover .icon, .product-card:hover .icon, .product-floater:hover .icon, .pricing-card:hover .icon, .nav-badge:hover .icon, .style-card:hover .icon { transform: translateY(-2px) scale(1.08) rotate(-5deg); filter: drop-shadow(0 0 10px rgba(240,180,41,.4)); }
-a:active .icon, button:active .icon, .style-btn:active .icon { transform: translateY(0) scale(.96) rotate(2deg); }
-/* Tablet */
-@media(max-width:768px){
-  nav{padding:12px 18px;}
-  .page{padding:28px 16px;}
-  .page-title{font-size:28px;}
-  .card{padding:20px 18px;}
-  .style-grid{grid-template-columns:repeat(3,1fr);}
-}
-/* Small mobile (keep and enhance) */
-@media(max-width:540px){
-  .row2{grid-template-columns:1fr;}
-  .style-grid{grid-template-columns:1fr 1fr;}
-  .prog-line{width:12px;}
-  .prog-label{font-size:10px;}
-}
-@media(max-width:380px){
-  .prog-label{display:none;}
-  .prog-line{width:8px;}
-}
+.icon{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;flex-shrink:0;stroke:currentColor;fill:none;transition:transform .35s ease,filter .35s ease,color .35s ease;transform-origin:center;}
+.icon use{pointer-events:none;}
+a:hover .icon,button:hover .icon,.style-btn:hover .icon{transform:translateY(-2px) scale(1.08) rotate(-5deg);filter:drop-shadow(0 0 10px rgba(240,180,41,.4));}
+a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(0) scale(.96) rotate(2deg);}
+@media(max-width:768px){nav{padding:12px 18px;}.page{padding:28px 16px;}.page-title{font-size:28px;}.card{padding:20px 18px;}.style-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:540px){.row2{grid-template-columns:1fr;}.style-grid{grid-template-columns:1fr 1fr;}.prog-line{width:12px;}.prog-label{font-size:10px;}}
+@media(max-width:380px){.prog-label{display:none;}.prog-line{width:8px;}}
 </style>
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
 <body>
-
+ 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M2.5 9.5 12 5l9.5 4.5L12 14 2.5 9.5z"/>
-    <path d="M6 12.2v3.6c0 2.1 2.7 3.7 6 3.7s6-1.6 6-3.7v-3.6"/>
-    <path d="M21.5 10.1v5.1"/>
-    <path d="M20.7 16.8c.5-.5 1.3-.5 1.8 0"/>
-  </symbol>
-  <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3v4"/><path d="M12 17v4"/><path d="M3 12h4"/><path d="M17 12h4"/>
-    <path d="m6.4 6.4 2.8 2.8"/><path d="m14.8 14.8 2.8 2.8"/>
-    <path d="m17.6 6.4-2.8 2.8"/><path d="m9.2 14.8-2.8 2.8"/>
-    <circle cx="12" cy="12" r="2.5"/>
-  </symbol>
-  <symbol id="icon-figurine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="4.5" r="2.2"/>
-    <path d="M8.8 10.2h6.4l-1.1 5.8h-4.2z"/>
-    <path d="M10.7 16v3.2M13.3 16v3.2"/>
-    <rect x="7.8" y="19.2" width="8.4" height="2.2" rx="1.1"/>
-  </symbol>
-  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M13.8 2.5 4.2 13.8h6.2L9.6 21.5l10.2-11.3h-6.2z"/>
-    <path d="M11.6 13.8h4"/>
-  </symbol>
-  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 5.2h5.8A3.2 3.2 0 0 1 12 8.4v11.1a3 3 0 0 0-3-3H3z"/>
-    <path d="M21 5.2h-5.8A3.2 3.2 0 0 0 12 8.4v11.1a3 3 0 0 1 3-3H21z"/>
-    <path d="M7 8.8h2.5M14.5 8.8H17"/>
-  </symbol>
-  <symbol id="icon-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="8" y="2.5" width="8" height="3.8" rx="1.2"/>
-    <rect x="4.5" y="4.8" width="15" height="16.7" rx="2"/>
-    <path d="M8.5 11.2h7M8.5 15.5h5.2"/>
-  </symbol>
-  <symbol id="icon-paintbrush" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M19.8 3.5 8.9 14.4l-3.3.8.8-3.3L17.3 1a1.8 1.8 0 0 1 2.5 2.5z"/>
-    <path d="M6 15.8c0 2.8-.9 4.7-3.5 5.2 2.8.5 5.7-.5 7-3"/>
-  </symbol>
-  <symbol id="icon-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6.5 8.8V2.8h11v6"/>
-    <rect x="2.8" y="8.8" width="18.4" height="9" rx="2"/>
-    <rect x="6.5" y="13" width="11" height="8.2" rx="1"/>
-    <path d="M17.6 11.8h.1"/>
-  </symbol>
-  <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="m12 2.8 8.5 4.8v8.8L12 21.2l-8.5-4.8V7.6z"/>
-    <path d="m3.5 7.9 8.5 4.8 8.5-4.8M12 12.7v8.5"/>
-  </symbol>
-  <symbol id="icon-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 2.8h14M5 21.2h14"/>
-    <path d="M7.2 2.8v3a3 3 0 0 0 .9 2.1l3.9 3.8-3.9 3.8a3 3 0 0 0-.9 2.1v3.6"/>
-    <path d="M16.8 2.8v3a3 3 0 0 1-.9 2.1L12 11.7l3.9 3.8a3 3 0 0 1 .9 2.1v3.6"/>
-    <path d="M9.6 14.2h4.8"/>
-  </symbol>
-  <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="m12 3.2 2.7 5.4 6 .9-4.4 4.3 1 6.1-5.3-2.8-5.3 2.8 1-6.1-4.4-4.3 6-.9z"/>
-  </symbol>
-  <symbol id="icon-bear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="8" cy="5.3" r="1.7"/><circle cx="16" cy="5.3" r="1.7"/>
-    <path d="M6 13a6 6 0 1 1 12 0 6 6 0 0 1-12 0z"/>
-    <path d="M10 15.6c1.1.9 2.9.9 4 0M10 12.3h.1M13.9 12.3h.1"/>
-  </symbol>
-  <symbol id="icon-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="5" r="2.8"/>
-    <path d="M6.8 21v-1.2a5.2 5.2 0 0 1 10.4 0V21M8.3 10.8h7.4"/>
-  </symbol>
-  <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="2.5" y="6.5" width="19" height="14" rx="2.4"/>
-    <path d="M8.2 6.5 9.9 3.8h4.2l1.7 2.7"/>
-    <circle cx="12" cy="13.5" r="3.6"/>
-  </symbol>
-  <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12.2 14.8 9.2 11.8c1.3-4.5 5-7.8 11.3-8.8-1 6.2-4.3 9.9-8.8 11.2z"/>
-    <path d="M11.2 12.8 4.8 12.2c.6-1.9 1.9-3.2 4.1-3.8M11.2 12.8l-.6 6.4c1.9-.6 3.2-1.9 3.8-4.1"/>
-    <path d="M4.2 16.5c-1.2 1-1.7 4-1.7 4s3-.5 4-1.7"/>
-  </symbol>
-  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 2.8 4.5 5.9V12c0 5.1 3.2 8.2 7.5 9.8 4.3-1.6 7.5-4.7 7.5-9.8V5.9z"/>
-    <path d="M9 12h6"/>
-  </symbol>
-  <symbol id="icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5.2 4h13.6a2.2 2.2 0 0 1 2.2 2.2v8.6a2.2 2.2 0 0 1-2.2 2.2H9l-4.8 3.8V6.2A2.2 2.2 0 0 1 5.2 4z"/>
-    <path d="M8.5 9.8h7M8.5 13.1h4.5"/>
-  </symbol>
-  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3.1a8.9 8.9 0 1 0 0 17.8h.9a2 2 0 0 0 1.5-3.3 2 2 0 0 1 1.6-3.3h1.9a4.9 4.9 0 0 0 0-9.8z"/>
-    <circle cx="7.8" cy="10" r=".9"/><circle cx="10.7" cy="7.4" r=".9"/><circle cx="14.4" cy="7.2" r=".9"/><circle cx="16.8" cy="10.5" r=".9"/>
-  </symbol>
-  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path d="m12 3.2-8.5 4.6L12 12l8.5-4.2z"/>
-    <path d="m3.5 12.2 8.5 4.2 8.5-4.2"/>
-    <path d="m3.5 16.3 8.5 4.5 8.5-4.5"/>
-  </symbol>
+  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5 12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6 12.2v3.6c0 2.1 2.7 3.7 6 3.7s6-1.6 6-3.7v-3.6"/><path d="M21.5 10.1v5.1"/><path d="M20.7 16.8c.5-.5 1.3-.5 1.8 0"/></symbol>
+  <symbol id="icon-figurine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.2"/><path d="M8.8 10.2h6.4l-1.1 5.8h-4.2z"/><path d="M10.7 16v3.2M13.3 16v3.2"/><rect x="7.8" y="19.2" width="8.4" height="2.2" rx="1.1"/></symbol>
+  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13.8 2.5 4.2 13.8h6.2L9.6 21.5l10.2-11.3h-6.2z"/><path d="M11.6 13.8h4"/></symbol>
+  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.2h5.8A3.2 3.2 0 0 1 12 8.4v11.1a3 3 0 0 0-3-3H3z"/><path d="M21 5.2h-5.8A3.2 3.2 0 0 0 12 8.4v11.1a3 3 0 0 1 3-3H21z"/><path d="M7 8.8h2.5M14.5 8.8H17"/></symbol>
+  <symbol id="icon-bear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5.3" r="1.7"/><circle cx="16" cy="5.3" r="1.7"/><path d="M6 13a6 6 0 1 1 12 0 6 6 0 0 1-12 0z"/><path d="M10 15.6c1.1.9 2.9.9 4 0M10 12.3h.1M13.9 12.3h.1"/></symbol>
+  <symbol id="icon-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.8"/><path d="M6.8 21v-1.2a5.2 5.2 0 0 1 10.4 0V21M8.3 10.8h7.4"/></symbol>
+  <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="19" height="14" rx="2.4"/><path d="M8.2 6.5 9.9 3.8h4.2l1.7 2.7"/><circle cx="12" cy="13.5" r="3.6"/></symbol>
+  <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 14.8 9.2 11.8c1.3-4.5 5-7.8 11.3-8.8-1 6.2-4.3 9.9-8.8 11.2z"/><path d="M11.2 12.8 4.8 12.2c.6-1.9 1.9-3.2 4.1-3.8M11.2 12.8l-.6 6.4c1.9-.6 3.2-1.9 3.8-4.1"/><path d="M4.2 16.5c-1.2 1-1.7 4-1.7 4s3-.5 4-1.7"/></symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.5 5.9V12c0 5.1 3.2 8.2 7.5 9.8 4.3-1.6 7.5-4.7 7.5-9.8V5.9z"/><path d="M9 12h6"/></symbol>
+  <symbol id="icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 4h13.6a2.2 2.2 0 0 1 2.2 2.2v8.6a2.2 2.2 0 0 1-2.2 2.2H9l-4.8 3.8V6.2A2.2 2.2 0 0 1 5.2 4z"/><path d="M8.5 9.8h7M8.5 13.1h4.5"/></symbol>
+  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.1a8.9 8.9 0 1 0 0 17.8h.9a2 2 0 0 0 1.5-3.3 2 2 0 0 1 1.6-3.3h1.9a4.9 4.9 0 0 0 0-9.8z"/><circle cx="7.8" cy="10" r=".9"/><circle cx="10.7" cy="7.4" r=".9"/><circle cx="14.4" cy="7.2" r=".9"/><circle cx="16.8" cy="10.5" r=".9"/></symbol>
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.2-8.5 4.6L12 12l8.5-4.2z"/><path d="m3.5 12.2 8.5 4.2 8.5-4.2"/><path d="m3.5 16.3 8.5 4.5 8.5-4.5"/></symbol>
 </svg>
-
+ 
 <nav>
   <a href="/" class="nav-logo"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg> Grad Season</a>
   <a href="/" class="nav-back">← Back to Home</a>
 </nav>
-
+ 
 <div class="page">
   <div id="formWrap">
     <h1 class="page-title">Pre-Order Your Keepsake</h1>
     <p class="page-sub">Fill in your graduate's story. No payment today — we collect at fulfillment.</p>
-
-    <!-- Progress bar -->
     <div class="progress" id="progressBar"></div>
-
+ 
     <!-- STEP 1: Info -->
     <div id="step-0">
       <div class="card">
         <p class="section-label">PARENT / GUARDIAN</p>
         <div class="row2">
-          <div>
-            <label>Your Name *</label>
-            <input id="parentName" type="text" placeholder="Jane Smith">
-          </div>
-          <div>
-            <label>Email Address *</label>
-            <input id="email" type="email" placeholder="jane@email.com">
-          </div>
+          <div><label>Your Name *</label><input id="parentName" type="text" placeholder="Jane Smith"></div>
+          <div><label>Email Address *</label><input id="email" type="email" placeholder="jane@email.com"></div>
         </div>
         <label>Phone (optional)</label>
         <input id="phone" type="tel" placeholder="(614) 555-0100">
@@ -242,10 +133,7 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
       <div class="card">
         <p class="section-label">THE GRADUATE</p>
         <div class="row2">
-          <div>
-            <label>Graduate's Full Name *</label>
-            <input id="gradName" type="text" placeholder="Marcus Smith">
-          </div>
+          <div><label>Graduate's Full Name *</label><input id="gradName" type="text" placeholder="Marcus Smith"></div>
           <div>
             <label>Graduating Grade / Level *</label>
             <select id="grade">
@@ -262,12 +150,12 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
         <input id="school" type="text" placeholder="Columbus East Middle School">
       </div>
     </div>
-
+ 
     <!-- STEP 2: Products -->
     <div id="step-1" class="step-hidden">
       <div class="card">
         <p class="section-label">SELECT YOUR PRODUCTS</p>
-
+ 
         <!-- Figurine -->
         <div class="product-toggle" id="pt-figurine">
           <div class="product-toggle-hd" onclick="toggleProduct('figurine')">
@@ -281,38 +169,24 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
           </div>
           <div class="product-body" id="pb-figurine" style="display:none">
             <p class="section-label" style="margin-top:10px">FIGURINE STYLE</p>
-            <div class="style-grid" id="sg-fstyle">
+            <div class="style-grid">
               <div class="style-btn" data-group="fstyle" data-val="claymation" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span><span class="sb-label">Claymation</span><span class="sb-desc">Soft clay texture</span></div>
               <div class="style-btn" data-group="fstyle" data-val="funko" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bear"/></svg></span><span class="sb-label">Funko Pop</span><span class="sb-desc">Big head collectible</span></div>
               <div class="style-btn" data-group="fstyle" data-val="realistic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-person"/></svg></span><span class="sb-label">Realistic</span><span class="sb-desc">True-to-life sculpt</span></div>
             </div>
             <p class="section-label" style="margin-top:16px">OUTFIT</p>
-            <div class="style-grid" id="sg-ffit">
+            <div class="style-grid">
               <div class="style-btn" data-group="ffit" data-val="grad" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg></span><span class="sb-label">Grad Fit</span><span class="sb-desc">Cap &amp; gown</span></div>
               <div class="style-btn" data-group="ffit" data-val="photo" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-camera"/></svg></span><span class="sb-label">My Photo</span><span class="sb-desc">Upload their look</span></div>
               <div class="style-btn" data-group="ffit" data-val="career" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-rocket"/></svg></span><span class="sb-label">Career Fit</span><span class="sb-desc">Dream job uniform</span></div>
             </div>
-            <div id="photoUploadSection" style="display:none; margin-top:24px;">
-              <p style="font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.08em; margin-bottom:8px;">📸 REFERENCE PHOTO</p>
-              <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
-                Upload a clear photo of your graduate — front-facing works best. We use this to capture their likeness for the figurine.
-              </p>
-              <div id="uploadBox" onclick="openCloudinaryUploader()"
-                style="border:2px dashed var(--border); border-radius:10px; padding:28px 20px;
-                       text-align:center; cursor:pointer; transition:border-color .2s; background:var(--surface2);"
-                onmouseover="this.style.borderColor='var(--gold)'"
-                onmouseout="this.style.borderColor=state.fields.photoUrl?'var(--gold)':'var(--border)'">
-                <div id="uploadPrompt">
-                  <div style="font-size:30px; margin-bottom:8px;">📷</div>
-                  <div style="font-size:14px; font-weight:700; color:var(--cream); margin-bottom:4px;">Click to Upload Photo</div>
-                  <div style="font-size:12px; color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div>
-                </div>
-                <div id="uploadSuccess" style="display:none;">
-                  <div style="font-size:30px; margin-bottom:8px;">✅</div>
-                  <div style="font-size:14px; font-weight:700; color:#34D399; margin-bottom:4px;">Photo Uploaded!</div>
-                  <div id="uploadedFileName" style="font-size:12px; color:var(--muted);"></div>
-                  <div style="font-size:12px; color:var(--muted); margin-top:6px;">Click to replace</div>
-                </div>
+            <!-- Figurine photo upload — always shown when figurine is active -->
+            <div id="photoUploadSection" style="margin-top:24px;">
+              <p style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-bottom:8px;">📸 REFERENCE PHOTO</p>
+              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Upload a clear photo of your graduate — front-facing works best. We use this to capture their likeness for the figurine.</p>
+              <div class="upload-box" id="uploadBox" onclick="openFigurineUploader()">
+                <div id="uploadPrompt"><div style="font-size:30px;margin-bottom:8px;">📷</div><div style="font-size:14px;font-weight:700;color:var(--cream);margin-bottom:4px;">Click to Upload Photo</div><div style="font-size:12px;color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div></div>
+                <div id="uploadSuccess" style="display:none;"><div style="font-size:30px;margin-bottom:8px;">✅</div><div style="font-size:14px;font-weight:700;color:#34D399;margin-bottom:4px;">Photo Uploaded!</div><div id="uploadedFileName" style="font-size:12px;color:var(--muted);"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Click to replace</div></div>
               </div>
             </div>
             <div id="career-block" style="display:none;margin-top:12px">
@@ -328,11 +202,11 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
             </div>
             <div id="photo-block" style="display:none;margin-top:12px">
               <label>Photo link or outfit description</label>
-              <input id="photoUrl" type="text" placeholder="Google Drive link or describe their outfit">
+              <input id="outfitPhotoUrl" type="text" placeholder="Google Drive link or describe their outfit">
             </div>
           </div>
         </div>
-
+ 
         <!-- Comic -->
         <div class="product-toggle" id="pt-comic">
           <div class="product-toggle-hd" onclick="toggleProduct('comic')">
@@ -351,32 +225,18 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
               <div class="style-btn" data-group="comic" data-val="superhero" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></span><span class="sb-label">Superhero</span><span class="sb-desc">Western comic</span></div>
               <div class="style-btn" data-group="comic" data-val="cartoon" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bubble"/></svg></span><span class="sb-label">Cartoon Strip</span><span class="sb-desc">10 strips format</span></div>
             </div>
-            <div id="comicPhotoSection" style="display:none; margin-top:24px;">
-              <p style="font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.08em; margin-bottom:8px;">📸 REFERENCE PHOTO — COMIC</p>
-              <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
-                Upload a photo of your graduate. Our artist uses this to draw their likeness throughout the comic book.
-              </p>
-              <div id="comicUploadBox" onclick="openComicUploader()"
-                style="border:2px dashed var(--border); border-radius:10px; padding:28px 20px;
-                       text-align:center; cursor:pointer; transition:border-color .2s; background:var(--surface2);"
-                onmouseover="this.style.borderColor='var(--gold)'"
-                onmouseout="this.style.borderColor=state.fields.comicPhotoUrl?'var(--gold)':'var(--border)'">
-                <div id="comicUploadPrompt">
-                  <div style="font-size:30px; margin-bottom:8px;">📷</div>
-                  <div style="font-size:14px; font-weight:700; color:var(--cream); margin-bottom:4px;">Click to Upload Photo</div>
-                  <div style="font-size:12px; color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div>
-                </div>
-                <div id="comicUploadSuccess" style="display:none;">
-                  <div style="font-size:30px; margin-bottom:8px;">✅</div>
-                  <div style="font-size:14px; font-weight:700; color:#34D399; margin-bottom:4px;">Photo Uploaded!</div>
-                  <div id="comicUploadedFileName" style="font-size:12px; color:var(--muted);"></div>
-                  <div style="font-size:12px; color:var(--muted); margin-top:6px;">Click to replace</div>
-                </div>
+            <!-- Comic photo upload — always shown when comic is active -->
+            <div id="comicPhotoSection" style="margin-top:24px;">
+              <p style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-bottom:8px;">📸 REFERENCE PHOTO — COMIC</p>
+              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Upload a photo of your graduate. Our artist uses this to draw their likeness throughout the comic book.</p>
+              <div class="upload-box" id="comicUploadBox" onclick="openComicUploader()">
+                <div id="comicUploadPrompt"><div style="font-size:30px;margin-bottom:8px;">📷</div><div style="font-size:14px;font-weight:700;color:var(--cream);margin-bottom:4px;">Click to Upload Photo</div><div style="font-size:12px;color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div></div>
+                <div id="comicUploadSuccess" style="display:none;"><div style="font-size:30px;margin-bottom:8px;">✅</div><div style="font-size:14px;font-weight:700;color:#34D399;margin-bottom:4px;">Photo Uploaded!</div><div id="comicUploadedFileName" style="font-size:12px;color:var(--muted);"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Click to replace</div></div>
               </div>
             </div>
           </div>
         </div>
-
+ 
         <!-- Storybook -->
         <div class="product-toggle" id="pt-storybook">
           <div class="product-toggle-hd" onclick="toggleProduct('storybook')">
@@ -395,34 +255,21 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
               <div class="style-btn" data-group="story" data-val="graphic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg></span><span class="sb-label">Graphic Novel</span><span class="sb-desc">Panel spreads</span></div>
               <div class="style-btn" data-group="story" data-val="classic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span><span class="sb-label">Classic</span><span class="sb-desc">Timeless children's</span></div>
             </div>
-            <div id="storybookPhotoSection" style="display:none; margin-top:24px;">
-              <p style="font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.08em; margin-bottom:8px;">📸 REFERENCE PHOTO — STORYBOOK</p>
-              <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
-                Upload a photo of your graduate. The illustrations throughout the storybook will be based on their appearance.
-              </p>
-              <div id="storybookUploadBox" onclick="openStorybookUploader()"
-                style="border:2px dashed var(--border); border-radius:10px; padding:28px 20px;
-                       text-align:center; cursor:pointer; transition:border-color .2s; background:var(--surface2);"
-                onmouseover="this.style.borderColor='var(--gold)'"
-                onmouseout="this.style.borderColor=state.fields.storybookPhotoUrl?'var(--gold)':'var(--border)'">
-                <div id="storybookUploadPrompt">
-                  <div style="font-size:30px; margin-bottom:8px;">📷</div>
-                  <div style="font-size:14px; font-weight:700; color:var(--cream); margin-bottom:4px;">Click to Upload Photo</div>
-                  <div style="font-size:12px; color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div>
-                </div>
-                <div id="storybookUploadSuccess" style="display:none;">
-                  <div style="font-size:30px; margin-bottom:8px;">✅</div>
-                  <div style="font-size:14px; font-weight:700; color:#34D399; margin-bottom:4px;">Photo Uploaded!</div>
-                  <div id="storybookUploadedFileName" style="font-size:12px; color:var(--muted);"></div>
-                  <div style="font-size:12px; color:var(--muted); margin-top:6px;">Click to replace</div>
-                </div>
+            <!-- Storybook photo upload — always shown when storybook is active -->
+            <div id="storybookPhotoSection" style="margin-top:24px;">
+              <p style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-bottom:8px;">📸 REFERENCE PHOTO — STORYBOOK</p>
+              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Upload a photo of your graduate. The illustrations throughout the storybook will be based on their appearance.</p>
+              <div class="upload-box" id="storybookUploadBox" onclick="openStorybookUploader()">
+                <div id="storybookUploadPrompt"><div style="font-size:30px;margin-bottom:8px;">📷</div><div style="font-size:14px;font-weight:700;color:var(--cream);margin-bottom:4px;">Click to Upload Photo</div><div style="font-size:12px;color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div></div>
+                <div id="storybookUploadSuccess" style="display:none;"><div style="font-size:30px;margin-bottom:8px;">✅</div><div style="font-size:14px;font-weight:700;color:#34D399;margin-bottom:4px;">Photo Uploaded!</div><div id="storybookUploadedFileName" style="font-size:12px;color:var(--muted);"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Click to replace</div></div>
               </div>
             </div>
           </div>
         </div>
+ 
       </div>
     </div>
-
+ 
     <!-- STEP 3: Journey -->
     <div id="step-2" class="step-hidden">
       <div class="card">
@@ -436,20 +283,14 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
         <label>Their biggest dream / future goal *</label>
         <textarea id="futureGoal" placeholder="They want to become..."></textarea>
         <div class="row2">
-          <div>
-            <label>3 words that describe them</label>
-            <input id="personality" type="text" placeholder="Brave, Funny, Determined">
-          </div>
-          <div>
-            <label>A fun fact about them</label>
-            <input id="funFact" type="text" placeholder="They can name every...">
-          </div>
+          <div><label>3 words that describe them</label><input id="personality" type="text" placeholder="Brave, Funny, Determined"></div>
+          <div><label>A fun fact about them</label><input id="funFact" type="text" placeholder="They can name every..."></div>
         </div>
         <label>Dedication message (printed inside the book)</label>
         <textarea id="dedication" placeholder="To our shining star..."></textarea>
       </div>
     </div>
-
+ 
     <!-- STEP 4: Review -->
     <div id="step-3" class="step-hidden">
       <div class="card">
@@ -462,16 +303,15 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
         <p class="disclaimer">This is a pre-order. <strong style="color:var(--cream)">Nothing is due today.</strong> Payment is collected when your order is ready to ship. You'll receive a confirmation email right away, then updates at each production stage.</p>
       </div>
     </div>
-
-    <!-- Nav buttons -->
+ 
     <div class="nav-btns" id="navBtns">
       <button class="btn-back" id="backBtn" onclick="prevStep()" style="display:none">← Back</button>
       <div class="spacer"></div>
       <button class="btn-next" id="nextBtn" onclick="nextStep()">Continue →</button>
     </div>
   </div>
-
-  <!-- Success state -->
+ 
+  <!-- Success -->
   <div id="successWrap" style="display:none" class="success">
     <div class="success-icon"><svg style="width:64px;height:64px;color:var(--gold)" aria-hidden="true"><use href="#icon-grad-cap"/></svg></div>
     <div class="success-title" id="successTitle">Order Received!</div>
@@ -481,31 +321,35 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
       <p style="margin-top:8px;color:var(--muted);font-size:13px;">You'll get progress emails as we generate, print, and ship. Nothing is due until your order ships.</p>
     </div>
     <div id="successBadges"></div>
-    <div style="margin-top:28px">
-      <a href="/" style="color:var(--gold);font-weight:700;text-decoration:none;font-size:14px;">← Back to Home</a>
-    </div>
+    <div style="margin-top:28px"><a href="/" style="color:var(--gold);font-weight:700;text-decoration:none;font-size:14px;">← Back to Home</a></div>
   </div>
 </div>
-
+ 
 <script>
-// ── CLOUDINARY ───────────────────────────────────────────────────────────────
+// ── CLOUDINARY ─────────────────────────────────────────────
 const CLOUDINARY_CLOUD_NAME    = 'domb47apg';
 const CLOUDINARY_UPLOAD_PRESET = 'grad_season_uploads';
-
+const CLOUDINARY_STYLES = {
+  palette: {
+    window:'#0F1623',windowBorder:'#263050',tabIcon:'#F0B429',menuIcons:'#6B7FA3',
+    textDark:'#0C0A14',textLight:'#EDF2FF',link:'#F0B429',action:'#F0B429',
+    inactiveTabIcon:'#6B7FA3',error:'#F87171',inProgress:'#F0B429',complete:'#34D399',sourceBg:'#080C14'
+  }
+};
+ 
 // ── STATE ──────────────────────────────────────────────────
 const state = {
   step: 0,
   totalSteps: 4,
   products: { figurine: false, comic: false, storybook: false },
   styles: { fstyle:'', ffit:'', comic:'', story:'' },
-  fields: { comicPhotoUrl: '', storybookPhotoUrl: '' }
+  fields: { photoUrl:'', comicPhotoUrl:'', storybookPhotoUrl:'' }
 };
-
+ 
 const STEP_LABELS = ['Your Info','Products','Their Story','Review'];
-const PRICES = { figurine: 89, comic: 34, storybook: 44 };
-// Replace this URL after deploying your Apps Script
+const PRICES = { figurine:89, comic:34, storybook:44 };
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxakS8z3otUaCs-1R7YjLOv8DNkoHgCouFhJ2zgzpGkpSvHots_tf-d5gFbvk-hkthP/exec';
-
+ 
 // ── PROGRESS BAR ───────────────────────────────────────────
 function renderProgress() {
   const bar = document.getElementById('progressBar');
@@ -513,14 +357,10 @@ function renderProgress() {
     const cls = i < state.step ? 'done' : i === state.step ? 'active' : 'pending';
     const line = i < STEP_LABELS.length - 1
       ? `<div class="prog-line" style="background:${i < state.step ? 'var(--gold)' : 'var(--border)'}"></div>` : '';
-    return `<div class="prog-item">
-      <div class="prog-dot ${cls}">${i < state.step ? '✓' : i+1}</div>
-      <span class="prog-label" style="color:${i<=state.step?'var(--gold)':'var(--muted)'}">${lbl}</span>
-      ${line}
-    </div>`;
+    return `<div class="prog-item"><div class="prog-dot ${cls}">${i < state.step ? '✓' : i+1}</div><span class="prog-label" style="color:${i<=state.step?'var(--gold)':'var(--muted)'}">${lbl}</span>${line}</div>`;
   }).join('');
 }
-
+ 
 // ── PRODUCT TOGGLES ────────────────────────────────────────
 function toggleProduct(p) {
   state.products[p] = !state.products[p];
@@ -529,47 +369,29 @@ function toggleProduct(p) {
   document.getElementById('sw-'+p).style.background = on ? 'var(--gold)' : 'var(--surface2)';
   document.getElementById('thumb-'+p).style.transform = on ? 'translateX(20px)' : 'translateX(2px)';
   document.getElementById('pb-'+p).style.display = on ? 'block' : 'none';
-  // Show photo upload only when figurine is selected
-  const photoSection = document.getElementById('photoUploadSection');
-  if (photoSection) {
-    photoSection.style.display = state.products.figurine ? 'block' : 'none';
-  }
-  // Show comic photo upload only when comic is selected
-  const comicPhotoSection = document.getElementById('comicPhotoSection');
-  if (comicPhotoSection) {
-    comicPhotoSection.style.display = state.products.comic ? 'block' : 'none';
-  }
-  // Show storybook photo upload only when storybook is selected
-  const storybookPhotoSection = document.getElementById('storybookPhotoSection');
-  if (storybookPhotoSection) {
-    storybookPhotoSection.style.display = state.products.storybook ? 'block' : 'none';
-  }
 }
-
+ 
 // ── STYLE PICKER ───────────────────────────────────────────
 function pickStyle(btn) {
-  const g = btn.dataset.group;
-  const v = btn.dataset.val;
+  const g = btn.dataset.group, v = btn.dataset.val;
   document.querySelectorAll(`.style-btn[data-group="${g}"]`).forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   state.styles[g] = v;
   if (g === 'ffit') {
     document.getElementById('career-block').style.display = v === 'career' ? 'block' : 'none';
-    document.getElementById('photo-block').style.display = v === 'photo' ? 'block' : 'none';
+    document.getElementById('photo-block').style.display  = v === 'photo'  ? 'block' : 'none';
   }
 }
-
+ 
 // ── VALIDATION ─────────────────────────────────────────────
 function canAdvance() {
   const g = id => document.getElementById(id)?.value?.trim();
   if (state.step === 0) return g('parentName') && g('email') && g('gradName') && g('grade') && g('school');
   if (state.step === 1) {
-    const any = Object.values(state.products).some(Boolean);
-    if (!any) return false;
+    if (!Object.values(state.products).some(Boolean)) return false;
     if (state.products.figurine && (!state.styles.fstyle || !state.styles.ffit)) return false;
     if (state.products.figurine && state.styles.ffit === 'career' && !g('careerChoice')) return false;
-    // Require a reference when the family chooses a photo-based outfit so production is not blocked later.
-    if (state.products.figurine && state.styles.ffit === 'photo' && !g('photoUrl')) return false;
+    if (state.products.figurine && state.styles.ffit === 'photo' && !g('outfitPhotoUrl')) return false;
     if (state.products.comic && !state.styles.comic) return false;
     if (state.products.storybook && !state.styles.story) return false;
     return true;
@@ -577,12 +399,10 @@ function canAdvance() {
   if (state.step === 2) return g('favMemory') && g('proudMoment') && g('futureGoal');
   return true;
 }
-
+ 
 // ── STEP NAVIGATION ────────────────────────────────────────
 function showStep(n) {
-  for (let i = 0; i < state.totalSteps; i++) {
-    document.getElementById('step-'+i).classList.toggle('step-hidden', i !== n);
-  }
+  for (let i = 0; i < state.totalSteps; i++) document.getElementById('step-'+i).classList.toggle('step-hidden', i !== n);
   document.getElementById('backBtn').style.display = n > 0 ? 'inline-block' : 'none';
   const nextBtn = document.getElementById('nextBtn');
   if (n === state.totalSteps - 1) {
@@ -590,50 +410,29 @@ function showStep(n) {
     buildReview();
   } else {
     const existing = document.getElementById('nextBtn');
-    existing.className = 'btn-next';
-    existing.textContent = 'Continue →';
-    existing.onclick = nextStep;
+    existing.className = 'btn-next'; existing.textContent = 'Continue →'; existing.onclick = nextStep;
   }
   renderProgress();
 }
-
-function nextStep() {
-  if (!canAdvance()) return;
-  state.step = Math.min(state.step + 1, state.totalSteps - 1);
-  showStep(state.step);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function prevStep() {
-  state.step = Math.max(state.step - 1, 0);
-  showStep(state.step);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
+function nextStep() { if (!canAdvance()) return; state.step = Math.min(state.step+1, state.totalSteps-1); showStep(state.step); window.scrollTo({top:0,behavior:'smooth'}); }
+function prevStep() { state.step = Math.max(state.step-1, 0); showStep(state.step); window.scrollTo({top:0,behavior:'smooth'}); }
+ 
 // ── TOTAL ──────────────────────────────────────────────────
-function calcTotal() {
-  return Object.entries(state.products).reduce((s,[k,v]) => v ? s + PRICES[k] : s, 0);
-}
-
+function calcTotal() { return Object.entries(state.products).reduce((s,[k,v]) => v ? s+PRICES[k] : s, 0); }
+ 
 // ── REVIEW ─────────────────────────────────────────────────
 function buildReview() {
   const g = id => document.getElementById(id)?.value?.trim() || '';
   const rows = [
-    ['Graduate', g('gradName')],
-    ['Grade', g('grade')],
-    ['School', g('school')],
-    ['Email', g('email')],
-    state.products.figurine && ['Figurine', `${state.styles.fstyle} — ${state.styles.ffit}${state.styles.ffit==='career'?' ('+g('careerChoice')+')':''}`],
-    state.products.comic && ['Comic', state.styles.comic],
+    ['Graduate', g('gradName')], ['Grade', g('grade')], ['School', g('school')], ['Email', g('email')],
+    state.products.figurine  && ['Figurine',  `${state.styles.fstyle} — ${state.styles.ffit}${state.styles.ffit==='career'?' ('+g('careerChoice')+')':''}`],
+    state.products.comic     && ['Comic',     state.styles.comic],
     state.products.storybook && ['Storybook', state.styles.story],
   ].filter(Boolean);
-
-  document.getElementById('reviewTable').innerHTML = rows.map(([k,v]) =>
-    `<div class="review-row"><span class="rk">${k}</span><span class="rv">${v}</span></div>`
-  ).join('');
+  document.getElementById('reviewTable').innerHTML = rows.map(([k,v]) => `<div class="review-row"><span class="rk">${k}</span><span class="rv">${v}</span></div>`).join('');
   document.getElementById('totalDisplay').textContent = '$' + calcTotal();
 }
-
+ 
 // ── SUBMIT ─────────────────────────────────────────────────
 async function submitOrder() {
   const g = id => document.getElementById(id)?.value?.trim() || '';
@@ -641,170 +440,78 @@ async function submitOrder() {
     parentName: g('parentName'), email: g('email'), phone: g('phone'),
     gradName: g('gradName'), grade: g('grade'), school: g('school'),
     wantsFigurine: state.products.figurine, figurineStyle: state.styles.fstyle,
-    figurineFit: state.styles.ffit, careerChoice: g('careerChoice'), photoUrl: state.fields.photoUrl || '',
+    figurineFit: state.styles.ffit, careerChoice: g('careerChoice'),
+    photoUrl: state.fields.photoUrl || '',
     wantsComic: state.products.comic, comicStyle: state.styles.comic,
-    comicPhotoUrl:     state.fields.comicPhotoUrl     || '',
+    comicPhotoUrl: state.fields.comicPhotoUrl || '',
     wantsStorybook: state.products.storybook, storybookStyle: state.styles.story,
     storybookPhotoUrl: state.fields.storybookPhotoUrl || '',
     favMemory: g('favMemory'), challenge: g('challenge'), proudMoment: g('proudMoment'),
     futureGoal: g('futureGoal'), personality: g('personality'), funFact: g('funFact'),
-    dedication: g('dedication'), orderTotal: calcTotal(),
-    submittedAt: new Date().toISOString()
+    dedication: g('dedication'), orderTotal: calcTotal(), submittedAt: new Date().toISOString()
   };
-
-  try {
-    await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-  } catch(e) { console.warn('Fetch note:', e); }
-
-  // Show success regardless (no-cors opaque response)
+  try { await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }); }
+  catch(e) { console.warn('Fetch note:', e); }
   document.getElementById('formWrap').style.display = 'none';
   document.getElementById('successWrap').style.display = 'block';
   document.getElementById('successTitle').textContent = `${g('gradName')}'s Order Is In!`;
   document.getElementById('successSub').textContent = `We have everything we need. Watch ${g('email')} for updates.`;
   document.getElementById('confirmEmail').textContent = g('email');
   const badges = [];
-  if (state.products.figurine) badges.push('Figurine');
-  if (state.products.comic) badges.push('Comic');
+  if (state.products.figurine)  badges.push('Figurine');
+  if (state.products.comic)     badges.push('Comic');
   if (state.products.storybook) badges.push('Storybook');
   document.getElementById('successBadges').innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join('');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top:0, behavior:'smooth' });
 }
-
-// ── CLOUDINARY UPLOADER ────────────────────────────────────
-function openCloudinaryUploader() {
-  const widget = cloudinary.createUploadWidget(
-    {
-      cloudName: CLOUDINARY_CLOUD_NAME,
-      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-      sources: ['local', 'camera'],
-      multiple: false,
-      maxFileSize: 10000000,
-      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
-      folder: 'grad-season',
-      cropping: false,
-      styles: {
-        palette: {
-          window: '#0F1623',
-          windowBorder: '#263050',
-          tabIcon: '#F0B429',
-          menuIcons: '#6B7FA3',
-          textDark: '#0C0A14',
-          textLight: '#EDF2FF',
-          link: '#F0B429',
-          action: '#F0B429',
-          inactiveTabIcon: '#6B7FA3',
-          error: '#F87171',
-          inProgress: '#F0B429',
-          complete: '#34D399',
-          sourceBg: '#080C14'
-        }
-      }
-    },
-    (error, result) => {
-      if (!error && result && result.event === 'success') {
-        state.fields.photoUrl = result.info.secure_url;
-        document.getElementById('uploadPrompt').style.display = 'none';
-        document.getElementById('uploadSuccess').style.display = 'block';
-        document.getElementById('uploadedFileName').textContent = result.info.original_filename;
-        document.getElementById('uploadBox').style.borderColor = 'var(--gold)';
-      }
-    }
+ 
+// ── CLOUDINARY UPLOADERS ───────────────────────────────────
+function buildWidget(folder, onSuccess) {
+  return cloudinary.createUploadWidget(
+    { cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+      sources: ['local','camera'], multiple: false, maxFileSize: 10000000,
+      clientAllowedFormats: ['jpg','jpeg','png','heic','webp'],
+      folder: folder, cropping: false, styles: CLOUDINARY_STYLES },
+    (error, result) => { if (!error && result && result.event === 'success') onSuccess(result.info); }
   );
-  widget.open();
 }
-
+ 
+function openFigurineUploader() {
+  buildWidget('grad-season/figurines', (info) => {
+    state.fields.photoUrl = info.secure_url;
+    document.getElementById('uploadPrompt').style.display = 'none';
+    document.getElementById('uploadSuccess').style.display = 'block';
+    document.getElementById('uploadedFileName').textContent = info.original_filename;
+    document.getElementById('uploadBox').style.borderColor = 'var(--gold)';
+  }).open();
+}
+ 
 function openComicUploader() {
-  const widget = cloudinary.createUploadWidget(
-    {
-      cloudName: CLOUDINARY_CLOUD_NAME,
-      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-      sources: ['local', 'camera'],
-      multiple: false,
-      maxFileSize: 10000000,
-      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
-      folder: 'grad-season/comics',
-      cropping: false,
-      styles: {
-        palette: {
-          window: '#0F1623',
-          windowBorder: '#263050',
-          tabIcon: '#F0B429',
-          menuIcons: '#6B7FA3',
-          textDark: '#0C0A14',
-          textLight: '#EDF2FF',
-          link: '#F0B429',
-          action: '#F0B429',
-          inactiveTabIcon: '#6B7FA3',
-          error: '#F87171',
-          inProgress: '#F0B429',
-          complete: '#34D399',
-          sourceBg: '#080C14'
-        }
-      }
-    },
-    (error, result) => {
-      if (!error && result && result.event === 'success') {
-        state.fields.comicPhotoUrl = result.info.secure_url;
-        document.getElementById('comicUploadPrompt').style.display = 'none';
-        document.getElementById('comicUploadSuccess').style.display = 'block';
-        document.getElementById('comicUploadedFileName').textContent = result.info.original_filename;
-        document.getElementById('comicUploadBox').style.borderColor = 'var(--gold)';
-      }
-    }
-  );
-  widget.open();
+  buildWidget('grad-season/comics', (info) => {
+    state.fields.comicPhotoUrl = info.secure_url;
+    document.getElementById('comicUploadPrompt').style.display = 'none';
+    document.getElementById('comicUploadSuccess').style.display = 'block';
+    document.getElementById('comicUploadedFileName').textContent = info.original_filename;
+    document.getElementById('comicUploadBox').style.borderColor = 'var(--gold)';
+  }).open();
 }
-
+ 
 function openStorybookUploader() {
-  const widget = cloudinary.createUploadWidget(
-    {
-      cloudName: CLOUDINARY_CLOUD_NAME,
-      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-      sources: ['local', 'camera'],
-      multiple: false,
-      maxFileSize: 10000000,
-      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
-      folder: 'grad-season/storybooks',
-      cropping: false,
-      styles: {
-        palette: {
-          window: '#0F1623',
-          windowBorder: '#263050',
-          tabIcon: '#F0B429',
-          menuIcons: '#6B7FA3',
-          textDark: '#0C0A14',
-          textLight: '#EDF2FF',
-          link: '#F0B429',
-          action: '#F0B429',
-          inactiveTabIcon: '#6B7FA3',
-          error: '#F87171',
-          inProgress: '#F0B429',
-          complete: '#34D399',
-          sourceBg: '#080C14'
-        }
-      }
-    },
-    (error, result) => {
-      if (!error && result && result.event === 'success') {
-        state.fields.storybookPhotoUrl = result.info.secure_url;
-        document.getElementById('storybookUploadPrompt').style.display = 'none';
-        document.getElementById('storybookUploadSuccess').style.display = 'block';
-        document.getElementById('storybookUploadedFileName').textContent = result.info.original_filename;
-        document.getElementById('storybookUploadBox').style.borderColor = 'var(--gold)';
-      }
-    }
-  );
-  widget.open();
+  buildWidget('grad-season/storybooks', (info) => {
+    state.fields.storybookPhotoUrl = info.secure_url;
+    document.getElementById('storybookUploadPrompt').style.display = 'none';
+    document.getElementById('storybookUploadSuccess').style.display = 'block';
+    document.getElementById('storybookUploadedFileName').textContent = info.original_filename;
+    document.getElementById('storybookUploadBox').style.borderColor = 'var(--gold)';
+  }).open();
 }
-
+ 
 // ── LIVE VALIDATION ────────────────────────────────────────
 document.addEventListener('input', () => {
   const btn = document.getElementById('nextBtn');
-  if (btn && btn.classList.contains('btn-next')) {
-    btn.disabled = !canAdvance();
-  }
+  if (btn && btn.classList.contains('btn-next')) btn.disabled = !canAdvance();
 });
-
+ 
 // ── INIT ───────────────────────────────────────────────────
 renderProgress();
 showStep(0);
