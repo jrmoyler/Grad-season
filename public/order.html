@@ -111,6 +111,7 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
   .prog-line{width:8px;}
 }
 </style>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -291,6 +292,29 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
               <div class="style-btn" data-group="ffit" data-val="photo" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-camera"/></svg></span><span class="sb-label">My Photo</span><span class="sb-desc">Upload their look</span></div>
               <div class="style-btn" data-group="ffit" data-val="career" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-rocket"/></svg></span><span class="sb-label">Career Fit</span><span class="sb-desc">Dream job uniform</span></div>
             </div>
+            <div id="photoUploadSection" style="display:none; margin-top:24px;">
+              <p style="font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.08em; margin-bottom:8px;">📸 REFERENCE PHOTO</p>
+              <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
+                Upload a clear photo of your graduate — front-facing works best. We use this to capture their likeness for the figurine.
+              </p>
+              <div id="uploadBox" onclick="openCloudinaryUploader()"
+                style="border:2px dashed var(--border); border-radius:10px; padding:28px 20px;
+                       text-align:center; cursor:pointer; transition:border-color .2s; background:var(--surface2);"
+                onmouseover="this.style.borderColor='var(--gold)'"
+                onmouseout="this.style.borderColor=state.fields.photoUrl?'var(--gold)':'var(--border)'">
+                <div id="uploadPrompt">
+                  <div style="font-size:30px; margin-bottom:8px;">📷</div>
+                  <div style="font-size:14px; font-weight:700; color:var(--cream); margin-bottom:4px;">Click to Upload Photo</div>
+                  <div style="font-size:12px; color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div>
+                </div>
+                <div id="uploadSuccess" style="display:none;">
+                  <div style="font-size:30px; margin-bottom:8px;">✅</div>
+                  <div style="font-size:14px; font-weight:700; color:#34D399; margin-bottom:4px;">Photo Uploaded!</div>
+                  <div id="uploadedFileName" style="font-size:12px; color:var(--muted);"></div>
+                  <div style="font-size:12px; color:var(--muted); margin-top:6px;">Click to replace</div>
+                </div>
+              </div>
+            </div>
             <div id="career-block" style="display:none;margin-top:12px">
               <label>Future Career</label>
               <select id="careerChoice">
@@ -418,6 +442,10 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
 </div>
 
 <script>
+// ── CLOUDINARY ───────────────────────────────────────────────────────────────
+const CLOUDINARY_CLOUD_NAME    = 'domb47apg';
+const CLOUDINARY_UPLOAD_PRESET = 'grad_season_uploads';
+
 // ── STATE ──────────────────────────────────────────────────
 const state = {
   step: 0,
@@ -455,6 +483,11 @@ function toggleProduct(p) {
   document.getElementById('sw-'+p).style.background = on ? 'var(--gold)' : 'var(--surface2)';
   document.getElementById('thumb-'+p).style.transform = on ? 'translateX(20px)' : 'translateX(2px)';
   document.getElementById('pb-'+p).style.display = on ? 'block' : 'none';
+  // Show photo upload only when figurine is selected
+  const photoSection = document.getElementById('photoUploadSection');
+  if (photoSection) {
+    photoSection.style.display = state.products.figurine ? 'block' : 'none';
+  }
 }
 
 // ── STYLE PICKER ───────────────────────────────────────────
@@ -552,7 +585,7 @@ async function submitOrder() {
     parentName: g('parentName'), email: g('email'), phone: g('phone'),
     gradName: g('gradName'), grade: g('grade'), school: g('school'),
     wantsFigurine: state.products.figurine, figurineStyle: state.styles.fstyle,
-    figurineFit: state.styles.ffit, careerChoice: g('careerChoice'), photoUrl: g('photoUrl'),
+    figurineFit: state.styles.ffit, careerChoice: g('careerChoice'), photoUrl: state.fields.photoUrl || '',
     wantsComic: state.products.comic, comicStyle: state.styles.comic,
     wantsStorybook: state.products.storybook, storybookStyle: state.styles.story,
     favMemory: g('favMemory'), challenge: g('challenge'), proudMoment: g('proudMoment'),
@@ -577,6 +610,49 @@ async function submitOrder() {
   if (state.products.storybook) badges.push('Storybook');
   document.getElementById('successBadges').innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join('');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── CLOUDINARY UPLOADER ────────────────────────────────────
+function openCloudinaryUploader() {
+  const widget = cloudinary.createUploadWidget(
+    {
+      cloudName: CLOUDINARY_CLOUD_NAME,
+      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+      sources: ['local', 'camera'],
+      multiple: false,
+      maxFileSize: 10000000,
+      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
+      folder: 'grad-season',
+      cropping: false,
+      styles: {
+        palette: {
+          window: '#0F1623',
+          windowBorder: '#263050',
+          tabIcon: '#F0B429',
+          menuIcons: '#6B7FA3',
+          textDark: '#0C0A14',
+          textLight: '#EDF2FF',
+          link: '#F0B429',
+          action: '#F0B429',
+          inactiveTabIcon: '#6B7FA3',
+          error: '#F87171',
+          inProgress: '#F0B429',
+          complete: '#34D399',
+          sourceBg: '#080C14'
+        }
+      }
+    },
+    (error, result) => {
+      if (!error && result && result.event === 'success') {
+        state.fields.photoUrl = result.info.secure_url;
+        document.getElementById('uploadPrompt').style.display = 'none';
+        document.getElementById('uploadSuccess').style.display = 'block';
+        document.getElementById('uploadedFileName').textContent = result.info.original_filename;
+        document.getElementById('uploadBox').style.borderColor = 'var(--gold)';
+      }
+    }
+  );
+  widget.open();
 }
 
 // ── LIVE VALIDATION ────────────────────────────────────────
