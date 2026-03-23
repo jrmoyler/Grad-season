@@ -351,6 +351,29 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
               <div class="style-btn" data-group="comic" data-val="superhero" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></span><span class="sb-label">Superhero</span><span class="sb-desc">Western comic</span></div>
               <div class="style-btn" data-group="comic" data-val="cartoon" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bubble"/></svg></span><span class="sb-label">Cartoon Strip</span><span class="sb-desc">10 strips format</span></div>
             </div>
+            <div id="comicPhotoSection" style="display:none; margin-top:24px;">
+              <p style="font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.08em; margin-bottom:8px;">📸 REFERENCE PHOTO — COMIC</p>
+              <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
+                Upload a photo of your graduate. Our artist uses this to draw their likeness throughout the comic book.
+              </p>
+              <div id="comicUploadBox" onclick="openComicUploader()"
+                style="border:2px dashed var(--border); border-radius:10px; padding:28px 20px;
+                       text-align:center; cursor:pointer; transition:border-color .2s; background:var(--surface2);"
+                onmouseover="this.style.borderColor='var(--gold)'"
+                onmouseout="this.style.borderColor=state.fields.comicPhotoUrl?'var(--gold)':'var(--border)'">
+                <div id="comicUploadPrompt">
+                  <div style="font-size:30px; margin-bottom:8px;">📷</div>
+                  <div style="font-size:14px; font-weight:700; color:var(--cream); margin-bottom:4px;">Click to Upload Photo</div>
+                  <div style="font-size:12px; color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div>
+                </div>
+                <div id="comicUploadSuccess" style="display:none;">
+                  <div style="font-size:30px; margin-bottom:8px;">✅</div>
+                  <div style="font-size:14px; font-weight:700; color:#34D399; margin-bottom:4px;">Photo Uploaded!</div>
+                  <div id="comicUploadedFileName" style="font-size:12px; color:var(--muted);"></div>
+                  <div style="font-size:12px; color:var(--muted); margin-top:6px;">Click to replace</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -371,6 +394,29 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
               <div class="style-btn" data-group="story" data-val="watercolor" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-palette"/></svg></span><span class="sb-label">Watercolor</span><span class="sb-desc">Classic picture book</span></div>
               <div class="style-btn" data-group="story" data-val="graphic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg></span><span class="sb-label">Graphic Novel</span><span class="sb-desc">Panel spreads</span></div>
               <div class="style-btn" data-group="story" data-val="classic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span><span class="sb-label">Classic</span><span class="sb-desc">Timeless children's</span></div>
+            </div>
+            <div id="storybookPhotoSection" style="display:none; margin-top:24px;">
+              <p style="font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.08em; margin-bottom:8px;">📸 REFERENCE PHOTO — STORYBOOK</p>
+              <p style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
+                Upload a photo of your graduate. The illustrations throughout the storybook will be based on their appearance.
+              </p>
+              <div id="storybookUploadBox" onclick="openStorybookUploader()"
+                style="border:2px dashed var(--border); border-radius:10px; padding:28px 20px;
+                       text-align:center; cursor:pointer; transition:border-color .2s; background:var(--surface2);"
+                onmouseover="this.style.borderColor='var(--gold)'"
+                onmouseout="this.style.borderColor=state.fields.storybookPhotoUrl?'var(--gold)':'var(--border)'">
+                <div id="storybookUploadPrompt">
+                  <div style="font-size:30px; margin-bottom:8px;">📷</div>
+                  <div style="font-size:14px; font-weight:700; color:var(--cream); margin-bottom:4px;">Click to Upload Photo</div>
+                  <div style="font-size:12px; color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div>
+                </div>
+                <div id="storybookUploadSuccess" style="display:none;">
+                  <div style="font-size:30px; margin-bottom:8px;">✅</div>
+                  <div style="font-size:14px; font-weight:700; color:#34D399; margin-bottom:4px;">Photo Uploaded!</div>
+                  <div id="storybookUploadedFileName" style="font-size:12px; color:var(--muted);"></div>
+                  <div style="font-size:12px; color:var(--muted); margin-top:6px;">Click to replace</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -452,7 +498,7 @@ const state = {
   totalSteps: 4,
   products: { figurine: false, comic: false, storybook: false },
   styles: { fstyle:'', ffit:'', comic:'', story:'' },
-  fields: {}
+  fields: { comicPhotoUrl: '', storybookPhotoUrl: '' }
 };
 
 const STEP_LABELS = ['Your Info','Products','Their Story','Review'];
@@ -487,6 +533,16 @@ function toggleProduct(p) {
   const photoSection = document.getElementById('photoUploadSection');
   if (photoSection) {
     photoSection.style.display = state.products.figurine ? 'block' : 'none';
+  }
+  // Show comic photo upload only when comic is selected
+  const comicPhotoSection = document.getElementById('comicPhotoSection');
+  if (comicPhotoSection) {
+    comicPhotoSection.style.display = state.products.comic ? 'block' : 'none';
+  }
+  // Show storybook photo upload only when storybook is selected
+  const storybookPhotoSection = document.getElementById('storybookPhotoSection');
+  if (storybookPhotoSection) {
+    storybookPhotoSection.style.display = state.products.storybook ? 'block' : 'none';
   }
 }
 
@@ -587,7 +643,9 @@ async function submitOrder() {
     wantsFigurine: state.products.figurine, figurineStyle: state.styles.fstyle,
     figurineFit: state.styles.ffit, careerChoice: g('careerChoice'), photoUrl: state.fields.photoUrl || '',
     wantsComic: state.products.comic, comicStyle: state.styles.comic,
+    comicPhotoUrl:     state.fields.comicPhotoUrl     || '',
     wantsStorybook: state.products.storybook, storybookStyle: state.styles.story,
+    storybookPhotoUrl: state.fields.storybookPhotoUrl || '',
     favMemory: g('favMemory'), challenge: g('challenge'), proudMoment: g('proudMoment'),
     futureGoal: g('futureGoal'), personality: g('personality'), funFact: g('funFact'),
     dedication: g('dedication'), orderTotal: calcTotal(),
@@ -649,6 +707,90 @@ function openCloudinaryUploader() {
         document.getElementById('uploadSuccess').style.display = 'block';
         document.getElementById('uploadedFileName').textContent = result.info.original_filename;
         document.getElementById('uploadBox').style.borderColor = 'var(--gold)';
+      }
+    }
+  );
+  widget.open();
+}
+
+function openComicUploader() {
+  const widget = cloudinary.createUploadWidget(
+    {
+      cloudName: CLOUDINARY_CLOUD_NAME,
+      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+      sources: ['local', 'camera'],
+      multiple: false,
+      maxFileSize: 10000000,
+      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
+      folder: 'grad-season/comics',
+      cropping: false,
+      styles: {
+        palette: {
+          window: '#0F1623',
+          windowBorder: '#263050',
+          tabIcon: '#F0B429',
+          menuIcons: '#6B7FA3',
+          textDark: '#0C0A14',
+          textLight: '#EDF2FF',
+          link: '#F0B429',
+          action: '#F0B429',
+          inactiveTabIcon: '#6B7FA3',
+          error: '#F87171',
+          inProgress: '#F0B429',
+          complete: '#34D399',
+          sourceBg: '#080C14'
+        }
+      }
+    },
+    (error, result) => {
+      if (!error && result && result.event === 'success') {
+        state.fields.comicPhotoUrl = result.info.secure_url;
+        document.getElementById('comicUploadPrompt').style.display = 'none';
+        document.getElementById('comicUploadSuccess').style.display = 'block';
+        document.getElementById('comicUploadedFileName').textContent = result.info.original_filename;
+        document.getElementById('comicUploadBox').style.borderColor = 'var(--gold)';
+      }
+    }
+  );
+  widget.open();
+}
+
+function openStorybookUploader() {
+  const widget = cloudinary.createUploadWidget(
+    {
+      cloudName: CLOUDINARY_CLOUD_NAME,
+      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+      sources: ['local', 'camera'],
+      multiple: false,
+      maxFileSize: 10000000,
+      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'heic', 'webp'],
+      folder: 'grad-season/storybooks',
+      cropping: false,
+      styles: {
+        palette: {
+          window: '#0F1623',
+          windowBorder: '#263050',
+          tabIcon: '#F0B429',
+          menuIcons: '#6B7FA3',
+          textDark: '#0C0A14',
+          textLight: '#EDF2FF',
+          link: '#F0B429',
+          action: '#F0B429',
+          inactiveTabIcon: '#6B7FA3',
+          error: '#F87171',
+          inProgress: '#F0B429',
+          complete: '#34D399',
+          sourceBg: '#080C14'
+        }
+      }
+    },
+    (error, result) => {
+      if (!error && result && result.event === 'success') {
+        state.fields.storybookPhotoUrl = result.info.secure_url;
+        document.getElementById('storybookUploadPrompt').style.display = 'none';
+        document.getElementById('storybookUploadSuccess').style.display = 'block';
+        document.getElementById('storybookUploadedFileName').textContent = result.info.original_filename;
+        document.getElementById('storybookUploadBox').style.borderColor = 'var(--gold)';
       }
     }
   );
