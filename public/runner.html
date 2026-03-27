@@ -26,6 +26,36 @@
     font-family: 'DM Mono', 'Fira Code', 'Courier New', monospace;
     min-height: 100vh;
     padding: 24px;
+    transform-origin: left center;
+    animation: pageTurnIn .95s cubic-bezier(.2,.72,.16,1) both;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(96deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,.28) 100%);
+    mix-blend-mode: screen;
+    transform-origin: left center;
+    animation: pageGlossIn .95s ease-out both;
+  }
+
+  @keyframes pageTurnIn {
+    0% { opacity: 0; transform: perspective(1800px) rotateY(-10deg) translateX(-14px) scale(.992); }
+    60% { opacity: 1; }
+    100% { opacity: 1; transform: perspective(1800px) rotateY(0deg) translateX(0) scale(1); }
+  }
+
+  @keyframes pageGlossIn {
+    0% { opacity: .75; clip-path: inset(0 0 0 88%); }
+    100% { opacity: 0; clip-path: inset(0 0 0 0); }
+  }
+
+  @keyframes chapterRise {
+    from { opacity: 0; transform: translateY(24px) rotateX(3deg); }
+    to { opacity: 1; transform: translateY(0) rotateX(0); }
   }
 
   header {
@@ -44,7 +74,7 @@
   .logo-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
   .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
 
-  .main { max-width: 900px; margin: 0 auto; }
+  .main { max-width: 900px; margin: 0 auto; transform-origin: left center; animation: chapterRise .9s cubic-bezier(.2,.7,.2,1) both .08s; }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 
@@ -53,7 +83,11 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 18px 20px;
+    animation: chapterRise .72s cubic-bezier(.2,.7,.2,1) both;
   }
+
+  .card:nth-of-type(2) { animation-delay: .06s; }
+  .card:nth-of-type(3) { animation-delay: .12s; }
 
   .card-label {
     font-size: 10px;
