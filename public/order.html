@@ -14,6 +14,7 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;padding:0 0 80px;transform-origin:left center;animation:pageTurnIn .95s cubic-bezier(.2,.72,.16,1) both;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background:linear-gradient(96deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,0) 30%,rgba(0,0,0,.28) 100%);mix-blend-mode:screen;transform-origin:left center;animation:pageGlossIn .95s ease-out both;}
+@keyframes pageTurnIn{0%{opacity:0;transform:perspective(1800px) rotateY(-10deg) translateX(-14px) scale(.992);}60%{opacity:1;}100%{opacity:1;transform:none;}}
 @keyframes pageTurnIn{0%{opacity:0;transform:perspective(1800px) rotateY(-10deg) translateX(-14px) scale(.992);}60%{opacity:1;}100%{opacity:1;transform:perspective(1800px) rotateY(0deg) translateX(0) scale(1);}}
 @keyframes pageGlossIn{0%{opacity:.75;clip-path:inset(0 0 0 88%);}100%{opacity:0;clip-path:inset(0 0 0 0);}}
 @keyframes chapterRise{from{opacity:0;transform:translateY(24px) rotateX(3deg);}to{opacity:1;transform:translateY(0) rotateX(0);}}
