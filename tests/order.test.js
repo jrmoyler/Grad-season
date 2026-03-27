@@ -40,7 +40,7 @@ function createOrderHarness() {
     grade: { value: '5th' },
     school: { value: 'Columbus East' },
     careerChoice: { value: '' },
-    photoUrl: { value: '' },
+    outfitPhotoUrl: { value: '' },
     favMemory: { value: 'The science fair.' },
     challenge: { value: 'Learning to read.' },
     proudMoment: { value: 'Winning student of the month.' },
@@ -90,7 +90,7 @@ test('order validation requires a photo/outfit description when photo fit is sel
 
   assert.equal(canAdvance(), false, 'photo fit should block progress until a description or link is provided');
 
-  document.getElementById('photoUrl').value = 'https://example.com/outfit-photo';
+  document.getElementById('outfitPhotoUrl').value = 'https://example.com/outfit-photo';
   assert.equal(canAdvance(), true);
 });
 
