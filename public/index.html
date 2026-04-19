@@ -873,7 +873,51 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
 }
 </style>
 </head>
-<body>
+<body style="padding-top:48px">
+
+<!-- PRE-ORDER CUTOFF BANNER -->
+<div id="cutoff-banner" style="
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  background:#0C0A14;
+  border-bottom:2px solid #F0B429;
+  color:#EDE8FF;
+  font-family:inherit;
+  font-size:0.82rem;
+  letter-spacing:0.04em;
+  display:flex;align-items:center;justify-content:center;
+  gap:0.75rem;
+  height:48px;
+  padding:0 1rem;
+  text-align:center;
+">
+  <span style="color:#F0B429;font-weight:700;white-space:nowrap;">Pre-Order Cutoff: April 24, 2026</span>
+  <span style="color:#FDF6E3;opacity:0.55;">—</span>
+  <span id="cutoff-timer" style="font-variant-numeric:tabular-nums;color:#FDF6E3;white-space:nowrap;">Loading…</span>
+</div>
+<script>
+(function(){
+  var deadline = new Date('2026-04-24T04:00:00Z'); // midnight ET = 04:00 UTC
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var now = new Date();
+    var diff = deadline - now;
+    var el = document.getElementById('cutoff-timer');
+    if(!el) return;
+    if(diff <= 0){
+      el.textContent = 'Pre-orders are now closed.';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    el.textContent = d + 'd ' + pad(h) + 'h ' + pad(m) + 'm ' + pad(s) + 's remaining';
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+<!-- END CUTOFF BANNER -->
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -1387,7 +1431,7 @@ a:active .icon, button:active .icon, .style-btn:active .icon { transform: transl
   <div class="footer-logo"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg> Grad Season</div>
   <div class="footer-text">
     Columbus, Ohio &nbsp;·&nbsp; Personalized graduation keepsakes &nbsp;·&nbsp; 2026<br>
-    Questions? <a href="mailto:hello@gradseason.com">hello@gradseason.com</a>
+    Questions? <a href="mailto:hybridlivinginc@gmail.com">hybridlivinginc@gmail.com</a>
   </div>
 </footer>
 
