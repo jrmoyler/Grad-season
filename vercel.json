@@ -12,6 +12,14 @@
       "dest": "/production.html"
     },
     {
+      "src": "/profile",
+      "dest": "/profile.html"
+    },
+    {
+      "src": "/order-success",
+      "dest": "/order-success.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
