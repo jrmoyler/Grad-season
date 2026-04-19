@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile & Track Order — Grad Season</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --bg: #0C0A14;
+      --surface: #15112B;
+      --surface2: #1E1940;
+      --border: #2E2855;
+      --gold: #F0B429;
+      --gold-dim: #C8952A;
+      --cream: #FDF6E3;
+      --text: #EDE8FF;
+      --muted: #8B82B0;
+      --soft: #C4BADD;
+      --green: #52D88A;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      padding-top: 44px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Cutoff Banner ── */
+    .cutoff-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 44px;
+      background: linear-gradient(90deg, #1a1400 0%, #2a1f00 40%, #1a1400 100%);
+      border-bottom: 1px solid var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .cutoff-banner::before {
+      content: '⏳';
+      font-size: 14px;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .site-header .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.02em;
+    }
+    .site-header .logo:hover { color: var(--cream); }
+    .site-header .tagline {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Main Content ── */
+    main {
+      flex: 1;
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ── Page Title ── */
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--cream);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-title .icon {
+      font-size: 1.1rem;
+    }
+
+    /* ── Form Elements ── */
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--soft);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-group input::placeholder { color: var(--muted); }
+    .form-group input:focus {
+      border-color: var(--gold-dim);
+      box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.12);
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+      color: #0C0A14;
+    }
+    .btn-gold:hover {
+      box-shadow: 0 4px 20px rgba(240, 180, 41, 0.35);
+      background: linear-gradient(135deg, #f5c040 0%, var(--gold) 100%);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--soft);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold-dim);
+      color: var(--gold);
+    }
+
+    /* ── Save Status ── */
+    .save-status {
+      font-size: 13px;
+      color: var(--green);
+      margin-top: 8px;
+      min-height: 18px;
+      transition: opacity 0.3s;
+    }
+
+    /* ── Tabs ── */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 11px 16px;
+      background: var(--surface2);
+      border: none;
+      color: var(--muted);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .tab-btn:first-child { border-right: 1px solid var(--border); }
+    .tab-btn.active {
+      background: var(--surface);
+      color: var(--gold);
+    }
+    .tab-btn:hover:not(.active) { color: var(--soft); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Spinner ── */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 3px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Error / Info message ── */
+    .track-message {
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .track-message.error {
+      background: rgba(255, 80, 80, 0.08);
+      border: 1px solid rgba(255, 80, 80, 0.25);
+      color: #ff8080;
+    }
+
+    /* ── Order Result Card ── */
+    .order-result {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .order-result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .order-id-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .order-id-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+    .grad-name {
+      font-size: 14px;
+      color: var(--soft);
+      margin-top: 2px;
+    }
+    .order-total {
+      text-align: right;
+    }
+    .order-total .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .order-total .total-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Product Badges ── */
+    .product-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .badge {
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .badge-gold {
+      background: rgba(240, 180, 41, 0.12);
+      border: 1px solid rgba(240, 180, 41, 0.3);
+      color: var(--gold);
+    }
+    .badge-green {
+      background: rgba(82, 216, 138, 0.1);
+      border: 1px solid rgba(82, 216, 138, 0.3);
+      color: var(--green);
+    }
+    .badge-soft {
+      background: rgba(196, 186, 221, 0.1);
+      border: 1px solid rgba(196, 186, 221, 0.25);
+      color: var(--soft);
+    }
+
+    /* ── Status Progress Bar ── */
+    .status-section { }
+    .status-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .progress-steps {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .progress-fill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+      z-index: 1;
+      transition: width 0.6s ease;
+    }
+    .step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 2;
+    }
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .step.done .step-dot {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #0C0A14;
+      font-weight: 700;
+    }
+    .step.active .step-dot {
+      background: var(--surface2);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(240, 180, 41, 0.2);
+    }
+    .step-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.3;
+      max-width: 70px;
+    }
+    .step.done .step-name,
+    .step.active .step-name { color: var(--gold); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+    footer a {
+      color: var(--gold-dim);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--gold); }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .card { padding: 22px 18px; }
+      .order-result { padding: 18px; }
+      .step-name { font-size: 10px; max-width: 54px; }
+      .step-dot { width: 22px; height: 22px; font-size: 10px; }
+      .progress-steps::before { top: 11px; }
+      .progress-fill { top: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cutoff Banner -->
+  <div class="cutoff-banner">Pre-Order Cutoff: April 24, 2026</div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="/">Grad Season ⊕</a>
+    <p class="tagline">Commemorate the milestone. Cherish the moment.</p>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div>
+      <h1 class="page-title">My Profile &amp; Orders</h1>
+      <p class="page-subtitle">Manage your info and track your graduation keepsakes.</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">👤</span> My Profile</h2>
+      <form id="profileForm" novalidate>
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="e.g. Jordan" autocomplete="given-name" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <button type="submit" class="btn btn-gold">Save Profile</button>
+        <p class="save-status" id="saveStatus" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <!-- Track Order Card -->
+    <div class="card">
+      <h2 class="card-title"><span class="icon">📦</span> Track Your Order</h2>
+
+      <!-- Tabs -->
+      <div class="tab-bar" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-tab="email">Track by Email</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="orderId">Track by Order ID</button>
+      </div>
+
+      <!-- Tab: Email -->
+      <div class="tab-panel active" id="panel-email">
+        <div class="form-group">
+          <label for="trackEmail">Email Address Used at Checkout</label>
+          <input type="email" id="trackEmail" placeholder="you@example.com" autocomplete="email" />
+        </div>
+      </div>
+
+      <!-- Tab: Order ID -->
+      <div class="tab-panel" id="panel-orderId">
+        <div class="form-group">
+          <label for="trackOrderId">Order ID</label>
+          <input type="text" id="trackOrderId" placeholder="e.g. GS-2026-00123" autocomplete="off" />
+        </div>
+      </div>
+
+      <button class="btn btn-gold" id="trackBtn">Track Order</button>
+
+      <!-- Results area -->
+      <div id="trackResult" style="margin-top:24px;"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    Columbus, Ohio &nbsp;·&nbsp; Grad Season &nbsp;·&nbsp; 2026 &nbsp;·&nbsp;
+    <a href="mailto:hybridlivinginc@gmail.com">hybridlivinginc@gmail.com</a>
+  </footer>
+
+  <script>
+    /* ── Profile: load from localStorage ── */
+    (function loadProfile() {
+      const saved = JSON.parse(localStorage.getItem('gsProfile') || '{}');
+      if (saved.firstName) document.getElementById('firstName').value = saved.firstName;
+      if (saved.email) document.getElementById('email').value = saved.email;
+    })();
+
+    /* ── Profile: save to localStorage ── */
+    document.getElementById('profileForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const firstName = document.getElementById('firstName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      localStorage.setItem('gsProfile', JSON.stringify({ firstName, email }));
+      const status = document.getElementById('saveStatus');
+      status.textContent = '✓ Profile saved!';
+      setTimeout(() => { status.textContent = ''; }, 3000);
+    });
+
+    /* ── Tabs ── */
+    var activeTab = 'email';
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const tab = btn.dataset.tab;
+        if (tab === activeTab) return;
+        activeTab = tab;
+        document.querySelectorAll('.tab-btn').forEach(function (b) {
+          b.classList.toggle('active', b.dataset.tab === tab);
+          b.setAttribute('aria-selected', b.dataset.tab === tab ? 'true' : 'false');
+        });
+        document.querySelectorAll('.tab-panel').forEach(function (p) {
+          p.classList.toggle('active', p.id === 'panel-' + tab);
+        });
+        document.getElementById('trackResult').innerHTML = '';
+      });
+    });
+
+    /* ── Pre-fill email from saved profile ── */
+    (function prefill() {
+      const saved = JSON.parse(localStorage.getItem('gsProfile') || '{}');
+      if (saved.email) {
+        const field = document.getElementById('trackEmail');
+        if (!field.value) field.value = saved.email;
+      }
+    })();
+
+    /* ── Status stages ── */
+    var STATUS_STAGES = ['Order Received', 'In Production', 'Ready to Ship', 'Shipped'];
+
+    function stageIndex(status) {
+      if (!status) return 0;
+      var s = status.toLowerCase();
+      if (s.includes('shipped') || s.includes('delivered')) return 3;
+      if (s.includes('ready') || s.includes('ship')) return 2;
+      if (s.includes('production') || s.includes('making') || s.includes('progress')) return 1;
+      return 0;
+    }
+
+    function buildProgressBar(status) {
+      var current = stageIndex(status);
+      // Fill width: 0% at step 0, 33% at step 1, 66% at step 2, 100% at step 3
+      var fillPercent = current === 0 ? 0 : (current / (STATUS_STAGES.length - 1)) * 100;
+
+      var stepsHtml = STATUS_STAGES.map(function (name, i) {
+        var cls = 'step';
+        if (i < current) cls += ' done';
+        else if (i === current) cls += ' active';
+        var dot = i < current ? '✓' : (i + 1);
+        return '<div class="' + cls + '">' +
+          '<div class="step-dot">' + dot + '</div>' +
+          '<div class="step-name">' + name + '</div>' +
+          '</div>';
+      }).join('');
+
+      return '<div class="status-section">' +
+        '<div class="status-label">Order Status</div>' +
+        '<div class="progress-steps">' +
+        '<div class="progress-fill" style="width:calc(' + fillPercent + '% - 28px)"></div>' +
+        stepsHtml +
+        '</div>' +
+        '</div>';
+    }
+
+    function buildBadges(products) {
+      if (!products) return '';
+      var list = Array.isArray(products) ? products : String(products).split(/[,;]+/);
+      var colors = ['badge-gold', 'badge-green', 'badge-soft'];
+      return '<div class="product-badges">' +
+        list.map(function (p, i) {
+          return '<span class="badge ' + colors[i % colors.length] + '">' + p.trim() + '</span>';
+        }).join('') +
+        '</div>';
+    }
+
+    function renderOrderResult(data) {
+      return '<div class="order-result">' +
+        '<div class="order-result-header">' +
+        '<div>' +
+        '<div class="order-id-label">Order ID</div>' +
+        '<div class="order-id-value">' + (data.orderId || '—') + '</div>' +
+        '<div class="grad-name">' + (data.gradName || '') + '</div>' +
+        '</div>' +
+        (data.total ? '<div class="order-total"><div class="total-label">Total</div><div class="amount">$' + Number(data.total).toFixed(2) + '</div></div>' : '') +
+        '</div>' +
+        (data.products ? buildBadges(data.products) : '') +
+        buildProgressBar(data.status) +
+        '</div>';
+    }
+
+    function renderError() {
+      return '<div class="track-message error">' +
+        "We couldn't find your order automatically. Please check your confirmation email or contact " +
+        '<a href="mailto:hybridlivinginc@gmail.com" style="color:inherit;font-weight:600;">hybridlivinginc@gmail.com</a>.' +
+        '</div>';
+    }
+
+    function renderSpinner() {
+      return '<div class="spinner-wrap"><div class="spinner"></div>Looking up your order…</div>';
+    }
+
+    /* ── Track Order: fetch ── */
+    var GAS_BASE = 'https://script.google.com/macros/s/AKfycbxakS8z3otUaCs-1R7YjLOv8DNkoHgCouFhJ2zgzpGkpSvHots_tf-d5gFbvk-hkthP/exec';
+
+    document.getElementById('trackBtn').addEventListener('click', function () {
+      var resultEl = document.getElementById('trackResult');
+      var url;
+
+      if (activeTab === 'email') {
+        var emailVal = document.getElementById('trackEmail').value.trim();
+        if (!emailVal) {
+          resultEl.innerHTML = '<div class="track-message error">Please enter your email address.</div>';
+          return;
+        }
+        url = GAS_BASE + '?action=trackOrder&email=' + encodeURIComponent(emailVal);
+      } else {
+        var idVal = document.getElementById('trackOrderId').value.trim();
+        if (!idVal) {
+          resultEl.innerHTML = '<div class="track-message error">Please enter your Order ID.</div>';
+          return;
+        }
+        url = GAS_BASE + '?action=trackOrder&orderId=' + encodeURIComponent(idVal);
+      }
+
+      resultEl.innerHTML = renderSpinner();
+
+      fetch(url)
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          if (data && data.orderId) {
+            resultEl.innerHTML = renderOrderResult(data);
+          } else {
+            resultEl.innerHTML = renderError();
+          }
+        })
+        .catch(function () {
+          resultEl.innerHTML = renderError();
+        });
+    });
+
+    /* Allow pressing Enter in track inputs */
+    ['trackEmail', 'trackOrderId'].forEach(function (id) {
+      document.getElementById(id).addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') document.getElementById('trackBtn').click();
+      });
+    });
+  </script>
+</body>
+</html>

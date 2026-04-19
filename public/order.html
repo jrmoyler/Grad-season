@@ -18,7 +18,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;bac
 @keyframes pageTurnIn{0%{opacity:0;transform:perspective(1800px) rotateY(-10deg) translateX(-14px) scale(.992);}60%{opacity:1;}100%{opacity:1;transform:perspective(1800px) rotateY(0deg) translateX(0) scale(1);}}
 @keyframes pageGlossIn{0%{opacity:.75;clip-path:inset(0 0 0 88%);}100%{opacity:0;clip-path:inset(0 0 0 0);}}
 @keyframes chapterRise{from{opacity:0;transform:translateY(24px) rotateX(3deg);}to{opacity:1;transform:translateY(0) rotateX(0);}}
-nav{padding:16px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(16px);background:rgba(12,10,20,0.9);}
+nav{padding:16px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(16px);background:rgba(12,10,20,0.9);margin-top:44px;}
 .nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--gold);text-decoration:none;}
 .nav-back{color:var(--muted);font-size:13px;text-decoration:none;font-weight:600;}
 .nav-back:hover{color:var(--gold);}
@@ -99,7 +99,14 @@ a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
 <body>
- 
+
+<!-- Pre-Order Cutoff Banner -->
+<div id="cutoffBanner" style="position:fixed;top:0;left:0;right:0;z-index:999;height:44px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--bg);border-bottom:1px solid rgba(240,180,41,.35);font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.02em;">
+  <span style="opacity:.7;color:var(--text);">Pre-Order Cutoff: April 24, 2026</span>
+  <span style="color:var(--border);">—</span>
+  <span id="cdTimer" style="font-variant-numeric:tabular-nums;color:var(--gold);">…</span>
+</div>
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
     <path fill="currentColor" opacity=".14" d="M12 3.6 2.8 8.2 12 13l9.2-4.8z"/>
@@ -411,7 +418,7 @@ a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(
           <span style="color:var(--muted);font-size:14px;font-weight:600;">Pre-Order Total</span>
           <span class="total-amt" id="totalDisplay">$0</span>
         </div>
-        <p class="disclaimer">This is a pre-order. <strong style="color:var(--cream)">Nothing is due today.</strong> Payment is collected when your order is ready to ship. You'll receive a confirmation email right away, then updates at each production stage.</p>
+        <p class="disclaimer">Secure payment processed via Stripe. You'll be redirected to checkout after submitting. You'll also receive a confirmation email right away, then updates at each production stage.</p>
       </div>
     </div>
  
@@ -561,8 +568,32 @@ async function submitOrder() {
     futureGoal: g('futureGoal'), personality: g('personality'), funFact: g('funFact'),
     dedication: g('dedication'), orderTotal: calcTotal(), submittedAt: new Date().toISOString()
   };
+  // Step 1: POST to Google Apps Script (keep original step)
   try { await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }); }
   catch(e) { console.warn('Fetch note:', e); }
+
+  // Step 2: Create Stripe Checkout session
+  try {
+    const stripeRes = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: g('email'),
+        total: calcTotal(),
+        products: state.products,
+        gradName: g('gradName')
+      })
+    });
+    if (stripeRes.ok) {
+      const data = await stripeRes.json();
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+    }
+  } catch(e) { console.warn('Stripe redirect unavailable, falling back to local success.', e); }
+
+  // Fallback: show local success page if Stripe redirect fails
   document.getElementById('formWrap').style.display = 'none';
   document.getElementById('successWrap').style.display = 'block';
   document.getElementById('successTitle').textContent = `${g('gradName')}'s Order Is In!`;
@@ -626,6 +657,26 @@ document.addEventListener('input', () => {
 // ── INIT ───────────────────────────────────────────────────
 renderProgress();
 showStep(0);
+
+// ── COUNTDOWN BANNER ───────────────────────────────────────
+(function() {
+  // April 24 2026 midnight Eastern Time (UTC-4 during EDT)
+  const CUTOFF = new Date('2026-04-24T04:00:00Z').getTime();
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    const diff = CUTOFF - Date.now();
+    const el = document.getElementById('cdTimer');
+    if (!el) return;
+    if (diff <= 0) { el.textContent = 'Cutoff reached'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    el.textContent = `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
 </body>
 </html>

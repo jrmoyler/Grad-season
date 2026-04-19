@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Confirmed — Grad Season</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0C0A14;
+      --surface: #15112B;
+      --surface2: #1E1940;
+      --border: #2E2855;
+      --gold: #F0B429;
+      --gold-dim: #C8952A;
+      --cream: #FDF6E3;
+      --text: #EDE8FF;
+      --muted: #8B82B0;
+      --soft: #C4BADD;
+      --green: #52D88A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 44px;
+    }
+
+    .cutoff-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      z-index: 1000;
+    }
+
+    header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 52px 44px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 64px;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--cream);
+      margin-bottom: 14px;
+    }
+
+    .sub {
+      font-size: 16px;
+      color: var(--soft);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .reference {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    .reference strong {
+      color: var(--text);
+      font-family: monospace;
+      font-size: 12px;
+      word-break: break-all;
+    }
+
+    .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 13px 28px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--soft);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 13px 28px;
+      background: var(--gold);
+      border-radius: 8px;
+      color: #0C0A14;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-dim); }
+
+    footer {
+      padding: 28px 32px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<div class="cutoff-banner">Pre-Order Cutoff: April 24, 2026</div>
+
+<header>
+  <a href="/" class="logo">&#9685; Grad Season</a>
+</header>
+
+<main>
+  <div class="card">
+    <div class="icon">🎓</div>
+    <h1>Payment Confirmed!</h1>
+    <p class="sub">Your order is confirmed and payment received. Check your email for your receipt and order details. We'll send updates at each production stage.</p>
+    <div class="reference" id="refBox" style="display:none">
+      Payment reference: <strong id="sessionId"></strong>
+    </div>
+    <div class="btns">
+      <a href="/" class="btn-outline">← Back to Home</a>
+      <a href="/profile" class="btn-primary">Track Your Order →</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Columbus, Ohio &nbsp;·&nbsp; Grad Season &nbsp;·&nbsp; 2026 &nbsp;·&nbsp;
+  <a href="mailto:hybridlivinginc@gmail.com">hybridlivinginc@gmail.com</a>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const sid = params.get('session_id');
+  if (sid) {
+    document.getElementById('sessionId').textContent = sid;
+    document.getElementById('refBox').style.display = 'block';
+  }
+</script>
+</body>
+</html>
