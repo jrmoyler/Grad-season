@@ -1,13 +1,20 @@
 {
   "name": "grad-season",
   "version": "1.0.0",
-  "description": "Grad Season — Personalized graduation keepsakes. Landing page, pre-order form, and production tools.",
+  "description": "Grad Season \u2014 Personalized graduation keepsakes. Landing page, pre-order form, and production tools.",
   "private": true,
   "scripts": {
     "start": "npx serve public",
     "dev": "npx serve public --listen 3000",
     "test": "node --test tests/*.test.js"
   },
-  "keywords": ["graduation", "keepsakes", "personalized"],
-  "license": "UNLICENSED"
+  "keywords": [
+    "graduation",
+    "keepsakes",
+    "personalized"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "stripe": "^18.0.0"
+  }
 }

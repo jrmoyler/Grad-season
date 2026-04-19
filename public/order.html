@@ -427,6 +427,7 @@ a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(
       <div class="spacer"></div>
       <button class="btn-next" id="nextBtn" onclick="nextStep()">Continue →</button>
     </div>
+    <p id="submitError" style="display:none;margin-top:14px;color:#FCA5A5;font-size:13px;font-weight:600;"></p>
   </div>
  
   <!-- Success -->
@@ -554,6 +555,14 @@ function buildReview() {
 // ── SUBMIT ─────────────────────────────────────────────────
 async function submitOrder() {
   const g = id => document.getElementById(id)?.value?.trim() || '';
+  const submitError = document.getElementById('submitError');
+  const submitBtn = document.getElementById('nextBtn');
+  if (submitError) submitError.style.display = 'none';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Redirecting to checkout...';
+  }
+
   const payload = {
     parentName: g('parentName'), email: g('email'), phone: g('phone'),
     gradName: g('gradName'), grade: g('grade'), school: g('school'),
@@ -568,9 +577,18 @@ async function submitOrder() {
     futureGoal: g('futureGoal'), personality: g('personality'), funFact: g('funFact'),
     dedication: g('dedication'), orderTotal: calcTotal(), submittedAt: new Date().toISOString()
   };
-  // Step 1: POST to Google Apps Script (keep original step)
-  try { await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }); }
-  catch(e) { console.warn('Fetch note:', e); }
+
+  // Step 1: POST to Google Apps Script (best effort)
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {
+    console.warn('Fetch note:', e);
+  }
 
   // Step 2: Create Stripe Checkout session
   try {
@@ -584,27 +602,29 @@ async function submitOrder() {
         gradName: g('gradName')
       })
     });
-    if (stripeRes.ok) {
-      const data = await stripeRes.json();
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
-    }
-  } catch(e) { console.warn('Stripe redirect unavailable, falling back to local success.', e); }
 
-  // Fallback: show local success page if Stripe redirect fails
-  document.getElementById('formWrap').style.display = 'none';
-  document.getElementById('successWrap').style.display = 'block';
-  document.getElementById('successTitle').textContent = `${g('gradName')}'s Order Is In!`;
-  document.getElementById('successSub').textContent = `We have everything we need. Watch ${g('email')} for updates.`;
-  document.getElementById('confirmEmail').textContent = g('email');
-  const badges = [];
-  if (state.products.figurine)  badges.push('Figurine');
-  if (state.products.comic)     badges.push('Comic');
-  if (state.products.storybook) badges.push('Storybook');
-  document.getElementById('successBadges').innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join('');
-  window.scrollTo({ top:0, behavior:'smooth' });
+    if (!stripeRes.ok) {
+      throw new Error(`Stripe session request failed (${stripeRes.status})`);
+    }
+
+    const data = await stripeRes.json();
+    if (!data?.url) {
+      throw new Error('Stripe session response missing redirect URL');
+    }
+
+    window.location.href = data.url;
+    return;
+  } catch(e) {
+    console.error('Stripe checkout unavailable:', e);
+    if (submitError) {
+      submitError.textContent = 'We could not start secure checkout. Please try again in a moment.';
+      submitError.style.display = 'block';
+    }
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = `Confirm Pre-Order — $${calcTotal()}`;
+    }
+  }
 }
  
 // ── CLOUDINARY UPLOADERS ───────────────────────────────────

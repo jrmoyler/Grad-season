@@ -7,6 +7,7 @@ function createOrderHarness() {
     progressBar: {},
     backBtn: { style: {} },
     nextBtn: { className: 'btn-next', style: {}, disabled: true },
+    submitError: { style: { display: 'none' }, textContent: '' },
     reviewTable: {},
     totalDisplay: {},
     formWrap: { style: {} },
@@ -65,8 +66,15 @@ function createOrderHarness() {
 
   const fetchCalls = [];
   const context = createBaseContext(document, {
+    window: { scrollTo() {}, location: { href: '' } },
     fetch: async (url, options) => {
       fetchCalls.push({ url, options });
+      if (url === '/api/create-checkout-session') {
+        return {
+          ok: true,
+          json: async () => ({ url: 'https://checkout.stripe.com/test-session' }),
+        };
+      }
       return { ok: true };
     },
   });
@@ -94,8 +102,8 @@ test('order validation requires a photo/outfit description when photo fit is sel
   assert.equal(canAdvance(), true);
 });
 
-test('order submission posts the payload and reveals the success state', async () => {
-  const { state, toggleProduct, pickStyle, document, submitOrder, fetchCalls } = createOrderHarness();
+test('order submission posts payload and redirects to Stripe checkout', async () => {
+  const { state, toggleProduct, pickStyle, document, submitOrder, fetchCalls, context } = createOrderHarness();
   state.step = 1;
   toggleProduct('figurine');
   toggleProduct('comic');
@@ -105,14 +113,13 @@ test('order submission posts the payload and reveals the success state', async (
 
   await submitOrder();
 
-  assert.equal(fetchCalls.length, 1);
+  assert.equal(fetchCalls.length, 2);
   const payload = JSON.parse(fetchCalls[0].options.body);
   assert.equal(payload.orderTotal, 123);
   assert.equal(payload.wantsFigurine, true);
   assert.equal(payload.comicStyle, 'superhero');
-  assert.equal(document.getElementById('formWrap').style.display, 'none');
-  assert.equal(document.getElementById('successWrap').style.display, 'block');
-  assert.match(document.getElementById('successTitle').textContent, /Marcus Smith/);
-  assert.match(document.getElementById('successBadges').innerHTML, /Figurine/);
-  assert.match(document.getElementById('successBadges').innerHTML, /Comic/);
+  assert.equal(fetchCalls[1].url, '/api/create-checkout-session');
+  assert.equal(context.window.location.href, 'https://checkout.stripe.com/test-session');
+  assert.equal(document.getElementById('successWrap').style.display, 'none');
+  assert.equal(document.getElementById('submitError').style.display, 'none');
 });
