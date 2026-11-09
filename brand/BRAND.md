@@ -131,4 +131,4 @@ Reveal on scroll (18px rise and fade, 700ms, `cubic-bezier(.2,.7,.2,1)`), tags s
 
 ## Parent credit
 
-Footer only: the Collective AI diamond-star mark (verbatim from `collective-ai-divisions/build/logos.js`, `MARKS.parent`) and the line "A Collective AI venture." Keepsakes doesn't use the parent tagline, palette, or typeface.
+Footer only: the Collective AI primary symbol (the brain medallion) at 28px and the line "A Collective AI venture." The mark is `public/brand/collective-ai-mark.png`, cropped unaltered from the official Brand Reference Sheet in Collective Stock (`cstk_ed87075f8dcddc61db0e`). No standalone file of the brain mark exists in the brand repos yet; swap in the source file when there is one. Keepsakes doesn't use the parent tagline, palette, or typeface.

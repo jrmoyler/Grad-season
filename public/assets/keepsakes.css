@@ -145,8 +145,8 @@ textarea.ks-input{min-height:96px;resize:vertical;line-height:1.55}
 .ks-footer a{color:var(--ks-ink);text-decoration-color:var(--ks-line-strong);text-underline-offset:3px}
 .ks-footer a:hover{text-decoration-color:var(--ks-primary)}
 .ks-footer-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--ks-line);font-size:var(--ks-step--1)}
-.ks-credit{display:inline-flex;align-items:center;gap:8px;color:var(--ks-muted)}
-.ks-credit svg{width:16px;height:16px}
+.ks-credit{display:inline-flex;align-items:center;gap:10px;color:var(--ks-muted)}
+.ks-credit img{width:28px;height:28px;border-radius:50%;flex:none}
 @media (max-width:640px){.ks-footer-grid{grid-template-columns:1fr}}
 
 /* ── Motion: reveal on scroll (JS adds .ks-in); content stays visible without JS ── */

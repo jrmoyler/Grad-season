@@ -36,11 +36,10 @@ HEAD = """<meta name="theme-color" content="#F7F1E6" media="(prefers-color-schem
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://grad-season.vercel.app/og-image.png">"""
 
-# Official Collective AI parent mark, copied verbatim from
-# collective-ai-divisions/build/logos.js (MARKS.parent). Do not redraw.
-CAI_MARK = ('<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke-linecap="round" stroke-linejoin="round">'
-            '<path fill="#D4A843" d="M32 9 L37.6 26.4 L55 32 L37.6 37.6 L32 55 L26.4 37.6 L9 32 L26.4 26.4 Z"/>'
-            '<path fill="#F6E3A6" d="M32 20 L34 30 L44 32 L34 34 L32 44 L30 34 L20 32 L30 30 Z" opacity=".55"/></svg>')
+# Official Collective AI primary symbol (brain medallion), cropped unaltered from the
+# "Collective AI Inc — Brand Reference Sheet" in Collective Stock (cstk_ed87075f8dcddc61db0e,
+# panel 03 "Primary Symbol" / panel 01). Do not redraw; replace with a source file when one exists.
+CAI_MARK = '<img src="/brand/collective-ai-mark.png" width="28" height="28" alt="" decoding="async" loading="lazy">'
 
 FOOTER = f"""<footer class="ks-footer">
   <div class="ks-wrap">
