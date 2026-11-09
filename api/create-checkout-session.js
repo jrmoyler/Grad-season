@@ -1,8 +1,24 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const Stripe = require('stripe');
+
+// Create the client per request, not at import: the Stripe SDK throws when the key is
+// missing, and a throw at import crashes every request (FUNCTION_INVOCATION_FAILED),
+// including in preview deployments that don't carry the secret.
+let stripeClient = null;
+function getStripe() {
+  if (!process.env.STRIPE_SECRET_KEY) return null;
+  if (!stripeClient) stripeClient = Stripe(process.env.STRIPE_SECRET_KEY);
+  return stripeClient;
+}
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const stripe = getStripe();
+  if (!stripe) {
+    console.error('STRIPE_SECRET_KEY is not set for this environment');
+    return res.status(503).json({ error: 'Checkout is not configured' });
   }
 
   const { email, total, products, gradName } = req.body;

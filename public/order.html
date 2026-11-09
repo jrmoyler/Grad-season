@@ -2,260 +2,162 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pre-Order — Grad Season</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-order — Keepsakes</title>
+<meta name="description" content="Pre-order a custom figurine, comic book, or storybook starring your graduate. Tell us their story in four short steps.">
+<link rel="canonical" href="https://grad-season.vercel.app/order">
+<!--HEAD-COMMON--><meta name="theme-color" content="#F7F1E6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16110E" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/brand/keepsakes-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/young-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/keepsakes.css">
+<meta property="og:site_name" content="Keepsakes">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://grad-season.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Keepsakes locket logo with the line: Made to be kept.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://grad-season.vercel.app/og-image.png"><!--/HEAD-COMMON-->
+<meta property="og:title" content="Pre-order — Keepsakes">
+<meta property="og:description" content="Tell us their story in four short steps.">
+<meta property="og:url" content="https://grad-season.vercel.app/order">
 <style>
-:root {
-  --bg:#0C0A14;--surface:#15112B;--surface2:#1E1940;--border:#2E2855;
-  --gold:#F0B429;--cream:#FDF6E3;--text:#EDE8FF;--muted:#8B82B0;--soft:#C4BADD;--green:#52D88A;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;padding:0 0 80px;transform-origin:left center;animation:pageTurnIn .95s cubic-bezier(.2,.72,.16,1) both;}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;background:linear-gradient(96deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,0) 30%,rgba(0,0,0,.28) 100%);mix-blend-mode:screen;transform-origin:left center;animation:pageGlossIn .95s ease-out both;}
-@keyframes pageTurnIn{0%{opacity:0;transform:perspective(1800px) rotateY(-10deg) translateX(-14px) scale(.992);}60%{opacity:1;}100%{opacity:1;transform:none;}}
-@keyframes pageTurnIn{0%{opacity:0;transform:perspective(1800px) rotateY(-10deg) translateX(-14px) scale(.992);}60%{opacity:1;}100%{opacity:1;transform:perspective(1800px) rotateY(0deg) translateX(0) scale(1);}}
-@keyframes pageGlossIn{0%{opacity:.75;clip-path:inset(0 0 0 88%);}100%{opacity:0;clip-path:inset(0 0 0 0);}}
-@keyframes chapterRise{from{opacity:0;transform:translateY(24px) rotateX(3deg);}to{opacity:1;transform:translateY(0) rotateX(0);}}
-nav{padding:16px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(16px);background:rgba(12,10,20,0.9);margin-top:44px;}
-.nav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--gold);text-decoration:none;}
-.nav-back{color:var(--muted);font-size:13px;text-decoration:none;font-weight:600;}
-.nav-back:hover{color:var(--gold);}
-.page{max-width:680px;margin:0 auto;padding:40px 24px;transform-origin:left center;animation:chapterRise .9s cubic-bezier(.2,.7,.2,1) both .08s;}
-.page-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--cream);margin-bottom:8px;letter-spacing:-0.5px;}
-.page-sub{font-size:15px;color:var(--soft);margin-bottom:40px;line-height:1.7;}
-.progress{display:flex;align-items:center;gap:0;margin-bottom:36px;flex-wrap:wrap;row-gap:8px;}
-.prog-item{display:flex;align-items:center;gap:6px;}
-.prog-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;transition:all .3s;flex-shrink:0;color:#0C0A14;}
-.prog-dot.done{background:var(--gold);}
-.prog-dot.active{background:var(--gold);box-shadow:0 0 12px rgba(240,180,41,.6);}
-.prog-dot.pending{background:var(--surface2);color:var(--muted);}
-.prog-label{font-size:11px;font-weight:600;letter-spacing:.5px;white-space:nowrap;}
-.prog-line{width:20px;height:2px;transition:background .3s;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 28px;margin-bottom:20px;animation:chapterRise .7s cubic-bezier(.2,.7,.2,1) both;}
-.card:nth-of-type(2){animation-delay:.08s;}
-.card:nth-of-type(3){animation-delay:.16s;}
-.section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:14px;margin-top:0;}
-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;margin-top:14px;}
-label:first-of-type{margin-top:0;}
-input,select,textarea{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;}
-input:focus,select:focus,textarea:focus{border-color:var(--gold);}
-textarea{resize:vertical;min-height:72px;line-height:1.6;}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
-.style-btn{border:1.5px solid var(--border);border-radius:10px;padding:12px 8px;cursor:pointer;text-align:center;transition:all .15s;background:var(--surface2);color:var(--text);}
-.style-btn:hover,.style-btn.active{border-color:var(--gold);background:rgba(240,180,41,.1);}
-.style-btn.active .sb-label{color:var(--gold);}
-.sb-emoji,.pt-icon,.success-icon{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(240,180,41,.22);background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.16),rgba(240,180,41,.16) 36%,rgba(30,25,64,.96) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 16px 30px rgba(0,0,0,.28),0 0 0 1px rgba(240,180,41,.04);} .sb-emoji{font-size:22px;display:inline-flex;margin-bottom:8px;width:44px;height:44px;border-radius:14px;}
-.sb-emoji .icon{width:22px;height:22px;display:inline-block;vertical-align:0;filter:drop-shadow(0 8px 12px rgba(0,0,0,.24));}
-.sb-label{font-weight:700;font-size:12px;display:block;}
-.sb-desc{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3;}
-.product-toggle{border:1.5px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:border-color .2s;}
-.product-toggle.on{border-color:rgba(240,180,41,.5);}
-.product-toggle-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;}
-.pt-left{display:flex;align-items:center;gap:12px;}
-.pt-icon{font-size:26px;width:52px;height:52px;border-radius:16px;}
-.pt-icon .icon{width:26px;height:26px;display:inline-block;vertical-align:0;filter:drop-shadow(0 8px 12px rgba(0,0,0,.24));}
-.pt-name{font-weight:700;font-size:15px;}
-.pt-price{color:var(--gold);font-weight:800;font-size:13px;margin-top:2px;}
-.toggle-sw{width:44px;height:24px;border-radius:12px;position:relative;transition:background .2s;flex-shrink:0;}
-.toggle-thumb{position:absolute;top:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;}
-.product-body{padding:0 18px 18px;border-top:1px solid var(--border);}
-.upload-box{border:2px dashed var(--border);border-radius:10px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--surface2);}
-.upload-box:hover{border-color:var(--gold);}
-.nav-btns{display:flex;align-items:center;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border);}
-.btn-back{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:11px 20px;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;}
-.btn-back:hover{border-color:var(--gold);color:var(--gold);}
-.spacer{flex:1;}
-.btn-next{background:var(--gold);border:none;color:#0C0A14;border-radius:8px;padding:12px 28px;cursor:pointer;font-family:inherit;font-weight:800;font-size:14px;transition:all .2s;}
-.btn-next:hover{background:#FFCA47;transform:translateY(-1px);}
-.btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;}
-.btn-submit{background:linear-gradient(135deg,#F0B429,#D97706);border:none;color:#0C0A14;border-radius:8px;padding:14px 32px;cursor:pointer;font-family:inherit;font-weight:800;font-size:16px;box-shadow:0 0 24px rgba(240,180,41,.4);}
-.btn-submit:hover{box-shadow:0 0 40px rgba(240,180,41,.6);transform:translateY(-1px);}
-.review-table{background:var(--surface2);border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;}
-.review-row{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:13px;}
-.review-row:last-child{border-bottom:none;}
-.rk{color:var(--muted);font-weight:600;}
-.rv{font-weight:600;text-align:right;max-width:55%;}
-.total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;}
-.total-amt{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--gold);}
-.disclaimer{font-size:12px;color:var(--muted);line-height:1.7;margin-top:14px;}
-.success{text-align:center;padding:60px 24px;}
-.success-icon{font-size:64px;margin:0 auto 20px;width:88px;height:88px;border-radius:26px;}
-.success-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--cream);margin-bottom:10px;}
-.success-sub{color:var(--soft);font-size:15px;margin-bottom:28px;line-height:1.7;}
-.success-detail{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;font-size:14px;line-height:1.8;margin-bottom:24px;text-align:left;}
-.badge{background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.35);color:var(--gold);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;display:inline-block;margin:4px;}
-.step-hidden{display:none;}
-.icon{width:1em;height:1em;display:inline-block;vertical-align:-0.125em;flex-shrink:0;stroke:currentColor;fill:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.28)) drop-shadow(0 0 16px rgba(240,180,41,.12));transition:transform .35s ease,filter .35s ease,color .35s ease;transform-origin:center;}
-.icon use{pointer-events:none;}
-a:hover .icon,button:hover .icon,.style-btn:hover .icon{transform:translateY(-2px) scale(1.06);filter:drop-shadow(0 16px 24px rgba(0,0,0,.35)) drop-shadow(0 0 18px rgba(240,180,41,.2));}
-a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(0) scale(.97);}
-@media(max-width:768px){nav{padding:12px 18px;}.page{padding:28px 16px;}.page-title{font-size:28px;}.card{padding:20px 18px;}.style-grid{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:540px){.row2{grid-template-columns:1fr;}.style-grid{grid-template-columns:1fr 1fr;}.prog-line{width:12px;}.prog-label{font-size:10px;}}
-@media(max-width:380px){.prog-label{display:none;}.prog-line{width:8px;}}
+.page{max-width:720px;margin:0 auto;padding:clamp(28px,5vw,56px) var(--ks-gutter) 96px}
+.page-title{font-size:var(--ks-step-5);margin:12px 0 10px}
+.page-sub{color:var(--ks-muted);font-size:var(--ks-step-1);margin-bottom:32px}
+/* Progress */
+.progress{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px}
+.prog-item{display:flex;flex-direction:column;gap:8px;font-size:var(--ks-step--1);font-weight:600;color:var(--ks-muted)}
+.prog-item::before{content:"";height:4px;border-radius:4px;background:var(--ks-line)}
+.prog-item.done::before,.prog-item.active::before{background:var(--ks-primary)}
+.prog-item.active{color:var(--ks-ink)}
+.prog-item .n{font-family:var(--ks-font-display);font-weight:400;margin-right:4px}
+/* Cards */
+.card{padding:clamp(20px,4vw,32px);margin-bottom:18px}
+.section-label{font-size:var(--ks-step--1);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ks-accent);margin-bottom:18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.row2 .ks-field{margin-top:18px}
+.row2 .ks-field:first-child{margin-top:18px}
+.card > .ks-field:first-of-type,.card > .row2:first-of-type .ks-field{margin-top:0}
+/* Product toggles */
+.product-toggle{border:1.5px solid var(--ks-line);border-radius:var(--ks-radius);margin-bottom:14px;overflow:hidden;background:var(--ks-raised);transition:border-color .2s,box-shadow .25s}
+.product-toggle.on{border-color:var(--ks-primary);box-shadow:var(--ks-shadow)}
+.product-toggle-hd{all:unset;box-sizing:border-box;display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;cursor:pointer}
+.product-toggle-hd:focus-visible{outline:3px solid var(--ks-focus);outline-offset:-3px}
+.pt-left{display:flex;align-items:center;gap:14px}
+.pt-icon{flex:none;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--ks-sunken);color:var(--ks-primary)}
+.pt-icon svg{width:28px;height:28px}
+.pt-name{font-weight:700;font-size:1.0625rem}
+.pt-price{font-family:var(--ks-font-display);font-size:1.25rem;line-height:1.2}
+.toggle-sw{flex:none;width:48px;height:28px;border-radius:999px;position:relative;transition:background .25s}
+.toggle-thumb{position:absolute;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .25s var(--ks-ease)}
+.product-body{padding:4px 18px 20px;border-top:1px solid var(--ks-line)}
+.sub-label{font-size:var(--ks-step--1);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ks-muted);margin:18px 0 10px}
+.style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.style-btn{display:flex;flex-direction:column;align-items:center;gap:6px;min-height:104px;padding:14px 8px;border:1.5px solid var(--ks-line);border-radius:var(--ks-radius);background:var(--ks-surface);cursor:pointer;text-align:center;transition:border-color .2s,background-color .2s,transform .2s var(--ks-ease)}
+.style-btn:hover{border-color:var(--ks-line-strong);transform:translateY(-2px)}
+.style-btn.active{border-color:var(--ks-primary);background:color-mix(in srgb,var(--ks-primary) 9%,var(--ks-raised))}
+.sb-emoji{color:var(--ks-primary)}
+.sb-emoji svg{width:26px;height:26px}
+.sb-label{font-weight:700;font-size:.9375rem}
+.sb-desc{font-size:var(--ks-step--1);color:var(--ks-muted);line-height:1.3}
+.upload-box{all:unset;box-sizing:border-box;display:block;width:100%;border:2px dashed var(--ks-line-strong);border-radius:var(--ks-radius);padding:24px 18px;text-align:center;cursor:pointer;background:var(--ks-surface);transition:border-color .2s,background-color .2s}
+.upload-box:hover{border-color:var(--ks-primary)}
+.upload-box:focus-visible{outline:3px solid var(--ks-focus);outline-offset:2px}
+.upload-box svg{width:30px;height:30px;margin:0 auto 8px;color:var(--ks-primary)}
+.up-title{font-weight:700}
+.up-meta{font-size:var(--ks-step--1);color:var(--ks-muted)}
+.up-ok .up-title{color:var(--ks-success)}
+/* Nav */
+.nav-btns{display:flex;align-items:center;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--ks-line)}
+.spacer{flex:1}
+/* Review */
+.review-table{border:1px solid var(--ks-line);border-radius:var(--ks-radius);overflow:hidden;background:var(--ks-surface)}
+.review-row{display:flex;justify-content:space-between;gap:16px;padding:12px 16px;border-bottom:1px solid var(--ks-line);font-size:.9375rem}
+.review-row:last-child{border-bottom:0}
+.rk{color:var(--ks-muted);font-weight:600}
+.rv{font-weight:600;text-align:right;overflow-wrap:anywhere}
+.rv.cap{text-transform:capitalize}
+.nav-btns .ks-btn{white-space:nowrap}
+@media (max-width:400px){.nav-btns .ks-btn{padding:0 16px;font-size:.9375rem}}
+.total-row{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0 4px}
+.total-amt{font-family:var(--ks-font-display);font-size:var(--ks-step-4)}
+.disclaimer{font-size:var(--ks-step--1);color:var(--ks-muted);margin-top:12px}
+.step-hidden{display:none}
+.form-error{color:var(--ks-error);font-size:.9375rem;font-weight:600;margin-top:12px;min-height:1.4em}
+/* Success */
+.success{text-align:center;padding:32px 0}
+.success-icon{width:72px;height:72px;margin:0 auto 18px;color:var(--ks-primary)}
+.success-title{font-family:var(--ks-font-display);font-size:var(--ks-step-4);margin-bottom:10px}
+.success-sub{color:var(--ks-muted);margin-bottom:24px}
+.success-detail{padding:20px 24px;text-align:left;margin-bottom:20px}
+.badge{display:inline-block;margin:4px;padding:5px 14px;border-radius:999px;background:var(--ks-sunken);border:1px solid var(--ks-line);font-weight:700;font-size:.9375rem}
+@media (max-width:560px){.row2{grid-template-columns:1fr}.style-grid{grid-template-columns:1fr 1fr}.style-grid .style-btn:last-child{grid-column:1/-1}.prog-item .lbl{display:none}}
+@media (prefers-reduced-motion:reduce){.style-btn:hover{transform:none}.toggle-thumb{transition:none}}
 </style>
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" defer></script>
 </head>
 <body>
+<a class="ks-skip" href="#main">Skip to the form</a>
+<div class="ks-notice" data-ks-notice role="status">Spring 2026 pre-orders close <strong>April 24, 2026</strong>.</div>
 
-<!-- Pre-Order Cutoff Banner -->
-<div id="cutoffBanner" style="position:fixed;top:0;left:0;right:0;z-index:999;height:44px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--bg);border-bottom:1px solid rgba(240,180,41,.35);font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.02em;">
-  <span style="opacity:.7;color:var(--text);">Pre-Order Cutoff: April 24, 2026</span>
-  <span style="color:var(--border);">—</span>
-  <span id="cdTimer" style="font-variant-numeric:tabular-nums;color:var(--gold);">…</span>
-</div>
+<header class="ks-header">
+  <div class="ks-wrap">
+    <a class="ks-brand" href="/" aria-label="Keepsakes home"><!--LOGO--><svg viewBox="0 0 379 68" role="img" aria-label="Keepsakes"><g transform="translate(0 2)"><circle cx="32" cy="7.5" r="4.25" fill="none" stroke="var(--ks-primary)" stroke-width="3"/><path fill="var(--ks-primary)" fill-rule="evenodd" d="M32 13C20.4 13 12 23.6 12 37s8.4 24 20 24 20-10.6 20-24-8.4-24-20-24ZM32 27.5a6 6 0 0 0-3.1 11.1L27 49h10l-1.9-10.4A6 6 0 0 0 32 27.5Z"/></g><path fill="currentColor" d="M121.4 48.64Q122.24 48.64 122.24 49.48V51.16Q122.24 52 121.4 52H104.21Q103.37 52 103.37 51.16V49.48Q103.37 48.64 104.21 48.64H104.54Q105.89 48.64 106.73 47.91Q107.57 47.18 107.57 46.01Q107.57 44.72 106.56 43.32L98.38 31.78L93.62 36.94V43.32Q93.62 48.64 97.38 48.64H97.71Q98.55 48.64 98.55 49.48V51.16Q98.55 52 97.71 52H80.52Q79.68 52 79.68 51.16V49.48Q79.68 48.64 80.52 48.64H80.91Q84.66 48.64 84.66 43.32V18.68Q84.66 13.36 80.97 13.36H80.52Q79.68 13.36 79.68 12.52V10.84Q79.68 10 80.52 10H97.77Q98.61 10 98.61 10.84V12.52Q98.61 13.36 97.77 13.36H97.38Q93.62 13.36 93.62 18.74V29.77L106.34 15.71Q106.67 15.38 106.78 15.01Q106.9 14.65 106.9 14.37Q106.9 13.36 105.78 13.36H104.6Q103.87 13.36 103.87 12.52V10.84Q103.87 10 104.71 10H118.88Q119.72 10 119.72 10.84V12.52Q119.72 13.36 118.99 13.36H118.32Q116.64 13.36 115.41 14.09Q114.18 14.82 112.1 17.06L103.87 25.9L115.52 43.32Q116.81 45.28 117.59 46.37Q118.38 47.46 118.88 47.94Q119.38 48.42 119.86 48.53Q120.34 48.64 121.06 48.64Z M132.49 41.98Q133.44 44.33 135.54 46.18Q137.64 48.02 140.89 48.02Q142.68 48.02 144.64 47.02Q146.6 46.01 148.06 43.88Q148.22 43.6 148.5 43.6Q148.78 43.6 149.09 43.77Q149.4 43.94 150.74 44.72Q150.97 44.89 150.97 45.17Q150.97 45.56 150.63 46.12Q149.06 49.03 146.38 50.88Q143.69 52.73 139.38 52.73Q134.73 52.73 131.37 50.66Q128.01 48.58 126.19 45.17Q124.37 41.75 124.37 37.72Q124.37 33.86 125.52 31.08Q126.66 28.31 128.57 26.6Q130.47 24.9 132.85 24.08Q135.23 23.27 137.7 23.27Q140.5 23.27 142.62 24.36Q144.75 25.46 146.24 27.14Q147.72 28.82 148.48 30.69Q149.23 32.57 149.23 34.19Q149.23 34.64 148.73 34.86ZM140.83 33.97Q140.83 31.28 139.54 29.54Q138.26 27.81 136.3 27.81Q134 27.81 132.66 29.63Q131.31 31.45 131.31 34.19Q131.31 35.03 131.4 36.26Q131.48 37.5 131.82 38.5Z M161.33 41.98Q162.28 44.33 164.38 46.18Q166.48 48.02 169.73 48.02Q171.52 48.02 173.48 47.02Q175.44 46.01 176.9 43.88Q177.06 43.6 177.34 43.6Q177.62 43.6 177.93 43.77Q178.24 43.94 179.58 44.72Q179.81 44.89 179.81 45.17Q179.81 45.56 179.47 46.12Q177.9 49.03 175.22 50.88Q172.53 52.73 168.22 52.73Q163.57 52.73 160.21 50.66Q156.85 48.58 155.03 45.17Q153.21 41.75 153.21 37.72Q153.21 33.86 154.36 31.08Q155.5 28.31 157.41 26.6Q159.31 24.9 161.69 24.08Q164.07 23.27 166.54 23.27Q169.34 23.27 171.46 24.36Q173.59 25.46 175.08 27.14Q176.56 28.82 177.32 30.69Q178.07 32.57 178.07 34.19Q178.07 34.64 177.57 34.86ZM169.67 33.97Q169.67 31.28 168.38 29.54Q167.1 27.81 165.14 27.81Q162.84 27.81 161.5 29.63Q160.15 31.45 160.15 34.19Q160.15 35.03 160.24 36.26Q160.32 37.5 160.66 38.5Z M193.08 28.37Q193.42 27.58 194.31 26.38Q195.21 25.18 197 24.22Q198.79 23.27 201.65 23.27Q203.55 23.27 205.68 24.06Q207.81 24.84 209.71 26.58Q211.62 28.31 212.82 31.11Q214.02 33.91 214.02 38Q214.02 43.15 212.18 46.43Q210.33 49.7 207.36 51.22Q204.39 52.73 200.98 52.73Q196.72 52.73 193.7 50.04V54.52Q193.7 56.76 194.7 58.3Q195.71 59.84 197.78 59.84Q198.62 59.84 198.62 60.68V62.36Q198.62 63.2 197.78 63.2H181.77Q180.93 63.2 180.93 62.36V60.68Q180.93 59.84 181.82 59.84Q183.9 59.84 184.88 58.3Q185.86 56.76 185.86 54.52V35.26Q185.86 33.74 185.69 32.34Q185.52 30.94 184.82 29.96Q184.12 28.98 182.55 28.82Q182.16 28.76 182.05 28.56Q181.94 28.37 181.94 28.09V26.18Q181.94 25.46 182.72 25.46Q185.52 25.46 187.31 25.2Q189.1 24.95 190.42 24.45Q191.74 23.94 193.02 23.33Q193.19 23.22 193.33 23.22Q193.47 23.22 193.53 23.22H193.58Q193.7 23.22 193.7 23.38Q193.7 23.44 193.67 23.66Q193.64 23.89 193.53 24.92Q193.42 25.96 193.08 28.37ZM193.7 42.03Q193.92 43.77 194.68 45.39Q195.43 47.02 196.78 48.02Q198.12 49.03 199.97 49.03Q202.66 49.03 204.17 47.69Q205.68 46.34 206.27 44.22Q206.86 42.09 206.86 39.79Q206.86 34.42 204.7 31.28Q202.54 28.14 199.07 28.14Q196.83 28.14 195.46 29.4Q194.09 30.66 193.7 31.84Z M241.02 32.68Q240.68 32.85 240.46 32.85Q240.06 32.85 239.73 32.46Q237.21 29.26 234.46 27.98Q231.72 26.69 229.7 26.69Q228.25 26.69 227.02 27.3Q225.78 27.92 225.78 29.54Q225.78 30.78 226.71 31.59Q227.63 32.4 229.09 32.9Q230.54 33.41 232.06 33.8Q234.24 34.3 236.45 34.98Q238.66 35.65 240.51 36.74Q242.36 37.83 243.51 39.46Q244.66 41.08 244.66 43.54Q244.66 46.18 243.23 48.25Q241.8 50.32 239.17 51.52Q236.54 52.73 232.9 52.73Q231.16 52.73 229.51 52.31Q227.86 51.89 226.4 51.22Q226.06 51.05 225.9 51.05Q225.5 51.05 225.5 51.44Q225.5 51.55 225.62 51.89Q225.73 52.22 225.73 52.34Q225.73 52.78 225.06 52.78H223.04Q222.42 52.78 222.09 52.22L217.27 43.21Q217.1 42.87 217.1 42.7Q217.1 42.31 217.55 42.03L219.29 41.02Q219.62 40.86 219.79 40.86Q220.13 40.86 220.41 41.36Q223.15 45.45 226.43 47.18Q229.7 48.92 233.12 48.92Q238.5 48.92 238.5 45.73Q238.5 44.27 237.18 43.32Q235.86 42.37 233.93 41.75Q232 41.14 230.04 40.69Q226.46 39.79 224.33 38.64Q222.2 37.5 221.14 36.18Q220.07 34.86 219.71 33.55Q219.34 32.23 219.34 31Q219.34 27.64 221.92 25.46Q224.5 23.27 228.92 23.27Q231.55 23.27 233.57 23.97Q235.58 24.67 236.37 25.12Q236.59 25.23 236.7 25.23Q236.87 25.23 236.87 25.01Q236.87 24.84 236.7 24.34Q236.65 24.06 236.62 23.92Q236.59 23.78 236.59 23.66Q236.59 23.1 237.32 23.1H238.78Q239.5 23.1 239.73 23.72L242.53 30.83Q242.7 31.17 242.7 31.39Q242.7 31.78 242.25 32.01Z M275.9 41.64Q275.9 43.66 276.52 45.25Q277.14 46.85 279.21 47.13Q279.88 47.18 279.88 47.86V49.7Q279.88 50.49 279.04 50.49Q276.3 50.49 274.48 50.8Q272.66 51.1 271.34 51.58Q270.02 52.06 268.74 52.62Q268.51 52.73 268.34 52.73H268.18Q268.06 52.73 268.06 52.5Q268.06 52.28 268.18 51.41Q268.29 50.54 268.43 49.45Q268.57 48.36 268.68 47.58Q268.4 48.3 267.48 49.54Q266.55 50.77 264.79 51.75Q263.02 52.73 260.17 52.73Q258.26 52.73 256.11 51.94Q253.95 51.16 252.05 49.42Q250.14 47.69 248.94 44.86Q247.74 42.03 247.74 37.94Q247.74 32.74 249.61 29.52Q251.49 26.3 254.48 24.78Q257.48 23.27 260.84 23.27Q263.58 23.27 265.88 24.11Q268.18 24.95 269.91 26.52Q271.37 25.9 272.4 25.37Q273.44 24.84 274.17 24.28Q274.45 24.06 274.76 23.83Q275.06 23.61 275.46 23.38Q275.62 23.27 275.74 23.27H275.79Q275.9 23.27 275.9 23.38ZM268.06 32.85Q267.9 31.73 267.25 30.36Q266.61 28.98 265.32 28Q264.03 27.02 261.85 27.02Q259.16 27.02 257.65 28.34Q256.14 29.66 255.55 31.73Q254.96 33.8 254.96 36.15Q254.96 41.53 257.12 44.66Q259.27 47.8 262.69 47.8Q264.7 47.8 265.85 46.93Q267 46.06 267.5 45.17Q268.01 44.27 268.06 44.1Z M314.94 48.64Q315.66 48.64 315.66 49.48V51.16Q315.66 52 314.82 52H301.1Q300.26 52 300.26 51.16V49.42Q300.26 48.64 300.99 48.64H301.83Q302.39 48.64 302.87 48.42Q303.34 48.19 303.34 47.8Q303.34 47.41 302.9 46.96L295.5 38.95L294.33 40.02V43.32Q294.33 45.5 294.52 46.65Q294.72 47.8 295.36 48.22Q296.01 48.64 297.35 48.64Q298.19 48.64 298.19 49.48V51.16Q298.19 52 297.35 52H282.4Q281.56 52 281.56 51.16V49.48Q281.56 48.64 282.4 48.64Q284.47 48.64 285.48 47.1Q286.49 45.56 286.49 43.32V22.32Q286.49 20.81 286.29 19.41Q286.1 18.01 285.4 17.03Q284.7 16.05 283.13 15.88Q282.51 15.82 282.51 15.15V13.25Q282.51 12.91 282.71 12.77Q282.9 12.63 283.3 12.52Q287.78 11.06 290.24 9.61Q292.7 8.15 293.82 7.31Q293.99 7.2 294.1 7.2H294.22Q294.33 7.2 294.33 7.31V35.09L301.16 28.87Q301.61 28.42 301.61 28.09Q301.61 27.36 300.49 27.36H298.81Q298.08 27.36 298.08 26.52V24.84Q298.08 24 298.92 24H311.35Q312.19 24 312.19 24.84V26.52Q312.19 27.36 311.46 27.36H310.79Q309.17 27.36 307.91 28.2Q306.65 29.04 304.46 31L300.15 34.86L312.14 46.9Q313.09 47.86 313.65 48.25Q314.21 48.64 314.77 48.64Z M325.86 41.98Q326.81 44.33 328.91 46.18Q331.01 48.02 334.26 48.02Q336.05 48.02 338.01 47.02Q339.97 46.01 341.42 43.88Q341.59 43.6 341.87 43.6Q342.15 43.6 342.46 43.77Q342.77 43.94 344.11 44.72Q344.34 44.89 344.34 45.17Q344.34 45.56 344 46.12Q342.43 49.03 339.74 50.88Q337.06 52.73 332.74 52.73Q328.1 52.73 324.74 50.66Q321.38 48.58 319.56 45.17Q317.74 41.75 317.74 37.72Q317.74 33.86 318.88 31.08Q320.03 28.31 321.94 26.6Q323.84 24.9 326.22 24.08Q328.6 23.27 331.06 23.27Q333.86 23.27 335.99 24.36Q338.12 25.46 339.6 27.14Q341.09 28.82 341.84 30.69Q342.6 32.57 342.6 34.19Q342.6 34.64 342.1 34.86ZM334.2 33.97Q334.2 31.28 332.91 29.54Q331.62 27.81 329.66 27.81Q327.37 27.81 326.02 29.63Q324.68 31.45 324.68 34.19Q324.68 35.03 324.76 36.26Q324.85 37.5 325.18 38.5Z M370.21 32.68Q369.87 32.85 369.65 32.85Q369.26 32.85 368.92 32.46Q366.4 29.26 363.66 27.98Q360.91 26.69 358.9 26.69Q357.44 26.69 356.21 27.3Q354.98 27.92 354.98 29.54Q354.98 30.78 355.9 31.59Q356.82 32.4 358.28 32.9Q359.74 33.41 361.25 33.8Q363.43 34.3 365.64 34.98Q367.86 35.65 369.7 36.74Q371.55 37.83 372.7 39.46Q373.85 41.08 373.85 43.54Q373.85 46.18 372.42 48.25Q370.99 50.32 368.36 51.52Q365.73 52.73 362.09 52.73Q360.35 52.73 358.7 52.31Q357.05 51.89 355.59 51.22Q355.26 51.05 355.09 51.05Q354.7 51.05 354.7 51.44Q354.7 51.55 354.81 51.89Q354.92 52.22 354.92 52.34Q354.92 52.78 354.25 52.78H352.23Q351.62 52.78 351.28 52.22L346.46 43.21Q346.3 42.87 346.3 42.7Q346.3 42.31 346.74 42.03L348.48 41.02Q348.82 40.86 348.98 40.86Q349.32 40.86 349.6 41.36Q352.34 45.45 355.62 47.18Q358.9 48.92 362.31 48.92Q367.69 48.92 367.69 45.73Q367.69 44.27 366.37 43.32Q365.06 42.37 363.12 41.75Q361.19 41.14 359.23 40.69Q355.65 39.79 353.52 38.64Q351.39 37.5 350.33 36.18Q349.26 34.86 348.9 33.55Q348.54 32.23 348.54 31Q348.54 27.64 351.11 25.46Q353.69 23.27 358.11 23.27Q360.74 23.27 362.76 23.97Q364.78 24.67 365.56 25.12Q365.78 25.23 365.9 25.23Q366.06 25.23 366.06 25.01Q366.06 24.84 365.9 24.34Q365.84 24.06 365.81 23.92Q365.78 23.78 365.78 23.66Q365.78 23.1 366.51 23.1H367.97Q368.7 23.1 368.92 23.72L371.72 30.83Q371.89 31.17 371.89 31.39Q371.89 31.78 371.44 32.01Z"/></svg><!--/LOGO--></a>
+    <nav class="ks-nav" aria-label="Primary"><a href="/">← Back to home</a></nav>
+  </div>
+</header>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <symbol id="icon-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".14" d="M12 3.6 2.8 8.2 12 13l9.2-4.8z"/>
-    <path d="M2.8 8.2 12 13l9.2-4.8L12 3.6 2.8 8.2Z"/>
-    <path d="M6.5 11.6v3.1c0 2.2 2.5 4 5.5 4s5.5-1.8 5.5-4v-3.1"/>
-    <path d="M21.2 8.5v5.4"/>
-    <circle cx="21.2" cy="15.7" r="1" fill="currentColor" opacity=".78" stroke="none"/>
-  </symbol>
-  <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".16" d="m12 4.5 1.6 4 4 .8-4 1.6-.8 4-1.6-4-4-.8 4-1.6z" stroke="none"/>
-    <path d="m12 3.5 1.4 4.1 4.1 1.4-4.1 1.4-1.4 4.1-1.4-4.1-4.1-1.4 4.1-1.4z"/>
-    <path d="M18.2 3.8v2.3M19.3 4.9H17"/>
-    <path d="M19 15.8v4.2M21.1 17.9h-4.2"/>
-    <path d="M4.1 15.2v2.8M5.5 16.6H2.7"/>
-  </symbol>
-  <symbol id="icon-figurine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".14" d="M9.4 9.6h5.2l1.1 6.3H8.3z" stroke="none"/>
-    <circle cx="12" cy="4.8" r="2.4"/>
-    <path d="M9.4 10.1h5.2l1.2 5.8H8.2z"/>
-    <path d="M10.5 15.9v3.3M13.5 15.9v3.3"/>
-    <path d="M7.6 19.5h8.8"/>
-    <rect x="7.3" y="19" width="9.4" height="2.2" rx="1.1" fill="currentColor" opacity=".16"/>
-  </symbol>
-  <symbol id="icon-lightning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".14" d="M13.7 2.8 4.4 13.9h5.1l-1 7.3 11-11.1h-5.1z" stroke="none"/>
-    <path d="M13.7 2.8 4.4 13.9h5.1l-1 7.3 11-11.1h-5.1z"/>
-    <path d="M10.8 13.9h3.8"/>
-  </symbol>
-  <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="M4 5.7h4.8A3.2 3.2 0 0 1 12 8.9v10.8a3 3 0 0 0-3-3H4zM20 5.7h-4.8A3.2 3.2 0 0 0 12 8.9v10.8a3 3 0 0 1 3-3H20z" stroke="none"/>
-    <path d="M4 5.7h4.8A3.2 3.2 0 0 1 12 8.9v10.8a3 3 0 0 0-3-3H4z"/>
-    <path d="M20 5.7h-4.8A3.2 3.2 0 0 0 12 8.9v10.8a3 3 0 0 1 3-3H20z"/>
-    <path d="M8 9.2h1.9M14.1 9.2H16"/>
-  </symbol>
-  <symbol id="icon-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="5" y="4.8" width="14" height="16" rx="2.5" fill="currentColor" opacity=".1"/>
-    <path d="M9 4.8h6"/>
-    <rect x="8.2" y="2.8" width="7.6" height="3.6" rx="1.8"/>
-    <path d="M8.6 10h6.8M8.6 13.3h6.8M8.6 16.6h4.2"/>
-  </symbol>
-  <symbol id="icon-paintbrush" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".14" d="M15.9 3.7 20.3 8l-6.6 6.5-4.4-4.3z" stroke="none"/>
-    <path d="m14.7 4.2 5.1 5.1"/>
-    <path d="M15.9 3.7 20.3 8l-6.6 6.5-4.4-4.3z"/>
-    <path d="M11 13.2c-1.6-.1-3 .5-3.7 1.8-.8 1.3-2.1 2.3-4.3 2.4 0 0 .4 2 2.4 2.7 2.2.7 4.6-.2 5.6-2 .7-1.3.7-2.7 0-4.9Z"/>
-  </symbol>
-  <symbol id="icon-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="M7 3.8h10v4H7zM5 10h14v6H5z" stroke="none"/>
-    <path d="M7 3.8h10v4.4H7z"/>
-    <path d="M6 8.2h12A2.8 2.8 0 0 1 20.8 11v4.1H17"/>
-    <path d="M7 16.4h10v3.8H7z"/>
-    <path d="M8.7 11.9h.1"/>
-  </symbol>
-  <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="m12 3.3 7.6 4.1V16.6L12 20.7 4.4 16.6V7.4z" stroke="none"/>
-    <path d="m12 3.3 7.6 4.1V16.6L12 20.7 4.4 16.6V7.4z"/>
-    <path d="m4.7 7.6 7.3 4 7.3-4M12 11.6v9"/>
-  </symbol>
-  <symbol id="icon-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".14" d="M7 4h10v2.4c0 2.4-2.2 3.8-4.1 5.1 1.9 1.3 4.1 2.7 4.1 5.1V19H7v-2.4c0-2.4 2.2-3.8 4.1-5.1C9.2 10.2 7 8.8 7 6.4z" stroke="none"/>
-    <path d="M7 4h10M7 20h10"/>
-    <path d="M8.2 4v2.3c0 2 1.8 3.2 3.8 4.5 2-1.3 3.8-2.5 3.8-4.5V4"/>
-    <path d="M8.2 20v-2.3c0-2 1.8-3.2 3.8-4.5 2 1.3 3.8 2.5 3.8 4.5V20"/>
-  </symbol>
-  <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".18" d="m12 3.3 2.6 5.3 5.9.9-4.3 4.2 1 6-5.2-2.8-5.2 2.8 1-6L3.5 9.5l5.9-.9z" stroke="none"/>
-    <path d="m12 3.3 2.6 5.3 5.9.9-4.3 4.2 1 6-5.2-2.8-5.2 2.8 1-6L3.5 9.5l5.9-.9z"/>
-  </symbol>
-  <symbol id="icon-bear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="8" cy="5.7" r="1.8"/>
-    <circle cx="16" cy="5.7" r="1.8"/>
-    <path fill="currentColor" opacity=".12" d="M6.1 13.1a5.9 5.9 0 1 0 11.8 0 5.9 5.9 0 0 0-11.8 0Z" stroke="none"/>
-    <path d="M6.1 13.1a5.9 5.9 0 1 0 11.8 0 5.9 5.9 0 0 0-11.8 0Z"/>
-    <path d="M10.1 15.6c1 .8 2.8.8 3.8 0M10.2 12.4h.1M13.7 12.4h.1"/>
-  </symbol>
-  <symbol id="icon-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="5.2" r="2.8"/>
-    <path fill="currentColor" opacity=".12" d="M6.8 20.8v-1.1a5.2 5.2 0 0 1 10.4 0v1.1z" stroke="none"/>
-    <path d="M6.8 20.8v-1.1a5.2 5.2 0 0 1 10.4 0v1.1"/>
-    <path d="M8.7 10.8h6.6"/>
-  </symbol>
-  <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="2.8" y="6.6" width="18.4" height="13.6" rx="2.6" fill="currentColor" opacity=".1"/>
-    <path d="M8.2 6.6 9.8 4h4.4l1.6 2.6"/>
-    <rect x="2.8" y="6.6" width="18.4" height="13.6" rx="2.6"/>
-    <circle cx="12" cy="13.4" r="3.7"/>
-    <circle cx="18" cy="9.8" r=".7" fill="currentColor" stroke="none"/>
-  </symbol>
-  <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".14" d="M12.3 15 9 11.7c1.1-4.5 4.8-7.8 11.1-8.7-.9 6.3-4.2 10-8.7 11.1Z" stroke="none"/>
-    <path d="M12.3 15 9 11.7c1.1-4.5 4.8-7.8 11.1-8.7-.9 6.3-4.2 10-8.7 11.1Z"/>
-    <path d="M10.8 13.5 4.8 12.9c.5-1.9 1.8-3.1 3.9-3.8M10.8 13.5l-.6 6c1.9-.5 3.1-1.8 3.8-3.9"/>
-    <path d="M4.1 16.7c-1.1 1-1.6 3.8-1.6 3.8s2.8-.5 3.8-1.6"/>
-    <circle cx="15.6" cy="8.4" r="1.1" fill="currentColor" opacity=".72" stroke="none"/>
-  </symbol>
-  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="M12 2.8 4.9 5.7v6.1c0 5 3.1 8.1 7.1 9.5 4-1.4 7.1-4.5 7.1-9.5V5.7z" stroke="none"/>
-    <path d="M12 2.8 4.9 5.7v6.1c0 5 3.1 8.1 7.1 9.5 4-1.4 7.1-4.5 7.1-9.5V5.7z"/>
-    <path d="M9.1 11.9h5.8"/>
-  </symbol>
-  <symbol id="icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="M5.1 4.4h13.8A2.1 2.1 0 0 1 21 6.5v8.1a2.1 2.1 0 0 1-2.1 2.1H9.2L4.4 20V6.5a2.1 2.1 0 0 1 2.1-2.1Z" stroke="none"/>
-    <path d="M5.1 4.4h13.8A2.1 2.1 0 0 1 21 6.5v8.1a2.1 2.1 0 0 1-2.1 2.1H9.2L4.4 20V6.5a2.1 2.1 0 0 1 2.1-2.1Z"/>
-    <path d="M8.3 9.5h7.4M8.3 12.8h4.8"/>
-  </symbol>
-  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="M12 3.3a8.7 8.7 0 1 0 0 17.4h.9a1.9 1.9 0 0 0 1.4-3.1 1.9 1.9 0 0 1 1.5-3.1h1.8a4.8 4.8 0 0 0 0-9.6z" stroke="none"/>
-    <path d="M12 3.3a8.7 8.7 0 1 0 0 17.4h.9a1.9 1.9 0 0 0 1.4-3.1 1.9 1.9 0 0 1 1.5-3.1h1.8a4.8 4.8 0 0 0 0-9.6z"/>
-    <circle cx="7.8" cy="10.1" r=".9" fill="currentColor" stroke="none" opacity=".9"/>
-    <circle cx="10.7" cy="7.5" r=".9" fill="currentColor" stroke="none" opacity=".75"/>
-    <circle cx="14.5" cy="7.4" r=".9" fill="currentColor" stroke="none" opacity=".6"/>
-    <circle cx="16.9" cy="10.7" r=".9" fill="currentColor" stroke="none" opacity=".85"/>
-  </symbol>
-  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-    <path fill="currentColor" opacity=".12" d="m12 3.5-8 4.2L12 12l8-4.3z" stroke="none"/>
-    <path d="m12 3.5-8 4.2L12 12l8-4.3zM4 12l8 4.3 8-4.3M4 16.1l8 4.4 8-4.4"/>
-  </symbol>
+  <symbol id="i-figurine" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="11" r="5"/><path d="M17 33l2-12h10l2 12M21 33v5M27 33v5"/><rect x="12" y="38" width="24" height="5" rx="1.5"/></symbol>
+  <symbol id="i-comic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="2"/><path d="M9 21h30M22 6v15M24 21v21M14 30l3 3 4-6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M24 13c-4-3-10-3-16-2v26c6-1 12-1 16 2 4-3 10-3 16-2V11c-6-1-12-1-16 2ZM24 13v26"/><path d="M30 6v9l2.5-2 2.5 2V6"/></symbol>
+  <symbol id="i-clay" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 40c-3-6-3-14 1-19 2-3 5-4 8-4s6 1 8 4c4 5 4 13 1 19Z"/><circle cx="24" cy="11" r="6"/><path d="M19 30c3 2 7 2 10 0"/></symbol>
+  <symbol id="i-pop" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="5" width="26" height="22" rx="9"/><path d="M18 34h12l1 8H17Z"/><circle cx="19" cy="17" r="1.6" fill="currentColor"/><circle cx="29" cy="17" r="1.6" fill="currentColor"/><path d="M24 27v7"/></symbol>
+  <symbol id="i-person" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="12" r="6"/><path d="M12 42v-3a12 12 0 0 1 24 0v3"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 24 9l20 9-20 9Z"/><path d="M12 22v9c0 4 5.4 7 12 7s12-3 12-7v-9M44 18v10"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="13" width="38" height="27" rx="5"/><path d="M17 13l3-5h8l3 5"/><circle cx="24" cy="26" r="7"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="m30 18-3.5 8.5L18 30l3.5-8.5Z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M27 5 10 27h11l-2 16 18-23H26Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 9 11v11c0 10 6.4 16.6 15 20 8.6-3.4 15-10 15-20V11Z"/><path d="M18 23h12"/></symbol>
+  <symbol id="i-bubble" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h32a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H19l-9 8v-8H8a3 3 0 0 1-3-3V12a3 3 0 0 1 3-3Z"/><path d="M14 18h20M14 24h12"/></symbol>
+  <symbol id="i-brush" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M40 6 22 24l4 4L44 10a3 3 0 0 0-4-4Z"/><path d="M21 27c-4-1-8 1-9 5-1 3-3 5-6 6 4 3 12 3 16-1 2-2 3-6-1-10Z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 6 15l18 9 18-9Z"/><path d="m6 24 18 9 18-9M6 33l18 9 18-9"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M24 31V9M15 18l9-9 9 9"/><path d="M8 30v6a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4v-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="m16 24 6 6 11-12"/></symbol>
+  <symbol id="i-locket" viewBox="0 0 64 64"><circle cx="32" cy="7.5" r="4.25" fill="none" stroke="currentColor" stroke-width="3"/><path fill="currentColor" fill-rule="evenodd" d="M32 13C20.4 13 12 23.6 12 37s8.4 24 20 24 20-10.6 20-24-8.4-24-20-24ZM32 27.5a6 6 0 0 0-3.1 11.1L27 49h10l-1.9-10.4A6 6 0 0 0 32 27.5Z"/></symbol>
 </svg>
- 
-<nav>
-  <a href="/" class="nav-logo"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg> Grad Season</a>
-  <a href="/" class="nav-back">← Back to Home</a>
-</nav>
- 
-<div class="page">
+
+<main class="page" id="main">
   <div id="formWrap">
-    <h1 class="page-title">Pre-Order Your Keepsake</h1>
-    <p class="page-sub">Fill in your graduate's story. No payment today — we collect at fulfillment.</p>
-    <div class="progress" id="progressBar"></div>
- 
+    <p class="ks-eyebrow">Pre-order</p>
+    <h1 class="page-title">Tell us their story.</h1>
+    <p class="page-sub">Four short steps. Nothing is due today; payment is collected at fulfillment.</p>
+    <ol class="progress" id="progressBar" aria-label="Order progress"></ol>
+
     <!-- STEP 1: Info -->
-    <div id="step-0">
-      <div class="card">
-        <p class="section-label">PARENT / GUARDIAN</p>
+    <section id="step-0" aria-label="Step 1: Your info">
+      <div class="card ks-card">
+        <h2 class="section-label">Parent or guardian</h2>
         <div class="row2">
-          <div><label>Your Name *</label><input id="parentName" type="text" placeholder="Jane Smith"></div>
-          <div><label>Email Address *</label><input id="email" type="email" placeholder="jane@email.com"></div>
+          <div class="ks-field"><label class="ks-label" for="parentName">Your name <span class="ks-req" aria-hidden="true">*</span></label><input class="ks-input" id="parentName" name="parentName" type="text" autocomplete="name" required placeholder="Jane Smith"></div>
+          <div class="ks-field"><label class="ks-label" for="email">Email address <span class="ks-req" aria-hidden="true">*</span></label><input class="ks-input" id="email" name="email" type="email" autocomplete="email" required placeholder="jane@email.com"></div>
         </div>
-        <label>Phone (optional)</label>
-        <input id="phone" type="tel" placeholder="(614) 555-0100">
+        <div class="ks-field"><label class="ks-label" for="phone">Phone <span class="ks-hint">(optional)</span></label><input class="ks-input" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(614) 555-0100"></div>
       </div>
-      <div class="card">
-        <p class="section-label">THE GRADUATE</p>
+      <div class="card ks-card">
+        <h2 class="section-label">The graduate</h2>
         <div class="row2">
-          <div><label>Graduate's Full Name *</label><input id="gradName" type="text" placeholder="Marcus Smith"></div>
-          <div>
-            <label>Graduating Grade / Level *</label>
-            <select id="grade">
-              <option value="">Select grade...</option>
+          <div class="ks-field"><label class="ks-label" for="gradName">Graduate's full name <span class="ks-req" aria-hidden="true">*</span></label><input class="ks-input" id="gradName" name="gradName" type="text" required placeholder="Marcus Smith"></div>
+          <div class="ks-field">
+            <label class="ks-label" for="grade">Graduating grade or level <span class="ks-req" aria-hidden="true">*</span></label>
+            <select class="ks-input" id="grade" name="grade" required>
+              <option value="">Select grade…</option>
               <option>Pre-K</option><option>Kindergarten</option>
               <option>1st</option><option>2nd</option><option>3rd</option><option>4th</option>
               <option>5th</option><option>6th</option><option>7th</option><option>8th</option>
@@ -264,53 +166,49 @@ a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(
             </select>
           </div>
         </div>
-        <label>School Name *</label>
-        <input id="school" type="text" placeholder="Columbus East Middle School">
+        <div class="ks-field"><label class="ks-label" for="school">School name <span class="ks-req" aria-hidden="true">*</span></label><input class="ks-input" id="school" name="school" type="text" required placeholder="Columbus East Middle School"></div>
       </div>
-    </div>
- 
+    </section>
+
     <!-- STEP 2: Products -->
-    <div id="step-1" class="step-hidden">
-      <div class="card">
-        <p class="section-label">SELECT YOUR PRODUCTS</p>
- 
+    <section id="step-1" class="step-hidden" aria-label="Step 2: Choose keepsakes">
+      <div class="card ks-card">
+        <h2 class="section-label">Choose your keepsakes</h2>
+
         <!-- Figurine -->
         <div class="product-toggle" id="pt-figurine">
-          <div class="product-toggle-hd" onclick="toggleProduct('figurine')">
-            <div class="pt-left">
-              <span class="pt-icon"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span>
-              <div><div class="pt-name">Custom Figurine</div><div class="pt-price">$89</div></div>
-            </div>
-            <div class="toggle-sw" id="sw-figurine" style="background:var(--surface2)">
-              <div class="toggle-thumb" id="thumb-figurine" style="transform:translateX(2px)"></div>
-            </div>
-          </div>
+          <button type="button" class="product-toggle-hd" id="hd-figurine" aria-expanded="false" aria-controls="pb-figurine" onclick="toggleProduct('figurine')">
+            <span class="pt-left">
+              <span class="pt-icon" aria-hidden="true"><svg><use href="#i-figurine"/></svg></span>
+              <span><span class="pt-name">Custom Figurine</span><br><span class="pt-price">$89</span></span>
+            </span>
+            <span class="toggle-sw" id="sw-figurine" style="background:var(--ks-line-strong)" aria-hidden="true"><span class="toggle-thumb" id="thumb-figurine" style="transform:translateX(3px)"></span></span>
+          </button>
           <div class="product-body" id="pb-figurine" style="display:none">
-            <p class="section-label" style="margin-top:10px">FIGURINE STYLE</p>
-            <div class="style-grid">
-              <div class="style-btn" data-group="fstyle" data-val="claymation" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-figurine"/></svg></span><span class="sb-label">Claymation</span><span class="sb-desc">Soft clay texture</span></div>
-              <div class="style-btn" data-group="fstyle" data-val="funko" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bear"/></svg></span><span class="sb-label">Funko Pop</span><span class="sb-desc">Big head collectible</span></div>
-              <div class="style-btn" data-group="fstyle" data-val="realistic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-person"/></svg></span><span class="sb-label">Realistic</span><span class="sb-desc">True-to-life sculpt</span></div>
+            <p class="sub-label" id="lbl-fstyle">Figurine style</p>
+            <div class="style-grid" role="group" aria-labelledby="lbl-fstyle">
+              <button type="button" class="style-btn" data-group="fstyle" data-val="claymation" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-clay"/></svg></span><span class="sb-label">Claymation</span><span class="sb-desc">Soft clay texture</span></button>
+              <button type="button" class="style-btn" data-group="fstyle" data-val="funko" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-pop"/></svg></span><span class="sb-label">Funko Pop</span><span class="sb-desc">Big-head collectible</span></button>
+              <button type="button" class="style-btn" data-group="fstyle" data-val="realistic" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-person"/></svg></span><span class="sb-label">Realistic</span><span class="sb-desc">True-to-life sculpt</span></button>
             </div>
-            <p class="section-label" style="margin-top:16px">OUTFIT</p>
-            <div class="style-grid">
-              <div class="style-btn" data-group="ffit" data-val="grad" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-grad-cap"/></svg></span><span class="sb-label">Grad Fit</span><span class="sb-desc">Cap &amp; gown</span></div>
-              <div class="style-btn" data-group="ffit" data-val="photo" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-camera"/></svg></span><span class="sb-label">My Photo</span><span class="sb-desc">Upload their look</span></div>
-              <div class="style-btn" data-group="ffit" data-val="career" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-rocket"/></svg></span><span class="sb-label">Career Fit</span><span class="sb-desc">Dream job uniform</span></div>
+            <p class="sub-label" id="lbl-ffit">Outfit</p>
+            <div class="style-grid" role="group" aria-labelledby="lbl-ffit">
+              <button type="button" class="style-btn" data-group="ffit" data-val="grad" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-cap"/></svg></span><span class="sb-label">Grad Fit</span><span class="sb-desc">Cap &amp; gown</span></button>
+              <button type="button" class="style-btn" data-group="ffit" data-val="photo" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-camera"/></svg></span><span class="sb-label">My Photo</span><span class="sb-desc">Their real outfit</span></button>
+              <button type="button" class="style-btn" data-group="ffit" data-val="career" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-compass"/></svg></span><span class="sb-label">Career Fit</span><span class="sb-desc">Dream-job uniform</span></button>
             </div>
-            <!-- Figurine photo upload — always shown when figurine is active -->
-            <div id="photoUploadSection" style="margin-top:24px;">
-              <p style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-bottom:8px;">📸 REFERENCE PHOTO</p>
-              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Upload a clear photo of your graduate — front-facing works best. We use this to capture their likeness for the figurine.</p>
-              <div class="upload-box" id="uploadBox" onclick="openFigurineUploader()">
-                <div id="uploadPrompt"><div style="font-size:30px;margin-bottom:8px;">📷</div><div style="font-size:14px;font-weight:700;color:var(--cream);margin-bottom:4px;">Click to Upload Photo</div><div style="font-size:12px;color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div></div>
-                <div id="uploadSuccess" style="display:none;"><div style="font-size:30px;margin-bottom:8px;">✅</div><div style="font-size:14px;font-weight:700;color:#34D399;margin-bottom:4px;">Photo Uploaded!</div><div id="uploadedFileName" style="font-size:12px;color:var(--muted);"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Click to replace</div></div>
-              </div>
+            <div id="photoUploadSection">
+              <p class="sub-label">Reference photo</p>
+              <p class="ks-hint" style="margin-bottom:12px">A clear, front-facing photo of your graduate works best. We use it to capture their likeness.</p>
+              <button type="button" class="upload-box" id="uploadBox" onclick="openFigurineUploader()">
+                <span id="uploadPrompt"><svg aria-hidden="true"><use href="#i-upload"/></svg><span class="up-title">Upload a photo</span><br><span class="up-meta">JPG, PNG, HEIC or WebP · up to 10MB</span></span>
+                <span id="uploadSuccess" class="up-ok" style="display:none"><svg aria-hidden="true"><use href="#i-check"/></svg><span class="up-title">Photo uploaded</span><br><span class="up-meta" id="uploadedFileName"></span><br><span class="up-meta">Select to replace</span></span>
+              </button>
             </div>
-            <div id="career-block" style="display:none;margin-top:12px">
-              <label>Future Career</label>
-              <select id="careerChoice">
-                <option value="">Select career...</option>
+            <div id="career-block" style="display:none" class="ks-field">
+              <label class="ks-label" for="careerChoice">Future career</label>
+              <select class="ks-input" id="careerChoice" name="careerChoice">
+                <option value="">Select career…</option>
                 <option>Doctor</option><option>Lawyer</option><option>Engineer</option><option>Athlete</option>
                 <option>Teacher</option><option>Entrepreneur</option><option>Nurse</option><option>Pilot</option>
                 <option>Architect</option><option>Artist</option><option>Musician</option><option>Scientist</option>
@@ -318,143 +216,158 @@ a:active .icon,button:active .icon,.style-btn:active .icon{transform:translateY(
                 <option>Military</option><option>Other</option>
               </select>
             </div>
-            <div id="photo-block" style="display:none;margin-top:12px">
-              <label>Photo link or outfit description</label>
-              <input id="outfitPhotoUrl" type="text" placeholder="Google Drive link or describe their outfit">
+            <div id="photo-block" style="display:none" class="ks-field">
+              <label class="ks-label" for="outfitPhotoUrl">Photo link or outfit description</label>
+              <input class="ks-input" id="outfitPhotoUrl" name="outfitPhotoUrl" type="text" placeholder="Google Drive link, or describe their outfit">
+              <span class="ks-hint">Not needed if you uploaded a photo above.</span>
             </div>
           </div>
         </div>
- 
+
         <!-- Comic -->
         <div class="product-toggle" id="pt-comic">
-          <div class="product-toggle-hd" onclick="toggleProduct('comic')">
-            <div class="pt-left">
-              <span class="pt-icon"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span>
-              <div><div class="pt-name">Custom Comic Book</div><div class="pt-price">$34</div></div>
-            </div>
-            <div class="toggle-sw" id="sw-comic" style="background:var(--surface2)">
-              <div class="toggle-thumb" id="thumb-comic" style="transform:translateX(2px)"></div>
-            </div>
-          </div>
+          <button type="button" class="product-toggle-hd" id="hd-comic" aria-expanded="false" aria-controls="pb-comic" onclick="toggleProduct('comic')">
+            <span class="pt-left">
+              <span class="pt-icon" aria-hidden="true"><svg><use href="#i-comic"/></svg></span>
+              <span><span class="pt-name">Custom Comic Book</span><br><span class="pt-price">$34</span></span>
+            </span>
+            <span class="toggle-sw" id="sw-comic" style="background:var(--ks-line-strong)" aria-hidden="true"><span class="toggle-thumb" id="thumb-comic" style="transform:translateX(3px)"></span></span>
+          </button>
           <div class="product-body" id="pb-comic" style="display:none">
-            <p class="section-label" style="margin-top:10px">COMIC STYLE</p>
-            <div class="style-grid">
-              <div class="style-btn" data-group="comic" data-val="manga" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-lightning"/></svg></span><span class="sb-label">Manga</span><span class="sb-desc">Anime ink style</span></div>
-              <div class="style-btn" data-group="comic" data-val="superhero" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-shield"/></svg></span><span class="sb-label">Superhero</span><span class="sb-desc">Western comic</span></div>
-              <div class="style-btn" data-group="comic" data-val="cartoon" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-bubble"/></svg></span><span class="sb-label">Cartoon Strip</span><span class="sb-desc">10 strips format</span></div>
+            <p class="sub-label" id="lbl-comic">Comic style</p>
+            <div class="style-grid" role="group" aria-labelledby="lbl-comic">
+              <button type="button" class="style-btn" data-group="comic" data-val="manga" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-bolt"/></svg></span><span class="sb-label">Manga</span><span class="sb-desc">Anime ink style</span></button>
+              <button type="button" class="style-btn" data-group="comic" data-val="superhero" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-shield"/></svg></span><span class="sb-label">Superhero</span><span class="sb-desc">Western comic</span></button>
+              <button type="button" class="style-btn" data-group="comic" data-val="cartoon" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-bubble"/></svg></span><span class="sb-label">Cartoon Strip</span><span class="sb-desc">10-strip format</span></button>
             </div>
-            <!-- Comic photo upload — always shown when comic is active -->
-            <div id="comicPhotoSection" style="margin-top:24px;">
-              <p style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-bottom:8px;">📸 REFERENCE PHOTO — COMIC</p>
-              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Upload a photo of your graduate. Our artist uses this to draw their likeness throughout the comic book.</p>
-              <div class="upload-box" id="comicUploadBox" onclick="openComicUploader()">
-                <div id="comicUploadPrompt"><div style="font-size:30px;margin-bottom:8px;">📷</div><div style="font-size:14px;font-weight:700;color:var(--cream);margin-bottom:4px;">Click to Upload Photo</div><div style="font-size:12px;color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div></div>
-                <div id="comicUploadSuccess" style="display:none;"><div style="font-size:30px;margin-bottom:8px;">✅</div><div style="font-size:14px;font-weight:700;color:#34D399;margin-bottom:4px;">Photo Uploaded!</div><div id="comicUploadedFileName" style="font-size:12px;color:var(--muted);"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Click to replace</div></div>
-              </div>
+            <div id="comicPhotoSection">
+              <p class="sub-label">Reference photo</p>
+              <p class="ks-hint" style="margin-bottom:12px">Our artist draws your graduate's likeness from this photo on every page.</p>
+              <button type="button" class="upload-box" id="comicUploadBox" onclick="openComicUploader()">
+                <span id="comicUploadPrompt"><svg aria-hidden="true"><use href="#i-upload"/></svg><span class="up-title">Upload a photo</span><br><span class="up-meta">JPG, PNG, HEIC or WebP · up to 10MB</span></span>
+                <span id="comicUploadSuccess" class="up-ok" style="display:none"><svg aria-hidden="true"><use href="#i-check"/></svg><span class="up-title">Photo uploaded</span><br><span class="up-meta" id="comicUploadedFileName"></span><br><span class="up-meta">Select to replace</span></span>
+              </button>
             </div>
           </div>
         </div>
- 
+
         <!-- Storybook -->
         <div class="product-toggle" id="pt-storybook">
-          <div class="product-toggle-hd" onclick="toggleProduct('storybook')">
-            <div class="pt-left">
-              <span class="pt-icon"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span>
-              <div><div class="pt-name">Custom Storybook</div><div class="pt-price">$44</div></div>
-            </div>
-            <div class="toggle-sw" id="sw-storybook" style="background:var(--surface2)">
-              <div class="toggle-thumb" id="thumb-storybook" style="transform:translateX(2px)"></div>
-            </div>
-          </div>
+          <button type="button" class="product-toggle-hd" id="hd-storybook" aria-expanded="false" aria-controls="pb-storybook" onclick="toggleProduct('storybook')">
+            <span class="pt-left">
+              <span class="pt-icon" aria-hidden="true"><svg><use href="#i-book"/></svg></span>
+              <span><span class="pt-name">Custom Storybook</span><br><span class="pt-price">$44</span></span>
+            </span>
+            <span class="toggle-sw" id="sw-storybook" style="background:var(--ks-line-strong)" aria-hidden="true"><span class="toggle-thumb" id="thumb-storybook" style="transform:translateX(3px)"></span></span>
+          </button>
           <div class="product-body" id="pb-storybook" style="display:none">
-            <p class="section-label" style="margin-top:10px">STORYBOOK STYLE</p>
-            <div class="style-grid">
-              <div class="style-btn" data-group="story" data-val="watercolor" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-palette"/></svg></span><span class="sb-label">Watercolor</span><span class="sb-desc">Classic picture book</span></div>
-              <div class="style-btn" data-group="story" data-val="graphic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg></span><span class="sb-label">Graphic Novel</span><span class="sb-desc">Panel spreads</span></div>
-              <div class="style-btn" data-group="story" data-val="classic" onclick="pickStyle(this)"><span class="sb-emoji"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"/></svg></span><span class="sb-label">Classic</span><span class="sb-desc">Timeless children's</span></div>
+            <p class="sub-label" id="lbl-story">Storybook style</p>
+            <div class="style-grid" role="group" aria-labelledby="lbl-story">
+              <button type="button" class="style-btn" data-group="story" data-val="watercolor" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-brush"/></svg></span><span class="sb-label">Watercolor</span><span class="sb-desc">Classic picture book</span></button>
+              <button type="button" class="style-btn" data-group="story" data-val="graphic" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-layers"/></svg></span><span class="sb-label">Graphic Novel</span><span class="sb-desc">Panel spreads</span></button>
+              <button type="button" class="style-btn" data-group="story" data-val="classic" aria-pressed="false" onclick="pickStyle(this)"><span class="sb-emoji" aria-hidden="true"><svg><use href="#i-book"/></svg></span><span class="sb-label">Classic</span><span class="sb-desc">Timeless children's</span></button>
             </div>
-            <!-- Storybook photo upload — always shown when storybook is active -->
-            <div id="storybookPhotoSection" style="margin-top:24px;">
-              <p style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-bottom:8px;">📸 REFERENCE PHOTO — STORYBOOK</p>
-              <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Upload a photo of your graduate. The illustrations throughout the storybook will be based on their appearance.</p>
-              <div class="upload-box" id="storybookUploadBox" onclick="openStorybookUploader()">
-                <div id="storybookUploadPrompt"><div style="font-size:30px;margin-bottom:8px;">📷</div><div style="font-size:14px;font-weight:700;color:var(--cream);margin-bottom:4px;">Click to Upload Photo</div><div style="font-size:12px;color:var(--muted);">JPG, PNG, HEIC — up to 10MB</div></div>
-                <div id="storybookUploadSuccess" style="display:none;"><div style="font-size:30px;margin-bottom:8px;">✅</div><div style="font-size:14px;font-weight:700;color:#34D399;margin-bottom:4px;">Photo Uploaded!</div><div id="storybookUploadedFileName" style="font-size:12px;color:var(--muted);"></div><div style="font-size:12px;color:var(--muted);margin-top:6px;">Click to replace</div></div>
-              </div>
+            <div id="storybookPhotoSection">
+              <p class="sub-label">Reference photo</p>
+              <p class="ks-hint" style="margin-bottom:12px">The storybook's illustrations are based on your graduate's appearance.</p>
+              <button type="button" class="upload-box" id="storybookUploadBox" onclick="openStorybookUploader()">
+                <span id="storybookUploadPrompt"><svg aria-hidden="true"><use href="#i-upload"/></svg><span class="up-title">Upload a photo</span><br><span class="up-meta">JPG, PNG, HEIC or WebP · up to 10MB</span></span>
+                <span id="storybookUploadSuccess" class="up-ok" style="display:none"><svg aria-hidden="true"><use href="#i-check"/></svg><span class="up-title">Photo uploaded</span><br><span class="up-meta" id="storybookUploadedFileName"></span><br><span class="up-meta">Select to replace</span></span>
+              </button>
             </div>
           </div>
         </div>
- 
       </div>
-    </div>
- 
+    </section>
+
     <!-- STEP 3: Journey -->
-    <div id="step-2" class="step-hidden">
-      <div class="card">
-        <p class="section-label">THEIR STORY — THE MORE DETAIL THE BETTER</p>
-        <label>Favorite school memory *</label>
-        <textarea id="favMemory" placeholder="That time they..."></textarea>
-        <label>Biggest challenge they overcame</label>
-        <textarea id="challenge" placeholder="It wasn't easy when..."></textarea>
-        <label>Their proudest moment *</label>
-        <textarea id="proudMoment" placeholder="We were so proud when..."></textarea>
-        <label>Their biggest dream / future goal *</label>
-        <textarea id="futureGoal" placeholder="They want to become..."></textarea>
+    <section id="step-2" class="step-hidden" aria-label="Step 3: Their story">
+      <div class="card ks-card">
+        <h2 class="section-label">Their story</h2>
+        <p class="ks-hint" style="margin:-8px 0 18px">Specifics beat adjectives. Names, places, the exact moment.</p>
+        <div class="ks-field"><label class="ks-label" for="favMemory">Favorite school memory <span class="ks-req" aria-hidden="true">*</span></label><textarea class="ks-input" id="favMemory" name="favMemory" required placeholder="That time they…"></textarea></div>
+        <div class="ks-field"><label class="ks-label" for="challenge">Biggest challenge they overcame</label><textarea class="ks-input" id="challenge" name="challenge" placeholder="It wasn't easy when…"></textarea></div>
+        <div class="ks-field"><label class="ks-label" for="proudMoment">Their proudest moment <span class="ks-req" aria-hidden="true">*</span></label><textarea class="ks-input" id="proudMoment" name="proudMoment" required placeholder="We were so proud when…"></textarea></div>
+        <div class="ks-field"><label class="ks-label" for="futureGoal">Their biggest dream or future goal <span class="ks-req" aria-hidden="true">*</span></label><textarea class="ks-input" id="futureGoal" name="futureGoal" required placeholder="They want to become…"></textarea></div>
         <div class="row2">
-          <div><label>3 words that describe them</label><input id="personality" type="text" placeholder="Brave, Funny, Determined"></div>
-          <div><label>A fun fact about them</label><input id="funFact" type="text" placeholder="They can name every..."></div>
+          <div class="ks-field"><label class="ks-label" for="personality">3 words that describe them</label><input class="ks-input" id="personality" name="personality" type="text" placeholder="Brave, funny, determined"></div>
+          <div class="ks-field"><label class="ks-label" for="funFact">A fun fact about them</label><input class="ks-input" id="funFact" name="funFact" type="text" placeholder="They can name every…"></div>
         </div>
-        <label>Dedication message (printed inside the book)</label>
-        <textarea id="dedication" placeholder="To our shining star..."></textarea>
+        <div class="ks-field"><label class="ks-label" for="dedication">Dedication message</label><span class="ks-hint">Printed inside the book, word for word.</span><textarea class="ks-input" id="dedication" name="dedication" placeholder="To our shining star…"></textarea></div>
       </div>
-    </div>
- 
+    </section>
+
     <!-- STEP 4: Review -->
-    <div id="step-3" class="step-hidden">
-      <div class="card">
-        <p class="section-label">REVIEW YOUR ORDER</p>
+    <section id="step-3" class="step-hidden" aria-label="Step 4: Review">
+      <div class="card ks-card">
+        <h2 class="section-label">Review your order</h2>
         <div class="review-table" id="reviewTable"></div>
         <div class="total-row">
-          <span style="color:var(--muted);font-size:14px;font-weight:600;">Pre-Order Total</span>
+          <span class="rk">Pre-order total</span>
           <span class="total-amt" id="totalDisplay">$0</span>
         </div>
         <p class="disclaimer">Secure payment processed via Stripe. You'll be redirected to checkout after submitting. You'll also receive a confirmation email right away, then updates at each production stage.</p>
       </div>
-    </div>
- 
+    </section>
+
+    <p class="form-error" id="formError" role="alert" aria-live="assertive"></p>
     <div class="nav-btns" id="navBtns">
-      <button class="btn-back" id="backBtn" onclick="prevStep()" style="display:none">← Back</button>
+      <button type="button" class="ks-btn ks-btn--ghost btn-back" id="backBtn" onclick="prevStep()" style="display:none">← Back</button>
       <div class="spacer"></div>
-      <button class="btn-next" id="nextBtn" onclick="nextStep()">Continue →</button>
+      <button type="button" class="ks-btn ks-btn--primary btn-next" id="nextBtn" onclick="nextStep()">Continue →</button>
     </div>
   </div>
- 
+
   <!-- Success -->
-  <div id="successWrap" style="display:none" class="success">
-    <div class="success-icon"><svg style="width:64px;height:64px;color:var(--gold)" aria-hidden="true"><use href="#icon-grad-cap"/></svg></div>
-    <div class="success-title" id="successTitle">Order Received!</div>
-    <p class="success-sub" id="successSub">We got their order locked in.</p>
-    <div class="success-detail">
-      <p>Confirmation heading to <strong id="confirmEmail"></strong></p>
-      <p style="margin-top:8px;color:var(--muted);font-size:13px;">You'll get progress emails as we generate, print, and ship. Nothing is due until your order ships.</p>
+  <div id="successWrap" style="display:none" class="success" tabindex="-1">
+    <svg class="success-icon" aria-hidden="true"><use href="#i-locket"/></svg>
+    <h1 class="success-title" id="successTitle">Order received.</h1>
+    <p class="success-sub" id="successSub">Their order is in.</p>
+    <div class="success-detail ks-card">
+      <p>Confirmation is on its way to <strong id="confirmEmail"></strong></p>
+      <p class="ks-hint" style="margin-top:8px">You'll get an email as we make, print, and ship. Nothing is due until your order ships.</p>
     </div>
     <div id="successBadges"></div>
-    <div style="margin-top:28px"><a href="/" style="color:var(--gold);font-weight:700;text-decoration:none;font-size:14px;">← Back to Home</a></div>
+    <p style="margin-top:28px"><a class="ks-btn ks-btn--ghost" href="/">← Back to home</a></p>
   </div>
-</div>
- 
+</main>
+
+<!--FOOTER--><footer class="ks-footer">
+  <div class="ks-wrap">
+    <div class="ks-footer-grid">
+      <div>
+        <a class="ks-brand" href="/" aria-label="Keepsakes home"><svg viewBox="0 0 379 68" role="img" aria-label="Keepsakes"><g transform="translate(0 2)"><circle cx="32" cy="7.5" r="4.25" fill="none" stroke="var(--ks-primary)" stroke-width="3"/><path fill="var(--ks-primary)" fill-rule="evenodd" d="M32 13C20.4 13 12 23.6 12 37s8.4 24 20 24 20-10.6 20-24-8.4-24-20-24ZM32 27.5a6 6 0 0 0-3.1 11.1L27 49h10l-1.9-10.4A6 6 0 0 0 32 27.5Z"/></g><path fill="currentColor" d="M121.4 48.64Q122.24 48.64 122.24 49.48V51.16Q122.24 52 121.4 52H104.21Q103.37 52 103.37 51.16V49.48Q103.37 48.64 104.21 48.64H104.54Q105.89 48.64 106.73 47.91Q107.57 47.18 107.57 46.01Q107.57 44.72 106.56 43.32L98.38 31.78L93.62 36.94V43.32Q93.62 48.64 97.38 48.64H97.71Q98.55 48.64 98.55 49.48V51.16Q98.55 52 97.71 52H80.52Q79.68 52 79.68 51.16V49.48Q79.68 48.64 80.52 48.64H80.91Q84.66 48.64 84.66 43.32V18.68Q84.66 13.36 80.97 13.36H80.52Q79.68 13.36 79.68 12.52V10.84Q79.68 10 80.52 10H97.77Q98.61 10 98.61 10.84V12.52Q98.61 13.36 97.77 13.36H97.38Q93.62 13.36 93.62 18.74V29.77L106.34 15.71Q106.67 15.38 106.78 15.01Q106.9 14.65 106.9 14.37Q106.9 13.36 105.78 13.36H104.6Q103.87 13.36 103.87 12.52V10.84Q103.87 10 104.71 10H118.88Q119.72 10 119.72 10.84V12.52Q119.72 13.36 118.99 13.36H118.32Q116.64 13.36 115.41 14.09Q114.18 14.82 112.1 17.06L103.87 25.9L115.52 43.32Q116.81 45.28 117.59 46.37Q118.38 47.46 118.88 47.94Q119.38 48.42 119.86 48.53Q120.34 48.64 121.06 48.64Z M132.49 41.98Q133.44 44.33 135.54 46.18Q137.64 48.02 140.89 48.02Q142.68 48.02 144.64 47.02Q146.6 46.01 148.06 43.88Q148.22 43.6 148.5 43.6Q148.78 43.6 149.09 43.77Q149.4 43.94 150.74 44.72Q150.97 44.89 150.97 45.17Q150.97 45.56 150.63 46.12Q149.06 49.03 146.38 50.88Q143.69 52.73 139.38 52.73Q134.73 52.73 131.37 50.66Q128.01 48.58 126.19 45.17Q124.37 41.75 124.37 37.72Q124.37 33.86 125.52 31.08Q126.66 28.31 128.57 26.6Q130.47 24.9 132.85 24.08Q135.23 23.27 137.7 23.27Q140.5 23.27 142.62 24.36Q144.75 25.46 146.24 27.14Q147.72 28.82 148.48 30.69Q149.23 32.57 149.23 34.19Q149.23 34.64 148.73 34.86ZM140.83 33.97Q140.83 31.28 139.54 29.54Q138.26 27.81 136.3 27.81Q134 27.81 132.66 29.63Q131.31 31.45 131.31 34.19Q131.31 35.03 131.4 36.26Q131.48 37.5 131.82 38.5Z M161.33 41.98Q162.28 44.33 164.38 46.18Q166.48 48.02 169.73 48.02Q171.52 48.02 173.48 47.02Q175.44 46.01 176.9 43.88Q177.06 43.6 177.34 43.6Q177.62 43.6 177.93 43.77Q178.24 43.94 179.58 44.72Q179.81 44.89 179.81 45.17Q179.81 45.56 179.47 46.12Q177.9 49.03 175.22 50.88Q172.53 52.73 168.22 52.73Q163.57 52.73 160.21 50.66Q156.85 48.58 155.03 45.17Q153.21 41.75 153.21 37.72Q153.21 33.86 154.36 31.08Q155.5 28.31 157.41 26.6Q159.31 24.9 161.69 24.08Q164.07 23.27 166.54 23.27Q169.34 23.27 171.46 24.36Q173.59 25.46 175.08 27.14Q176.56 28.82 177.32 30.69Q178.07 32.57 178.07 34.19Q178.07 34.64 177.57 34.86ZM169.67 33.97Q169.67 31.28 168.38 29.54Q167.1 27.81 165.14 27.81Q162.84 27.81 161.5 29.63Q160.15 31.45 160.15 34.19Q160.15 35.03 160.24 36.26Q160.32 37.5 160.66 38.5Z M193.08 28.37Q193.42 27.58 194.31 26.38Q195.21 25.18 197 24.22Q198.79 23.27 201.65 23.27Q203.55 23.27 205.68 24.06Q207.81 24.84 209.71 26.58Q211.62 28.31 212.82 31.11Q214.02 33.91 214.02 38Q214.02 43.15 212.18 46.43Q210.33 49.7 207.36 51.22Q204.39 52.73 200.98 52.73Q196.72 52.73 193.7 50.04V54.52Q193.7 56.76 194.7 58.3Q195.71 59.84 197.78 59.84Q198.62 59.84 198.62 60.68V62.36Q198.62 63.2 197.78 63.2H181.77Q180.93 63.2 180.93 62.36V60.68Q180.93 59.84 181.82 59.84Q183.9 59.84 184.88 58.3Q185.86 56.76 185.86 54.52V35.26Q185.86 33.74 185.69 32.34Q185.52 30.94 184.82 29.96Q184.12 28.98 182.55 28.82Q182.16 28.76 182.05 28.56Q181.94 28.37 181.94 28.09V26.18Q181.94 25.46 182.72 25.46Q185.52 25.46 187.31 25.2Q189.1 24.95 190.42 24.45Q191.74 23.94 193.02 23.33Q193.19 23.22 193.33 23.22Q193.47 23.22 193.53 23.22H193.58Q193.7 23.22 193.7 23.38Q193.7 23.44 193.67 23.66Q193.64 23.89 193.53 24.92Q193.42 25.96 193.08 28.37ZM193.7 42.03Q193.92 43.77 194.68 45.39Q195.43 47.02 196.78 48.02Q198.12 49.03 199.97 49.03Q202.66 49.03 204.17 47.69Q205.68 46.34 206.27 44.22Q206.86 42.09 206.86 39.79Q206.86 34.42 204.7 31.28Q202.54 28.14 199.07 28.14Q196.83 28.14 195.46 29.4Q194.09 30.66 193.7 31.84Z M241.02 32.68Q240.68 32.85 240.46 32.85Q240.06 32.85 239.73 32.46Q237.21 29.26 234.46 27.98Q231.72 26.69 229.7 26.69Q228.25 26.69 227.02 27.3Q225.78 27.92 225.78 29.54Q225.78 30.78 226.71 31.59Q227.63 32.4 229.09 32.9Q230.54 33.41 232.06 33.8Q234.24 34.3 236.45 34.98Q238.66 35.65 240.51 36.74Q242.36 37.83 243.51 39.46Q244.66 41.08 244.66 43.54Q244.66 46.18 243.23 48.25Q241.8 50.32 239.17 51.52Q236.54 52.73 232.9 52.73Q231.16 52.73 229.51 52.31Q227.86 51.89 226.4 51.22Q226.06 51.05 225.9 51.05Q225.5 51.05 225.5 51.44Q225.5 51.55 225.62 51.89Q225.73 52.22 225.73 52.34Q225.73 52.78 225.06 52.78H223.04Q222.42 52.78 222.09 52.22L217.27 43.21Q217.1 42.87 217.1 42.7Q217.1 42.31 217.55 42.03L219.29 41.02Q219.62 40.86 219.79 40.86Q220.13 40.86 220.41 41.36Q223.15 45.45 226.43 47.18Q229.7 48.92 233.12 48.92Q238.5 48.92 238.5 45.73Q238.5 44.27 237.18 43.32Q235.86 42.37 233.93 41.75Q232 41.14 230.04 40.69Q226.46 39.79 224.33 38.64Q222.2 37.5 221.14 36.18Q220.07 34.86 219.71 33.55Q219.34 32.23 219.34 31Q219.34 27.64 221.92 25.46Q224.5 23.27 228.92 23.27Q231.55 23.27 233.57 23.97Q235.58 24.67 236.37 25.12Q236.59 25.23 236.7 25.23Q236.87 25.23 236.87 25.01Q236.87 24.84 236.7 24.34Q236.65 24.06 236.62 23.92Q236.59 23.78 236.59 23.66Q236.59 23.1 237.32 23.1H238.78Q239.5 23.1 239.73 23.72L242.53 30.83Q242.7 31.17 242.7 31.39Q242.7 31.78 242.25 32.01Z M275.9 41.64Q275.9 43.66 276.52 45.25Q277.14 46.85 279.21 47.13Q279.88 47.18 279.88 47.86V49.7Q279.88 50.49 279.04 50.49Q276.3 50.49 274.48 50.8Q272.66 51.1 271.34 51.58Q270.02 52.06 268.74 52.62Q268.51 52.73 268.34 52.73H268.18Q268.06 52.73 268.06 52.5Q268.06 52.28 268.18 51.41Q268.29 50.54 268.43 49.45Q268.57 48.36 268.68 47.58Q268.4 48.3 267.48 49.54Q266.55 50.77 264.79 51.75Q263.02 52.73 260.17 52.73Q258.26 52.73 256.11 51.94Q253.95 51.16 252.05 49.42Q250.14 47.69 248.94 44.86Q247.74 42.03 247.74 37.94Q247.74 32.74 249.61 29.52Q251.49 26.3 254.48 24.78Q257.48 23.27 260.84 23.27Q263.58 23.27 265.88 24.11Q268.18 24.95 269.91 26.52Q271.37 25.9 272.4 25.37Q273.44 24.84 274.17 24.28Q274.45 24.06 274.76 23.83Q275.06 23.61 275.46 23.38Q275.62 23.27 275.74 23.27H275.79Q275.9 23.27 275.9 23.38ZM268.06 32.85Q267.9 31.73 267.25 30.36Q266.61 28.98 265.32 28Q264.03 27.02 261.85 27.02Q259.16 27.02 257.65 28.34Q256.14 29.66 255.55 31.73Q254.96 33.8 254.96 36.15Q254.96 41.53 257.12 44.66Q259.27 47.8 262.69 47.8Q264.7 47.8 265.85 46.93Q267 46.06 267.5 45.17Q268.01 44.27 268.06 44.1Z M314.94 48.64Q315.66 48.64 315.66 49.48V51.16Q315.66 52 314.82 52H301.1Q300.26 52 300.26 51.16V49.42Q300.26 48.64 300.99 48.64H301.83Q302.39 48.64 302.87 48.42Q303.34 48.19 303.34 47.8Q303.34 47.41 302.9 46.96L295.5 38.95L294.33 40.02V43.32Q294.33 45.5 294.52 46.65Q294.72 47.8 295.36 48.22Q296.01 48.64 297.35 48.64Q298.19 48.64 298.19 49.48V51.16Q298.19 52 297.35 52H282.4Q281.56 52 281.56 51.16V49.48Q281.56 48.64 282.4 48.64Q284.47 48.64 285.48 47.1Q286.49 45.56 286.49 43.32V22.32Q286.49 20.81 286.29 19.41Q286.1 18.01 285.4 17.03Q284.7 16.05 283.13 15.88Q282.51 15.82 282.51 15.15V13.25Q282.51 12.91 282.71 12.77Q282.9 12.63 283.3 12.52Q287.78 11.06 290.24 9.61Q292.7 8.15 293.82 7.31Q293.99 7.2 294.1 7.2H294.22Q294.33 7.2 294.33 7.31V35.09L301.16 28.87Q301.61 28.42 301.61 28.09Q301.61 27.36 300.49 27.36H298.81Q298.08 27.36 298.08 26.52V24.84Q298.08 24 298.92 24H311.35Q312.19 24 312.19 24.84V26.52Q312.19 27.36 311.46 27.36H310.79Q309.17 27.36 307.91 28.2Q306.65 29.04 304.46 31L300.15 34.86L312.14 46.9Q313.09 47.86 313.65 48.25Q314.21 48.64 314.77 48.64Z M325.86 41.98Q326.81 44.33 328.91 46.18Q331.01 48.02 334.26 48.02Q336.05 48.02 338.01 47.02Q339.97 46.01 341.42 43.88Q341.59 43.6 341.87 43.6Q342.15 43.6 342.46 43.77Q342.77 43.94 344.11 44.72Q344.34 44.89 344.34 45.17Q344.34 45.56 344 46.12Q342.43 49.03 339.74 50.88Q337.06 52.73 332.74 52.73Q328.1 52.73 324.74 50.66Q321.38 48.58 319.56 45.17Q317.74 41.75 317.74 37.72Q317.74 33.86 318.88 31.08Q320.03 28.31 321.94 26.6Q323.84 24.9 326.22 24.08Q328.6 23.27 331.06 23.27Q333.86 23.27 335.99 24.36Q338.12 25.46 339.6 27.14Q341.09 28.82 341.84 30.69Q342.6 32.57 342.6 34.19Q342.6 34.64 342.1 34.86ZM334.2 33.97Q334.2 31.28 332.91 29.54Q331.62 27.81 329.66 27.81Q327.37 27.81 326.02 29.63Q324.68 31.45 324.68 34.19Q324.68 35.03 324.76 36.26Q324.85 37.5 325.18 38.5Z M370.21 32.68Q369.87 32.85 369.65 32.85Q369.26 32.85 368.92 32.46Q366.4 29.26 363.66 27.98Q360.91 26.69 358.9 26.69Q357.44 26.69 356.21 27.3Q354.98 27.92 354.98 29.54Q354.98 30.78 355.9 31.59Q356.82 32.4 358.28 32.9Q359.74 33.41 361.25 33.8Q363.43 34.3 365.64 34.98Q367.86 35.65 369.7 36.74Q371.55 37.83 372.7 39.46Q373.85 41.08 373.85 43.54Q373.85 46.18 372.42 48.25Q370.99 50.32 368.36 51.52Q365.73 52.73 362.09 52.73Q360.35 52.73 358.7 52.31Q357.05 51.89 355.59 51.22Q355.26 51.05 355.09 51.05Q354.7 51.05 354.7 51.44Q354.7 51.55 354.81 51.89Q354.92 52.22 354.92 52.34Q354.92 52.78 354.25 52.78H352.23Q351.62 52.78 351.28 52.22L346.46 43.21Q346.3 42.87 346.3 42.7Q346.3 42.31 346.74 42.03L348.48 41.02Q348.82 40.86 348.98 40.86Q349.32 40.86 349.6 41.36Q352.34 45.45 355.62 47.18Q358.9 48.92 362.31 48.92Q367.69 48.92 367.69 45.73Q367.69 44.27 366.37 43.32Q365.06 42.37 363.12 41.75Q361.19 41.14 359.23 40.69Q355.65 39.79 353.52 38.64Q351.39 37.5 350.33 36.18Q349.26 34.86 348.9 33.55Q348.54 32.23 348.54 31Q348.54 27.64 351.11 25.46Q353.69 23.27 358.11 23.27Q360.74 23.27 362.76 23.97Q364.78 24.67 365.56 25.12Q365.78 25.23 365.9 25.23Q366.06 25.23 366.06 25.01Q366.06 24.84 365.9 24.34Q365.84 24.06 365.81 23.92Q365.78 23.78 365.78 23.66Q365.78 23.1 366.51 23.1H367.97Q368.7 23.1 368.92 23.72L371.72 30.83Q371.89 31.17 371.89 31.39Q371.89 31.78 371.44 32.01Z"/></svg></a>
+        <p>Custom figurines, comic books, and storybooks where your graduate is the main character. Made to be kept.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="/order">Pre-order</a></li>
+          <li><a href="/profile">Track an order</a></li>
+          <li><a href="/#faq">Questions</a></li>
+          <li><a href="mailto:hybridlivinginc@gmail.com">hybridlivinginc@gmail.com</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="ks-footer-base">
+      <span>Columbus, Ohio · © <span data-ks-year>2026</span> Keepsakes</span>
+      <span class="ks-credit"><img src="/brand/collective-ai-mark.png" width="28" height="28" alt="" decoding="async" loading="lazy">A Collective AI venture.</span>
+    </div>
+  </div>
+</footer><!--/FOOTER-->
+<script src="/assets/keepsakes.js" defer></script>
 <script>
 // ── CLOUDINARY ─────────────────────────────────────────────
+// Infrastructure IDs: keep exactly as-is. Renaming the preset or folders breaks uploads.
 const CLOUDINARY_CLOUD_NAME    = 'domb47apg';
 const CLOUDINARY_UPLOAD_PRESET = 'grad_season_uploads';
 const CLOUDINARY_STYLES = {
   palette: {
-    window:'#0F1623',windowBorder:'#263050',tabIcon:'#F0B429',menuIcons:'#6B7FA3',
-    textDark:'#0C0A14',textLight:'#EDF2FF',link:'#F0B429',action:'#F0B429',
-    inactiveTabIcon:'#6B7FA3',error:'#F87171',inProgress:'#F0B429',complete:'#34D399',sourceBg:'#080C14'
+    window:'#FFFCF6',windowBorder:'#8E7D6C',tabIcon:'#7A2433',menuIcons:'#66574B',
+    textDark:'#241B16',textLight:'#FFF8EE',link:'#7A2433',action:'#7A2433',
+    inactiveTabIcon:'#66574B',error:'#A3261F',inProgress:'#8C5A14',complete:'#2D6A3E',sourceBg:'#F7F1E6'
   }
 };
- 
+
 // ── STATE ──────────────────────────────────────────────────
 const state = {
   step: 0,
@@ -463,44 +376,55 @@ const state = {
   styles: { fstyle:'', ffit:'', comic:'', story:'' },
   fields: { photoUrl:'', comicPhotoUrl:'', storybookPhotoUrl:'' }
 };
- 
-const STEP_LABELS = ['Your Info','Products','Their Story','Review'];
+
+const STEP_LABELS = ['Your info','Keepsakes','Their story','Review'];
 const PRICES = { figurine:89, comic:34, storybook:44 };
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxakS8z3otUaCs-1R7YjLOv8DNkoHgCouFhJ2zgzpGkpSvHots_tf-d5gFbvk-hkthP/exec';
- 
+
+const STEP_HINTS = [
+  'Fill in your name, email, and the graduate’s name, grade, and school.',
+  'Choose at least one keepsake and pick a style for each one you choose.',
+  'Add a favorite memory, a proudest moment, and a future goal.',
+  ''
+];
+
 // ── PROGRESS BAR ───────────────────────────────────────────
 function renderProgress() {
   const bar = document.getElementById('progressBar');
   bar.innerHTML = STEP_LABELS.map((lbl, i) => {
     const cls = i < state.step ? 'done' : i === state.step ? 'active' : 'pending';
-    const line = i < STEP_LABELS.length - 1
-      ? `<div class="prog-line" style="background:${i < state.step ? 'var(--gold)' : 'var(--border)'}"></div>` : '';
-    return `<div class="prog-item"><div class="prog-dot ${cls}">${i < state.step ? '✓' : i+1}</div><span class="prog-label" style="color:${i<=state.step?'var(--gold)':'var(--muted)'}">${lbl}</span>${line}</div>`;
+    const current = i === state.step ? ' aria-current="step"' : '';
+    return `<li class="prog-item ${cls}"${current}><span><span class="n">${i+1}</span><span class="lbl">${lbl}</span></span></li>`;
   }).join('');
 }
- 
+
 // ── PRODUCT TOGGLES ────────────────────────────────────────
 function toggleProduct(p) {
   state.products[p] = !state.products[p];
   const on = state.products[p];
   document.getElementById('pt-'+p).classList.toggle('on', on);
-  document.getElementById('sw-'+p).style.background = on ? 'var(--gold)' : 'var(--surface2)';
-  document.getElementById('thumb-'+p).style.transform = on ? 'translateX(20px)' : 'translateX(2px)';
+  document.getElementById('sw-'+p).style.background = on ? 'var(--ks-primary)' : 'var(--ks-line-strong)';
+  document.getElementById('thumb-'+p).style.transform = on ? 'translateX(23px)' : 'translateX(3px)';
   document.getElementById('pb-'+p).style.display = on ? 'block' : 'none';
+  const hd = document.getElementById('hd-'+p);
+  if (hd) hd.setAttribute('aria-expanded', String(on));
+  syncNext();
 }
- 
+
 // ── STYLE PICKER ───────────────────────────────────────────
 function pickStyle(btn) {
   const g = btn.dataset.group, v = btn.dataset.val;
-  document.querySelectorAll(`.style-btn[data-group="${g}"]`).forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(`.style-btn[data-group="${g}"]`).forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
   btn.classList.add('active');
+  btn.setAttribute('aria-pressed', 'true');
   state.styles[g] = v;
   if (g === 'ffit') {
     document.getElementById('career-block').style.display = v === 'career' ? 'block' : 'none';
     document.getElementById('photo-block').style.display  = v === 'photo'  ? 'block' : 'none';
   }
+  syncNext();
 }
- 
+
 // ── VALIDATION ─────────────────────────────────────────────
 function canAdvance() {
   const g = id => document.getElementById(id)?.value?.trim();
@@ -517,28 +441,48 @@ function canAdvance() {
   if (state.step === 2) return g('favMemory') && g('proudMoment') && g('futureGoal');
   return true;
 }
- 
+
+function setError(msg) {
+  const el = document.getElementById('formError');
+  if (el) el.textContent = msg;
+}
+
+function syncNext() {
+  const btn = document.getElementById('nextBtn');
+  if (btn && btn.classList.contains('btn-next')) {
+    const ok = Boolean(canAdvance());
+    btn.setAttribute('aria-disabled', String(!ok));
+    if (ok) setError('');
+  }
+}
+
 // ── STEP NAVIGATION ────────────────────────────────────────
 function showStep(n) {
   for (let i = 0; i < state.totalSteps; i++) document.getElementById('step-'+i).classList.toggle('step-hidden', i !== n);
-  document.getElementById('backBtn').style.display = n > 0 ? 'inline-block' : 'none';
+  document.getElementById('backBtn').style.display = n > 0 ? 'inline-flex' : 'none';
   const nextBtn = document.getElementById('nextBtn');
   if (n === state.totalSteps - 1) {
-    nextBtn.outerHTML = `<button class="btn-submit" id="nextBtn" onclick="submitOrder()">Confirm Pre-Order — $${calcTotal()}</button>`;
+    nextBtn.outerHTML = `<button type="button" class="ks-btn ks-btn--primary btn-submit" id="nextBtn" onclick="submitOrder()">Confirm pre-order · $${calcTotal()}</button>`;
     buildReview();
   } else {
     const existing = document.getElementById('nextBtn');
-    existing.className = 'btn-next'; existing.textContent = 'Continue →'; existing.onclick = nextStep;
+    existing.className = 'ks-btn ks-btn--primary btn-next'; existing.textContent = 'Continue →'; existing.onclick = nextStep;
   }
+  setError('');
   renderProgress();
+  syncNext();
 }
-function nextStep() { if (!canAdvance()) return; state.step = Math.min(state.step+1, state.totalSteps-1); showStep(state.step); window.scrollTo({top:0,behavior:'smooth'}); }
+function nextStep() {
+  if (!canAdvance()) { setError(STEP_HINTS[state.step]); return; }
+  state.step = Math.min(state.step+1, state.totalSteps-1); showStep(state.step); window.scrollTo({top:0,behavior:'smooth'});
+}
 function prevStep() { state.step = Math.max(state.step-1, 0); showStep(state.step); window.scrollTo({top:0,behavior:'smooth'}); }
- 
+
 // ── TOTAL ──────────────────────────────────────────────────
 function calcTotal() { return Object.entries(state.products).reduce((s,[k,v]) => v ? s+PRICES[k] : s, 0); }
- 
+
 // ── REVIEW ─────────────────────────────────────────────────
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function buildReview() {
   const g = id => document.getElementById(id)?.value?.trim() || '';
   const rows = [
@@ -547,13 +491,15 @@ function buildReview() {
     state.products.comic     && ['Comic',     state.styles.comic],
     state.products.storybook && ['Storybook', state.styles.story],
   ].filter(Boolean);
-  document.getElementById('reviewTable').innerHTML = rows.map(([k,v]) => `<div class="review-row"><span class="rk">${k}</span><span class="rv">${v}</span></div>`).join('');
+  document.getElementById('reviewTable').innerHTML = rows.map(([k,v]) => `<div class="review-row"><span class="rk">${k}</span><span class="rv${['Figurine','Comic','Storybook'].includes(k) ? ' cap' : ''}">${esc(v)}</span></div>`).join('');
   document.getElementById('totalDisplay').textContent = '$' + calcTotal();
 }
- 
+
 // ── SUBMIT ─────────────────────────────────────────────────
 async function submitOrder() {
   const g = id => document.getElementById(id)?.value?.trim() || '';
+  const submitBtn = document.getElementById('nextBtn');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
   const payload = {
     parentName: g('parentName'), email: g('email'), phone: g('phone'),
     gradName: g('gradName'), grade: g('grade'), school: g('school'),
@@ -568,7 +514,7 @@ async function submitOrder() {
     futureGoal: g('futureGoal'), personality: g('personality'), funFact: g('funFact'),
     dedication: g('dedication'), orderTotal: calcTotal(), submittedAt: new Date().toISOString()
   };
-  // Step 1: POST to Google Apps Script (keep original step)
+  // Step 1: write the order row via Google Apps Script
   try { await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }); }
   catch(e) { console.warn('Fetch note:', e); }
 
@@ -596,7 +542,7 @@ async function submitOrder() {
   // Fallback: show local success page if Stripe redirect fails
   document.getElementById('formWrap').style.display = 'none';
   document.getElementById('successWrap').style.display = 'block';
-  document.getElementById('successTitle').textContent = `${g('gradName')}'s Order Is In!`;
+  document.getElementById('successTitle').textContent = `${g('gradName')}'s order is in.`;
   document.getElementById('successSub').textContent = `We have everything we need. Watch ${g('email')} for updates.`;
   document.getElementById('confirmEmail').textContent = g('email');
   const badges = [];
@@ -604,9 +550,10 @@ async function submitOrder() {
   if (state.products.comic)     badges.push('Comic');
   if (state.products.storybook) badges.push('Storybook');
   document.getElementById('successBadges').innerHTML = badges.map(b => `<span class="badge">${b}</span>`).join('');
+  document.getElementById('successWrap').focus?.();
   window.scrollTo({ top:0, behavior:'smooth' });
 }
- 
+
 // ── CLOUDINARY UPLOADERS ───────────────────────────────────
 function buildWidget(folder, onSuccess) {
   return cloudinary.createUploadWidget(
@@ -617,66 +564,46 @@ function buildWidget(folder, onSuccess) {
     (error, result) => { if (!error && result && result.event === 'success') onSuccess(result.info); }
   );
 }
- 
+
+function markUploaded(prefix, info) {
+  document.getElementById(prefix + 'UploadPrompt').style.display = 'none';
+  document.getElementById(prefix + 'UploadSuccess').style.display = 'inline';
+  document.getElementById(prefix + 'UploadedFileName').textContent = info.original_filename;
+  document.getElementById(prefix + 'UploadBox').style.borderColor = 'var(--ks-success)';
+  syncNext();
+}
+
 function openFigurineUploader() {
   buildWidget('grad-season/figurines', (info) => {
     state.fields.photoUrl = info.secure_url;
     document.getElementById('uploadPrompt').style.display = 'none';
-    document.getElementById('uploadSuccess').style.display = 'block';
+    document.getElementById('uploadSuccess').style.display = 'inline';
     document.getElementById('uploadedFileName').textContent = info.original_filename;
-    document.getElementById('uploadBox').style.borderColor = 'var(--gold)';
+    document.getElementById('uploadBox').style.borderColor = 'var(--ks-success)';
+    syncNext();
   }).open();
 }
- 
+
 function openComicUploader() {
   buildWidget('grad-season/comics', (info) => {
     state.fields.comicPhotoUrl = info.secure_url;
-    document.getElementById('comicUploadPrompt').style.display = 'none';
-    document.getElementById('comicUploadSuccess').style.display = 'block';
-    document.getElementById('comicUploadedFileName').textContent = info.original_filename;
-    document.getElementById('comicUploadBox').style.borderColor = 'var(--gold)';
+    markUploaded('comic', info);
   }).open();
 }
- 
+
 function openStorybookUploader() {
   buildWidget('grad-season/storybooks', (info) => {
     state.fields.storybookPhotoUrl = info.secure_url;
-    document.getElementById('storybookUploadPrompt').style.display = 'none';
-    document.getElementById('storybookUploadSuccess').style.display = 'block';
-    document.getElementById('storybookUploadedFileName').textContent = info.original_filename;
-    document.getElementById('storybookUploadBox').style.borderColor = 'var(--gold)';
+    markUploaded('storybook', info);
   }).open();
 }
- 
+
 // ── LIVE VALIDATION ────────────────────────────────────────
-document.addEventListener('input', () => {
-  const btn = document.getElementById('nextBtn');
-  if (btn && btn.classList.contains('btn-next')) btn.disabled = !canAdvance();
-});
- 
+document.addEventListener('input', syncNext);
+
 // ── INIT ───────────────────────────────────────────────────
 renderProgress();
 showStep(0);
-
-// ── COUNTDOWN BANNER ───────────────────────────────────────
-(function() {
-  // April 24 2026 midnight Eastern Time (UTC-4 during EDT)
-  const CUTOFF = new Date('2026-04-24T04:00:00Z').getTime();
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function tick() {
-    const diff = CUTOFF - Date.now();
-    const el = document.getElementById('cdTimer');
-    if (!el) return;
-    if (diff <= 0) { el.textContent = 'Cutoff reached'; return; }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    el.textContent = `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
 </script>
 </body>
 </html>

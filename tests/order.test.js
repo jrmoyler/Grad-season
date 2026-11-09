@@ -105,8 +105,12 @@ test('order submission posts the payload and reveals the success state', async (
 
   await submitOrder();
 
-  assert.equal(fetchCalls.length, 1);
-  const payload = JSON.parse(fetchCalls[0].options.body);
+  // Two calls since the Stripe step landed: the Apps Script row write, then checkout.
+  const sheetCalls = fetchCalls.filter((c) => /script\.google\.com/.test(c.url));
+  assert.equal(sheetCalls.length, 1);
+  assert.equal(fetchCalls.length, 2);
+  assert.equal(fetchCalls[1].url, '/api/create-checkout-session');
+  const payload = JSON.parse(sheetCalls[0].options.body);
   assert.equal(payload.orderTotal, 123);
   assert.equal(payload.wantsFigurine, true);
   assert.equal(payload.comicStyle, 'superhero');
@@ -115,4 +119,34 @@ test('order submission posts the payload and reveals the success state', async (
   assert.match(document.getElementById('successTitle').textContent, /Marcus Smith/);
   assert.match(document.getElementById('successBadges').innerHTML, /Figurine/);
   assert.match(document.getElementById('successBadges').innerHTML, /Comic/);
+});
+
+test('order payload keeps every field name the Apps Script reads', async () => {
+  const { state, toggleProduct, pickStyle, document, submitOrder, fetchCalls } = createOrderHarness();
+  state.step = 1;
+  toggleProduct('storybook');
+  pickStyle(document.getElementById('story-0'));
+  await submitOrder();
+  const payload = JSON.parse(fetchCalls[0].options.body);
+  const expected = ['parentName','email','phone','gradName','grade','school','wantsFigurine','figurineStyle',
+    'figurineFit','careerChoice','photoUrl','wantsComic','comicStyle','comicPhotoUrl','wantsStorybook',
+    'storybookStyle','storybookPhotoUrl','favMemory','challenge','proudMoment','futureGoal','personality',
+    'funFact','dedication','orderTotal','submittedAt'];
+  assert.deepEqual(Object.keys(payload), expected);
+  assert.equal(payload.orderTotal, 44);
+});
+
+test('prices match PRICING_LOCK.md', () => {
+  const { state, toggleProduct, calcTotal } = createOrderHarness();
+  state.step = 1;
+  toggleProduct('figurine'); assert.equal(calcTotal(), 89);
+  toggleProduct('comic'); assert.equal(calcTotal(), 123);
+  toggleProduct('storybook'); assert.equal(calcTotal(), 167);
+});
+
+test('Cloudinary infrastructure IDs are unchanged', () => {
+  const html = require('node:fs').readFileSync('public/order.html', 'utf8');
+  assert.match(html, /CLOUDINARY_CLOUD_NAME\s*=\s*'domb47apg'/);
+  assert.match(html, /CLOUDINARY_UPLOAD_PRESET\s*=\s*'grad_season_uploads'/);
+  ['grad-season/figurines', 'grad-season/comics', 'grad-season/storybooks'].forEach((f) => assert.ok(html.includes(`'${f}'`), f));
 });

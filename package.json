@@ -1,13 +1,21 @@
 {
-  "name": "grad-season",
+  "name": "keepsakes",
   "version": "1.0.0",
-  "description": "Grad Season — Personalized graduation keepsakes. Landing page, pre-order form, and production tools.",
+  "description": "Keepsakes — custom figurines, comic books, and storybooks where your graduate is the main character. Landing page, pre-order form, and production tools.",
   "private": true,
   "scripts": {
     "start": "npx serve public",
     "dev": "npx serve public --listen 3000",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "brand": "python3 scripts/brand_partials.py"
   },
-  "keywords": ["graduation", "keepsakes", "personalized"],
-  "license": "UNLICENSED"
+  "keywords": [
+    "graduation",
+    "keepsakes",
+    "personalized"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "stripe": "^18.5.0"
+  }
 }
