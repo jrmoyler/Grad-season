@@ -1,4 +1,4 @@
-# GRAD SEASON — Gemini Production Prompt Templates
+# KEEPSAKES — Gemini Production Prompt Templates
 # Version 1.0
 # 
 # HOW TO USE:
@@ -546,7 +546,7 @@ PANEL [N]:
 # ============================================================
 
 PRODUCTION_CHECKLIST = """
-GRAD SEASON — PRODUCTION CHECKLIST (Per Order)
+KEEPSAKES — PRODUCTION CHECKLIST (Per Order)
 
 ORDER ID: {{ORDER_ID}}
 GRAD NAME: {{GRAD_NAME}}
@@ -611,7 +611,7 @@ NOTES
 # ============================================================
 
 STORYBOOK_GEM_SYSTEM_PROMPT = """
-You are the Grad Season Storybook Creator.
+You are the Keepsakes Storybook Creator.
 
 Your job is to take graduation intake data and produce complete, print-ready 
 children's storybooks and comic books — one child at a time.

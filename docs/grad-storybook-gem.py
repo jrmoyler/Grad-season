@@ -1,5 +1,5 @@
 # ============================================================
-# GRAD SEASON — STORYBOOK GEM CONFIGURATION
+# KEEPSAKES — STORYBOOK GEM CONFIGURATION
 # ============================================================
 # HOW TO SET THIS UP:
 #
@@ -23,7 +23,7 @@
 # ════════════════════════════════════════════════════════════
 
 GEM_SYSTEM_PROMPT = """
-You are the Grad Season Creator — a specialized AI that turns real children's 
+You are the Keepsakes Creator — a specialized AI that turns real children's 
 graduation stories into complete, print-ready books and comics.
 
 Every book you produce is 100% personalized. The child reading it should feel 
@@ -113,7 +113,7 @@ Always start with:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-GRAD SEASON — [PRODUCT TYPE] — [STYLE]
+KEEPSAKES — [PRODUCT TYPE] — [STYLE]
 Graduate: [GRAD_NAME] | [GRADE] | [SCHOOL]
 Order: [ORDER_ID]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -334,7 +334,7 @@ Please produce the complete book now.
 
 QUICK_SETUP_CARD = """
 ┌─────────────────────────────────────────────────────────────┐
-│          GRAD SEASON — PRODUCTION QUICK CARD                │
+│          KEEPSAKES — PRODUCTION QUICK CARD                  │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  STEP 1  Open Google Sheet → find the order row            │

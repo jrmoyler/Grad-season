@@ -96,7 +96,7 @@ export const IntroScene: React.FC = () => {
               letterSpacing: -2,
             }}
           >
-            Grad Season
+            Keepsakes
           </div>
         </div>
 

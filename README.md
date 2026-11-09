@@ -1,8 +1,10 @@
-# 🎓 Grad Season
+# Keepsakes
 
-**Personalized graduation keepsakes — custom figurines, comic books, and storybooks.**
+**Made to be kept.** Custom figurines, comic books, and storybooks where your graduate is the main character.
 
-Built and operated by Collective AI · Columbus, Ohio
+A Collective AI venture · Columbus, Ohio
+
+Brand book: [`brand/BRAND.md`](brand/BRAND.md) · Prices: [`PRICING_LOCK.md`](PRICING_LOCK.md)
 
 ---
 
@@ -13,6 +15,10 @@ Built and operated by Collective AI · Columbus, Ohio
 | `/` | `public/index.html` | Marketing landing page |
 | `/order` | `public/order.html` | Pre-order intake form |
 | `/production` | `public/production.html` | Internal production reference card |
+| `/profile` | `public/profile.html` | Order tracking |
+| `/order-success` | `public/order-success.html` | Stripe return page |
+
+Shared design tokens and components live in `public/assets/keepsakes.css`. Header logo, head meta, and footer are shared partials: edit `scripts/brand_partials.py`, then run `npm run brand`.
 
 ---
 
@@ -28,14 +34,14 @@ Replace `YOUR_DEPLOYMENT_ID_HERE` with your deployed Apps Script Web App URL.
 
 ### 2. Set up the Google Sheet
 
-- Create a new Google Sheet named "Grad Season Orders"
+- Create a new Google Sheet for orders (the live one is the Sheet ID in `docs/grad-sheet-script.gs`)
 - Copy the Sheet ID from the URL
 - Deploy the `grad-sheet-script.gs` Apps Script (see that file for full instructions)
 
 ### 3. Set up the Storybook Gem
 
 - Go to gemini.google.com → Gems → New Gem
-- Name it "Grad Season Creator"
+- Name it "Grad Season Creator" (the existing Gem name; production docs reference it)
 - Paste the system prompt from `grad-storybook-gem.py`
 
 ### 4. Deploy to Vercel
@@ -43,7 +49,6 @@ Replace `YOUR_DEPLOYMENT_ID_HERE` with your deployed Apps Script Web App URL.
 ```bash
 # Via Vercel CLI
 npm i -g vercel
-cd grad-season
 vercel --prod
 
 # Or connect GitHub repo to Vercel dashboard
@@ -62,7 +67,7 @@ vercel --prod
 | `public/order.html` | Pre-order form → Google Sheets |
 | `public/production.html` | Production team dashboard |
 | `vercel.json` | Routing + security headers |
-| `grad-sheet-script.gs` | Google Apps Script (separate deploy) |
+| `docs/grad-sheet-script.gs` | Google Apps Script (separate deploy). **Re-paste and redeploy after the rebrand to get Keepsakes-branded emails.** |
 | `grad-agent-prompt.md` | Order agent instructions |
 | `grad-storybook-gem.py` | Gemini Gem configuration |
 | `grad-gemini-prompts.py` | All 6 production prompt templates |

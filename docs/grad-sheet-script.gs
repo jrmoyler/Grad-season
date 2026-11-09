@@ -1,5 +1,5 @@
 // ============================================================
-// GRAD SEASON — Google Apps Script Web App v2
+// KEEPSAKES — Google Apps Script Web App v3
 // Receives POST from intake form → writes row to Google Sheet
 // Sends confirmation email → logs status
 // ============================================================
@@ -98,7 +98,7 @@ function doPost(e) {
 function doGet(e) {
   return ContentService
     .createTextOutput(JSON.stringify({
-      status: "Grad Season is live",
+      status: "Keepsakes is live",
       time: new Date().toISOString()
     }))
     .setMimeType(ContentService.MimeType.JSON);
@@ -112,12 +112,35 @@ function getOrCreateSheet() {
     sheet = ss.insertSheet(SHEET_NAME);
     sheet.appendRow(COLUMNS);
     const header = sheet.getRange(1, 1, 1, COLUMNS.length);
-    header.setBackground("#0B0F1A");
-    header.setFontColor("#F59E0B");
+    header.setBackground("#241B16");
+    header.setFontColor("#F7F1E6");
     header.setFontWeight("bold");
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+// ── Email shell (Keepsakes brand) ──────────────────────────
+// Email clients ignore <style> and web fonts, so everything is inline with safe fallbacks.
+// Palette mirrors /brand/BRAND.md: linen #F7F1E6, ink #241B16, ribbon #7A2433, muted #66574B.
+function escapeHtml(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+
+function keepsakesEmail(preheader, heading, innerHtml) {
+  return "<!doctype html><html><body style='margin:0;padding:0;background:#F7F1E6;'>"
+    + "<span style='display:none;max-height:0;overflow:hidden;opacity:0;'>" + escapeHtml(preheader) + "</span>"
+    + "<table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='background:#F7F1E6;'><tr><td align='center' style='padding:32px 16px;'>"
+    + "<table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='max-width:560px;background:#FFFCF6;border:1px solid #DCCFBC;border-radius:16px;'>"
+    + "<tr><td style='padding:28px 32px 0;font-family:Georgia,\"Times New Roman\",serif;font-size:22px;color:#241B16;'>"
+    + "<span style='color:#7A2433;'>&#9673;</span>&nbsp;Keepsakes</td></tr>"
+    + "<tr><td style='padding:20px 32px 0;font-family:Georgia,\"Times New Roman\",serif;font-size:28px;line-height:1.2;color:#241B16;'>" + heading + "</td></tr>"
+    + "<tr><td style='padding:16px 32px 28px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#241B16;'>" + innerHtml + "</td></tr>"
+    + "<tr><td style='padding:18px 32px;border-top:1px solid #DCCFBC;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#66574B;'>"
+    + "Keepsakes · Columbus, Ohio · Made to be kept.<br>Questions? Just reply to this email.<br>A Collective AI venture.</td></tr>"
+    + "</table></td></tr></table></body></html>";
 }
 
 // ── Confirmation email ─────────────────────────────────────
@@ -129,39 +152,36 @@ function sendConfirmationEmail(data, orderId) {
   if (data.wantsComic)     products.push("Comic — "    + (data.comicStyle    || ""));
   if (data.wantsStorybook) products.push("Storybook — "+ (data.storybookStyle|| ""));
 
-  const gradName   = data.gradName   || "your graduate";
-  const parentName = data.parentName || "there";
-  const total      = data.orderTotal || "0";
+  const gradName   = escapeHtml(data.gradName   || "your graduate");
+  const parentName = escapeHtml(data.parentName || "there");
+  const total      = escapeHtml(data.orderTotal || "0");
 
-  const subject  = "Order Confirmed: " + gradName + " — " + orderId;
+  const subject  = "Order confirmed: " + (data.gradName || "your graduate") + "'s keepsakes — " + orderId;
 
-  const htmlBody = "<div style='font-family:Arial,sans-serif;max-width:540px;margin:0 auto;'>"
-    + "<div style='background:#0C0A14;color:#F0B429;padding:24px;text-align:center;border-radius:12px 12px 0 0;'>"
-    + "<h1 style='margin:0;font-size:22px;'>Order Confirmed</h1>"
-    + "<p style='margin:6px 0 0;color:#8B82B0;font-size:13px;'>Order ID: " + orderId + "</p>"
-    + "</div>"
-    + "<div style='background:#15112B;color:#EDE8FF;padding:24px;border-radius:0 0 12px 12px;'>"
-    + "<p>Hey " + parentName + ", we got " + gradName + "'s order locked in.</p>"
-    + "<p style='color:#8B82B0;font-size:13px;'>What you ordered:</p>"
-    + products.map(function(p){ return "<p style='margin:4px 0;'>✓ " + p + "</p>"; }).join("")
-    + "<p style='margin-top:16px;'><strong style='color:#F0B429;'>Total: $" + total + "</strong></p>"
-    + "<hr style='border:1px solid #2E2855;margin:16px 0;'/>"
-    + "<p style='color:#8B82B0;font-size:13px;line-height:1.7;'>"
-    + "Nothing is due today. Payment collected at fulfillment.<br>"
-    + "You'll get updates at every stage — In Progress, Printing, and Shipped.<br><br>"
-    + "Questions? Reply to this email."
-    + "</p>"
-    + "</div></div>";
+  const inner = "<p style='margin:0 0 14px;'>Hi " + parentName + ", " + gradName + "'s order is in, and it's in good hands.</p>"
+    + "<p style='margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8C5A14;font-weight:bold;'>Order " + escapeHtml(orderId) + "</p>"
+    + "<table role='presentation' width='100%' cellpadding='0' cellspacing='0' style='border-top:1px solid #DCCFBC;'>"
+    + products.map(function (p) {
+        return "<tr><td style='padding:10px 0;border-bottom:1px solid #DCCFBC;font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#241B16;'>" + escapeHtml(p) + "</td></tr>";
+      }).join("")
+    + "<tr><td style='padding:12px 0;font-family:Georgia,serif;font-size:20px;color:#241B16;'>Total: $" + total + "</td></tr></table>"
+    + "<p style='margin:16px 0 0;color:#66574B;'>Nothing is due today. Payment is collected at fulfillment.<br>"
+    + "We'll email you at every stage: In Progress, Printing, and Shipped.</p>";
 
-  MailApp.sendEmail({ to: data.email, subject: subject, htmlBody: htmlBody });
+  const htmlBody = keepsakesEmail(gradName + "'s keepsakes are on the list.", "Order confirmed.", inner);
+  MailApp.sendEmail({ to: data.email, subject: subject, htmlBody: htmlBody, name: "Keepsakes" });
 }
 
 // ── Mark confirmation sent ─────────────────────────────────
+// Looks the column up by header name. The old hard-coded column 27 was "Order Total",
+// so every confirmation overwrote the order total with "YES".
 function markConfirmationSent(sheet, orderId) {
   const data = sheet.getDataRange().getValues();
+  const confirmCol = data[0].indexOf("Confirmation Sent") + 1;
+  if (confirmCol < 1) return;
   for (var i = 1; i < data.length; i++) {
     if (data[i][1] === orderId) {
-      sheet.getRange(i + 1, 27).setValue("YES");
+      sheet.getRange(i + 1, confirmCol).setValue("YES");
       break;
     }
   }
@@ -177,11 +197,14 @@ function sendProgressEmail(orderId, newStatus) {
   for (var i = 1; i < data.length; i++) {
     if (data[i][col("Order ID")] === orderId) {
       var email      = data[i][col("Email")];
-      var parentName = data[i][col("Parent Name")];
+      var parentName = escapeHtml(data[i][col("Parent Name")]);
       var gradName   = data[i][col("Grad Name")];
-      var subject    = "Update on " + gradName + "'s order: " + newStatus + " — " + orderId;
-      var body       = "<p>Hey " + parentName + ",</p><p>" + gradName + "'s order status is now: <strong>" + newStatus + "</strong></p>";
-      MailApp.sendEmail({ to: email, subject: subject, htmlBody: body });
+      var subject    = "Update on " + gradName + "'s keepsakes: " + newStatus + " — " + orderId;
+      var inner      = "<p style='margin:0 0 14px;'>Hi " + parentName + ",</p>"
+        + "<p style='margin:0 0 14px;'>" + escapeHtml(gradName) + "'s order is now <strong style='color:#7A2433;'>" + escapeHtml(newStatus) + "</strong>.</p>"
+        + "<p style='margin:0;color:#66574B;'>Order " + escapeHtml(orderId) + "</p>";
+      var body       = keepsakesEmail(gradName + "'s order: " + newStatus, escapeHtml(newStatus) + ".", inner);
+      MailApp.sendEmail({ to: email, subject: subject, htmlBody: body, name: "Keepsakes" });
       sheet.getRange(i + 1, col("Status") + 1).setValue(newStatus);
       sheet.getRange(i + 1, col("Last Updated") + 1).setValue(new Date().toISOString());
       break;
@@ -244,8 +267,8 @@ function testSetup() {
     fakeData.parentName, fakeData.email, fakeData.phone,
     fakeData.gradName, fakeData.grade, fakeData.school,
     "YES", fakeData.figurineStyle, fakeData.figurineFit, fakeData.careerChoice, "",
-    "YES", fakeData.comicStyle,
-    "YES", fakeData.storybookStyle,
+    "YES", fakeData.comicStyle, "",
+    "YES", fakeData.storybookStyle, "",
     fakeData.favMemory, fakeData.challenge, fakeData.proudMoment, fakeData.futureGoal,
     fakeData.personality, fakeData.funFact, fakeData.dedication,
     "$167", "Received", "NO", ts

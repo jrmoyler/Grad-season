@@ -1,0 +1,159 @@
+/* Keepsakes design system — tokens are the source of truth (see /brand/BRAND.md).
+   Light "linen" is the default; dark "walnut" follows the OS unless overridden by [data-theme]. */
+@font-face{font-family:"Young Serif";src:url(/fonts/young-serif-latin.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Figtree";src:url(/fonts/figtree-latin.woff2) format("woff2");font-weight:300 900;font-style:normal;font-display:swap}
+
+:root{
+  /* Palette — Heirloom (60 linen / 30 ink & walnut / 10 ribbon + brass) */
+  --ks-surface:#F7F1E6;      /* linen, 60% */
+  --ks-raised:#FFFCF6;       /* card paper */
+  --ks-sunken:#EFE6D6;       /* drawer / inset */
+  --ks-ink:#241B16;          /* walnut ink — text, 30% */
+  --ks-muted:#66574B;        /* secondary text */
+  --ks-line:#DCCFBC;         /* hairlines (decorative only) */
+  --ks-line-strong:#8E7D6C;  /* form borders: 3:1+ against linen */
+  --ks-primary:#7A2433;      /* ribbon oxblood — CTAs, 10% */
+  --ks-primary-hover:#64192A;
+  --ks-on-primary:#FFF8EE;
+  --ks-secondary:#2E4A3F;    /* archive green — support panels */
+  --ks-on-secondary:#FFF8EE;
+  --ks-accent:#8C5A14;       /* brass ink — small accent text on linen */
+  --ks-brass:#C8963E;        /* brass — decorative / on ink only */
+  --ks-success:#2D6A3E;
+  --ks-error:#A3261F;
+  --ks-focus:#7A2433;
+
+  --ks-font-display:"Young Serif",Georgia,"Times New Roman",serif;
+  --ks-font-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  /* Type scale — 1.25 major third, fluid at display sizes */
+  --ks-step--1:.8125rem;  /* 13 */
+  --ks-step-0:1rem;       /* 16 */
+  --ks-step-1:1.25rem;    /* 20 */
+  --ks-step-2:1.5625rem;  /* 25 */
+  --ks-step-3:clamp(1.75rem,1.4rem + 1.5vw,1.953rem);
+  --ks-step-4:clamp(2rem,1.5rem + 2.4vw,2.441rem);
+  --ks-step-5:clamp(2.4rem,1.6rem + 3.6vw,3.815rem);
+  --ks-step-6:clamp(2.75rem,1.6rem + 5.2vw,4.768rem);
+
+  --ks-radius-s:6px; --ks-radius:12px; --ks-radius-l:20px;
+  --ks-shadow:0 1px 0 rgba(36,27,22,.04),0 12px 28px -14px rgba(36,27,22,.28);
+  --ks-shadow-lift:0 2px 0 rgba(36,27,22,.05),0 22px 40px -18px rgba(36,27,22,.38);
+  --ks-ease:cubic-bezier(.2,.7,.2,1);
+  --ks-gutter:clamp(16px,4vw,40px);
+  --ks-max:1120px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ks-surface:#16110E; --ks-raised:#221A15; --ks-sunken:#1B1511;
+    --ks-ink:#F3EADB; --ks-muted:#B6A796; --ks-line:#3A2E26; --ks-line-strong:#7E6D5E;
+    --ks-primary:#E7A0A8; --ks-primary-hover:#F1B8BE; --ks-on-primary:#2A0E14;
+    --ks-secondary:#9FC2B0; --ks-on-secondary:#14201A;
+    --ks-accent:#E0B062; --ks-brass:#E0B062; --ks-success:#7FD19A; --ks-error:#FF9C8F; --ks-focus:#E0B062;
+    --ks-shadow:0 1px 0 rgba(0,0,0,.3),0 12px 28px -14px rgba(0,0,0,.7);
+    --ks-shadow-lift:0 2px 0 rgba(0,0,0,.3),0 22px 40px -18px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ks-surface:#16110E; --ks-raised:#221A15; --ks-sunken:#1B1511;
+  --ks-ink:#F3EADB; --ks-muted:#B6A796; --ks-line:#3A2E26; --ks-line-strong:#7E6D5E;
+  --ks-primary:#E7A0A8; --ks-primary-hover:#F1B8BE; --ks-on-primary:#2A0E14;
+  --ks-secondary:#9FC2B0; --ks-on-secondary:#14201A;
+  --ks-accent:#E0B062; --ks-brass:#E0B062; --ks-success:#7FD19A; --ks-error:#FF9C8F; --ks-focus:#E0B062;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:88px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{background:var(--ks-surface);color:var(--ks-ink);font-family:var(--ks-font-body);font-size:var(--ks-step-0);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+[hidden]{display:none!important}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ks-focus);outline-offset:3px;border-radius:4px}
+.ks-visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ks-skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--ks-ink);color:var(--ks-surface);padding:10px 16px;border-radius:var(--ks-radius-s);text-decoration:none;font-weight:600}
+.ks-skip:focus{top:12px}
+
+/* ── Type ── */
+.ks-display{font-family:var(--ks-font-display);font-weight:400;letter-spacing:-.01em;line-height:1.05}
+.ks-eyebrow{font-size:var(--ks-step--1);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ks-accent)}
+.ks-lede{font-size:var(--ks-step-1);line-height:1.55;color:var(--ks-muted);max-width:38ch}
+h1,h2,h3{font-family:var(--ks-font-display);font-weight:400;line-height:1.1;letter-spacing:-.01em}
+h2{font-size:var(--ks-step-5)}
+h3{font-size:var(--ks-step-2)}
+
+/* ── Layout ── */
+.ks-wrap{max-width:var(--ks-max);margin:0 auto;padding:0 var(--ks-gutter)}
+.ks-section{padding:clamp(64px,10vw,128px) 0}
+.ks-rule{border:0;border-top:1px solid var(--ks-line)}
+
+/* ── Notice bar (pre-order status) ── */
+.ks-notice{background:var(--ks-ink);color:var(--ks-surface);font-size:var(--ks-step--1);padding:10px var(--ks-gutter);text-align:center;line-height:1.4}
+.ks-notice strong{color:var(--ks-brass);font-weight:700}
+[data-theme="dark"] .ks-notice{background:var(--ks-raised);color:var(--ks-ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ks-notice{background:var(--ks-raised);color:var(--ks-ink)}}
+.ks-notice [data-timer]{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ── Header ── */
+.ks-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--ks-surface) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--ks-line)}
+.ks-header .ks-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.ks-brand{display:inline-flex;align-items:center;text-decoration:none;color:var(--ks-ink)}
+.ks-brand svg{height:34px;width:auto}
+.ks-nav{display:flex;align-items:center;gap:clamp(12px,2.4vw,28px)}
+.ks-nav a:not(.ks-btn){text-decoration:none;font-weight:600;font-size:.9375rem;color:var(--ks-muted);padding:8px 2px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.ks-nav a:not(.ks-btn):hover{color:var(--ks-ink);border-color:var(--ks-primary)}
+@media (max-width:720px){.ks-nav .ks-nav-link{display:none}.ks-brand svg{height:28px}}
+
+/* ── Buttons ── */
+.ks-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;border:1.5px solid transparent;font-weight:700;font-size:1rem;text-decoration:none;cursor:pointer;transition:transform .25s var(--ks-ease),background-color .2s,box-shadow .25s var(--ks-ease),border-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.ks-btn--primary{background:var(--ks-primary);color:var(--ks-on-primary);box-shadow:0 10px 22px -12px color-mix(in srgb,var(--ks-primary) 80%,transparent)}
+.ks-btn--primary:hover{background:var(--ks-primary-hover);transform:translateY(-2px)}
+.ks-btn--primary:active{transform:translateY(0) scale(.98)}
+.ks-btn--ghost{background:transparent;color:var(--ks-ink);border-color:var(--ks-line-strong)}
+.ks-btn--ghost:hover{border-color:var(--ks-ink);transform:translateY(-2px)}
+.ks-btn--sm{min-height:40px;padding:0 18px;font-size:.9375rem}
+.ks-btn .ks-arrow{transition:transform .25s var(--ks-ease)}
+.ks-btn:hover .ks-arrow{transform:translateX(3px)}
+.ks-btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── Cards / tags ── */
+.ks-card{background:var(--ks-raised);border:1px solid var(--ks-line);border-radius:var(--ks-radius-l);box-shadow:var(--ks-shadow)}
+.ks-chip{display:inline-flex;align-items:center;padding:4px 12px;border-radius:999px;background:var(--ks-sunken);border:1px solid var(--ks-line);font-size:var(--ks-step--1);font-weight:600;color:var(--ks-ink)}
+.ks-price{font-family:var(--ks-font-display);font-size:var(--ks-step-4);line-height:1;color:var(--ks-ink)}
+
+/* ── Forms ── */
+.ks-field{display:flex;flex-direction:column;gap:6px;margin-top:18px}
+.ks-field:first-child{margin-top:0}
+.ks-label{font-weight:600;font-size:.9375rem;color:var(--ks-ink)}
+.ks-label .ks-req{color:var(--ks-primary);font-weight:700}
+.ks-hint{font-size:var(--ks-step--1);color:var(--ks-muted)}
+.ks-input{width:100%;min-height:48px;background:var(--ks-raised);border:1.5px solid var(--ks-line-strong);border-radius:var(--ks-radius-s);padding:11px 14px;font-size:1rem;color:var(--ks-ink);transition:border-color .2s,box-shadow .2s}
+textarea.ks-input{min-height:96px;resize:vertical;line-height:1.55}
+.ks-input::placeholder{color:color-mix(in srgb,var(--ks-muted) 80%,transparent)}
+.ks-input:focus{outline:none;border-color:var(--ks-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--ks-primary) 22%,transparent)}
+
+/* ── Footer ── */
+.ks-footer{border-top:1px solid var(--ks-line);padding:56px 0 40px;color:var(--ks-muted);font-size:.9375rem}
+.ks-footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:start}
+.ks-footer .ks-brand svg{height:30px}
+.ks-footer p{margin-top:12px;max-width:42ch}
+.ks-footer nav ul{list-style:none;display:grid;gap:10px;justify-items:start}
+.ks-footer a{color:var(--ks-ink);text-decoration-color:var(--ks-line-strong);text-underline-offset:3px}
+.ks-footer a:hover{text-decoration-color:var(--ks-primary)}
+.ks-footer-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--ks-line);font-size:var(--ks-step--1)}
+.ks-credit{display:inline-flex;align-items:center;gap:8px;color:var(--ks-muted)}
+.ks-credit svg{width:16px;height:16px}
+@media (max-width:640px){.ks-footer-grid{grid-template-columns:1fr}}
+
+/* ── Motion: reveal on scroll (JS adds .ks-in); content stays visible without JS ── */
+.ks-js .ks-reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ks-ease),transform .7s var(--ks-ease)}
+.ks-js .ks-reveal.ks-in{opacity:1;transform:none}
+.ks-reveal[data-delay="1"]{transition-delay:.08s}.ks-reveal[data-delay="2"]{transition-delay:.16s}.ks-reveal[data-delay="3"]{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .ks-js .ks-reveal{opacity:1;transform:none}
+}

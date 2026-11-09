@@ -1,7 +1,7 @@
 {
   "name": "grad-season-ad-video",
   "version": "1.0.0",
-  "description": "Grad Season advertisement video built with Remotion",
+  "description": "Keepsakes advertisement video built with Remotion",
   "private": true,
   "scripts": {
     "start": "remotion studio",

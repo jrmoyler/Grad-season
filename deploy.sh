@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# GRAD SEASON — Vercel Deploy Script
+# KEEPSAKES — Vercel Deploy Script
 # Run this once from your machine to go live.
 #
 # REQUIREMENTS:
@@ -15,7 +15,7 @@
 set -e
 
 echo ""
-echo "🎓 Grad Season — Deploy to Vercel"
+echo "Keepsakes — Deploy to Vercel"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

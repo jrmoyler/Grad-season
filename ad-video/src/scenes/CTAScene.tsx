@@ -213,7 +213,7 @@ export const CTAScene: React.FC = () => {
           letterSpacing: -0.3,
         }}
       >
-        Grad Season
+        Keepsakes
       </div>
     </div>
   );
